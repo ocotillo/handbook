@@ -24,6 +24,9 @@ jobs:
     docker:
       - image: node:8.10.0
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "04:5c:de:15:be:f3:f0:db:88:c4:ce:e7:35:2b:b9:13"
       - checkout
       - attach_workspace:
           at: _build
@@ -36,9 +39,6 @@ jobs:
             npm install -g --silent gh-pages@2.0.1
             git config user.email "lynx@magao-x.org"
             git config user.name "Lynx the CI Cat"
-      - add_ssh_keys:
-          fingerprints:
-            - "04:5c:de:15:be:f3:f0:db:88:c4:ce:e7:35:2b:b9:13"
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Update built docs" --dist _build/html
