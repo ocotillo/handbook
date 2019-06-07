@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Documenting MagAO-X &#8212; MagAO-X  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Preliminary design review" href="pdr/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="documenting-magao-x">
+<h1>Documenting MagAO-X<a class="headerlink" href="#documenting-magao-x" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="where-the-documentation-lives">
+<h2>Where the documentation lives<a class="headerlink" href="#where-the-documentation-lives" title="Permalink to this headline">¶</a></h2>
+<p>This source code for this documentation lives in the <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> repository. Parts of the documentation pertaining to the core C++ code are generated from the code in <a class="reference external" href="https://github.com/magao-x/MagAOX">magao-x/MagAOX</a>, which is documented in Doxygen. (TODO: explain how to make cross-references.)</p>
+<p>The built copy of this documentation is hosted at <a class="reference external" href="https://magao-x.github.io/handbook/">https://magao-x.github.io/handbook/</a> via <a class="reference external" href="https://pages.github.com/">GitHub Pages free hosting</a>. When changes are pushed to the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a>, a CircleCI job builds and updates the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of the repository, with changes reflected on the GitHub Pages site 1-15 minutes later.</p>
+</div>
+<div class="section" id="how-to-make-changes">
+<h2>How to make changes<a class="headerlink" href="#how-to-make-changes" title="Permalink to this headline">¶</a></h2>
+<p>The first time you make an edit:</p>
+<ol class="simple">
+<li><p>Click “Fork” on <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> to make your own copy of the documentation to edit</p></li>
+<li><p>Clone your new fork to your own computer</p></li>
+<li><p>Change into the directory where you just cloned the documentation and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> to install software so you can preview your changes.</p></li>
+</ol>
+<p>You now have a copy of the sources for the handbook. If you’re just editing an existing document, skip ahead. Otherwise, here are the special instructions for creating a <em>brand new document</em>:</p>
+<ol class="simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">.md</span></code> (or <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, see <a class="reference external" href="#markup">below</a>) file with the name you want</p></li>
+<li><p>Find the file with the appropriate <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">toctree::</span></code> directive (probably <code class="docutils literal notranslate"><span class="pre">index.rst</span></code>) and edit it to add the base name of your file (e.g. <code class="docutils literal notranslate"><span class="pre">funny-business.md</span></code> would be <code class="docutils literal notranslate"><span class="pre">funny-business</span></code> in the toctree)</p></li>
+</ol>
+<p>Finally, to preview and publish your edits:</p>
+<ol class="simple">
+<li><p>Edit the document you want to change</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> (in the directory you cloned into)</p></li>
+<li><p>Open <code class="docutils literal notranslate"><span class="pre">_build/html/index.html</span></code> to see the updated site, and verify your changes look good</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">./path/to/file/you/changed.md</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Description</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">changes&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">master</span></code></p></li>
+<li><p>Return to <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> and click the button to create a new pull request</p></li>
+</ol>
+<p>If everything looks good, your changes will be merged by someone and the public copy of the docs will update automatically!</p>
+<div class="section" id="markup">
+<h3>Markup<a class="headerlink" href="#markup" title="Permalink to this headline">¶</a></h3>
+<p>Documents can be written in Markdown (<a class="reference external" href="https://spec.commonmark.org/0.29/">CommonMark</a> variant), in which case the filename must end with <code class="docutils literal notranslate"><span class="pre">.md</span></code>, or reStructuredText, in which case the filename must end with <code class="docutils literal notranslate"><span class="pre">.rst</span></code>. If you want to see how a particular bit of formatting was achieved, you can click the “Page source” link at the bottom of the page.</p>
+<p>The following examples are written in Markdown, since that is the language most new contributors are likely to be familiar with. Accomplishing trickier formatting may require dipping one’s toes into <a class="reference external" href="http://www.sphinx-doc.org/en/stable/usage/restructuredtext/basics.html">reStructuredText</a> or <a class="reference external" href="https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext">mixing both languages</a>.</p>
+</div>
+<div class="section" id="linking">
+<h3>Linking<a class="headerlink" href="#linking" title="Permalink to this headline">¶</a></h3>
+<p>To link to a section within the same document: <code class="docutils literal notranslate"><span class="pre">[my</span> <span class="pre">link</span> <span class="pre">text](#my-section-title)</span></code> makes a link to a section headed “My Section Title” with “my link text” as the clickable text. All spaces are converted to dashes, and capitalized letters are converted to lowercase.</p>
+</div>
+<div class="section" id="code-samples">
+<h3>Code samples<a class="headerlink" href="#code-samples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="inline-code">
+<h4>Inline code<a class="headerlink" href="#inline-code" title="Permalink to this headline">¶</a></h4>
+<p>To include some code inline, enclose it in backticks (left of the <code class="docutils literal notranslate"><span class="pre">1</span></code> key on most US keyboards).</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before starting, execute `sudo do-things` in your terminal
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p>Before starting, execute <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">do-things</span></code> in your terminal</p>
+</div>
+<div class="section" id="blocks-of-code">
+<h4>Blocks of code<a class="headerlink" href="#blocks-of-code" title="Permalink to this headline">¶</a></h4>
+<p>Blocks of code are “fenced” by three backticks on their own line before and after the code block. (If you need to include such a sequence in your block of code, you can use three tildes instead.)</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```
+for i in range(8):
+    print(&quot;Step&quot;, i)
+```
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="syntax-highlighting">
+<h4>Syntax highlighting<a class="headerlink" href="#syntax-highlighting" title="Permalink to this headline">¶</a></h4>
+<p>By default, the documentation system applies syntax highlighting for Python code to code blocks. If your code is in another language, you include its name on the line after the first set of backticks.</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```bash
+#!/bin/bash
+set -exuo pipefail
+DIR=&quot;$( cd &quot;$( dirname &quot;${BASH_SOURCE[0]}&quot; )&quot; &amp;&amp; pwd )&quot;
+cd &quot;$DIR&quot;
+```
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">set</span> -exuo pipefail
+<span class="nv">DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span> <span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span> dirname <span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">)</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span> <span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$DIR</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="math">
+<h3>Math<a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h3>
+<p>Equations can be inserted as a special variety of code block.</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```math
+\mu = m - M = 5 \log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right)
+```
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="math notranslate nohighlight">
+\[\mu = m - M = 5 \log_{10}\left(\frac{d}{10\,\mathrm{pc}}\right)\]</div>
+</div>
+<div class="section" id="external-files">
+<h3>External files<a class="headerlink" href="#external-files" title="Permalink to this headline">¶</a></h3>
+<p>If you want to include a downloadable file (e.g. filter transmission curve table, PDF document, etc.) you will have to dip your toes into the <a class="reference external" href="https://recommonmark.readthedocs.io/en/latest/auto_structify.html#embed-restructuredtext">“embedded reST”</a> feature of reCommonMark.</p>
+<p><strong>Example markup:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```eval_rst
+:download:`Click here to download the star logo &lt;../mini-star.png&gt;`
+```
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><a class="reference download internal" download="" href="../_downloads/2fede4e499d611af96a914ebf6f333d5/mini-star.png"><code class="xref download docutils literal notranslate"><span class="pre">Click</span> <span class="pre">here</span> <span class="pre">to</span> <span class="pre">download</span> <span class="pre">the</span> <span class="pre">star</span> <span class="pre">logo</span></code></a></p>
+<p>Alternatively, you can simply write the whole document in reStructuredText as in the <a class="reference internal" href="pdr/index.html"><span class="doc">Preliminary design review</span></a> page.</p>
+</div>
+<div class="section" id="images">
+<h3>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
+<p>By default, images are included inline and left aligned. Image inclusion takes the form <code class="docutils literal notranslate"><span class="pre">![](path)</span></code> where <code class="docutils literal notranslate"><span class="pre">path</span></code> is the path relative to the current file you’re editing.</p>
+<p>Example markup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>![](../mini-star.png)
+</pre></div>
+</div>
+<p>Output:</p>
+<p><img alt="../_images/mini-star.png" src="../_images/mini-star.png" /></p>
+<p><em>Note: reCommonMark does not correctly handle “alternative text”, normally placed between the square brackets, meaning the <code class="docutils literal notranslate"><span class="pre">alt=</span></code> attribute is not populated and the handbook is not as accessible to the visually impaired as it could be.</em></p>
+</div>
+</div>
+<div class="section" id="implementation-details">
+<h2>Implementation details<a class="headerlink" href="#implementation-details" title="Permalink to this headline">¶</a></h2>
+<p>This documentation is assembled with a Python-based tool called <a class="reference external" href="http://www.sphinx-doc.org/en/stable/">Sphinx</a>. Sphinx uses the <a class="reference external" href="#where-the-documentation-lives">files</a> to make the docs.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">MagAO-X</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Instrument description and capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reduction.html">Data reduction and calibration</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pdr/index.html">Preliminary design review</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documenting MagAO-X</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="pdr/index.html" title="previous chapter">Preliminary design review</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Extreme Wavefront Control Lab, The University of Arizona.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/appendices/documenting.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
