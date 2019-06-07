@@ -5,13 +5,53 @@ jobs:
     docker:
       - image: circleci/python:3.6
     steps:
-      - add_ssh_keys:
-        fingerprints:
-          - "04:5c:de:15:be:f3:f0:db:88:c4:ce:e7:35:2b:b9:13"
       - checkout
       - run:
-        name: "Install Python dependencies"
-        command: |
-            python3 -m venv venv
-            . venv/bin/activate
+          name: "Install Python dependencies"
+          command: |
+              python3 -m venv venv
+              . venv/bin/activate
+              pip install -r requirements.txt
+      - run:
+          name: "Build docs"
+          command: make html
+      - persist_to_workspace:
+          root: _build
+          paths: html
+      - run:
+          name: "Built documentation is available at:"
+          command: DOCS_URL="${CIRCLE_BUILD_URL}/artifacts/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/_build/html/index.html"; echo $DOCS_URL
+  docs-deploy:
+    docker:
+      - image: node:8.10.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: docs/_build
+      - run:
+          name: Disable jekyll builds
+          command: touch _build/html/.nojekyll
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages@2.0.1
+            git config user.email "lynx@magao-x.org"
+            git config user.name "Lynx the CI Cat"
+      - add_ssh_keys:
+          fingerprints:
+            - "04:5c:de:15:be:f3:f0:db:88:c4:ce:e7:35:2b:b9:13"
+      - run:
+          name: Deploy docs to gh-pages branch
+          gh-pages --dotfiles --message "[skip ci] Update built docs" --dist _build/html
 
+
+workflows:
+  build_and_upload:
+    jobs:
+      - html-docs
+      - docs-deploy:
+        requires:
+          - html-docs
+        filters:
+          branches:
+            only: master
