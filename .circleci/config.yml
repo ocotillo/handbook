@@ -50,8 +50,8 @@ workflows:
     jobs:
       - html-docs
       - docs-deploy:
-        requires:
-          - html-docs
-        filters:
-          branches:
-            only: master
+          requires:
+            - html-docs
+          filters:
+            branches:
+              only: master
