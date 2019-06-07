@@ -17,6 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
+from recommonmark.transform import AutoStructify
 project = 'MagAO-X'
 copyright = '2019, Extreme Wavefront Control Lab, The University of Arizona'
 author = 'Extreme Wavefront Control Lab, The University of Arizona'
@@ -52,3 +53,14 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Enable reCommonMark extensions to Markdown syntax
+# see https://recommonmark.readthedocs.io/en/latest/auto_structify.html
+
+
+def setup(app):
+    app.add_config_value('recommonmark_config', {
+        'enable_auto_toc_tree': True,
+        'auto_toc_tree_section': 'Contents',
+    }, True)
+    app.add_transform(AutoStructify)
