@@ -26,7 +26,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "04:5c:de:15:be:f3:f0:db:88:c4:ce:e7:35:2b:b9:13"
+            - "2d:68:ae:2b:f4:63:ce:2e:8e:53:0d:71:03:8e:a4:fd"
       - checkout
       - attach_workspace:
           at: _build
