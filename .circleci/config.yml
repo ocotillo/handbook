@@ -15,6 +15,8 @@ jobs:
       - persist_to_workspace:
           root: _build
           paths: html
+      - store_artifacts:
+          path: _build/html
       - run:
           name: "Built documentation is available at:"
           command: DOCS_URL="${CIRCLE_BUILD_URL}/artifacts/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/_build/html/index.html"; echo $DOCS_URL
@@ -24,7 +26,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: docs/_build
+          at: _build
       - run:
           name: Disable jekyll builds
           command: touch _build/html/.nojekyll
