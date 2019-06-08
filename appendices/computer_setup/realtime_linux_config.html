@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing the realtime Linux kernel and the NVIDIA GPU driver &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Instrument computer setup guide" href="computer_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../capabilities.html">Instrument description and capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reduction.html">Data reduction and calibration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Appendices</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../pdr/index.html">Preliminary design review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documenting.html">Documenting MagAO-X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computer_setup.html">Instrument computer setup guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installing the realtime Linux kernel and the NVIDIA GPU driver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gettting-and-installing-kernel-rt">1 Gettting and installing kernel-rt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-the-nvidia-driver-cuda">2 Installing the NVIDIA driver &amp; CUDA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shutdown-x">2.1 Shutdown X</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preparing-the-driver">2.2 Preparing The Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-and-install">2.3 Build and Install</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#restoring-x">2.4 Restoring X</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installing-cuda">2.5 Installing CUDA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-samples">2.6 Build The Samples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Appendices</a> &raquo;</li>
+        
+      <li>Installing the realtime Linux kernel and the NVIDIA GPU driver</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/appendices/computer_setup/realtime_linux_config.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-the-realtime-linux-kernel-and-the-nvidia-gpu-driver">
+<h1>Installing the realtime Linux kernel and the NVIDIA GPU driver<a class="headerlink" href="#installing-the-realtime-linux-kernel-and-the-nvidia-gpu-driver" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="gettting-and-installing-kernel-rt">
+<h2>1 Gettting and installing kernel-rt<a class="headerlink" href="#gettting-and-installing-kernel-rt" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="http://linuxsoft.cern.ch/cern/centos/7/rt/x86_64/repoview/RT.group.html">RealTime for CERN CentOS 7</a> for background.</p>
+<p>Perform the following steps to install the Cern RT kernel repo and install the RT kernel itself:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">linuxsoft</span><span class="o">.</span><span class="n">cern</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">cern</span><span class="o">/</span><span class="n">centos</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="n">rt</span><span class="o">/</span><span class="n">CentOS</span><span class="o">-</span><span class="n">RT</span><span class="o">.</span><span class="n">repo</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="n">CentOS</span><span class="o">-</span><span class="n">RT</span><span class="o">.</span><span class="n">repo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">d</span><span class="o">/</span>
+<span class="n">wget</span> <span class="n">linuxsoft</span><span class="o">.</span><span class="n">cern</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">cern</span><span class="o">/</span><span class="n">slc5X</span><span class="o">/</span><span class="n">i386</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="n">KEYs</span><span class="o">/</span><span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">cern</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="n">RPM</span><span class="o">-</span><span class="n">GPG</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">cern</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">rpm</span><span class="o">-</span><span class="n">gpg</span><span class="o">/</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">groupinstall</span> <span class="n">RT</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">kernel</span><span class="o">-</span><span class="n">rt</span><span class="o">-</span><span class="n">devel</span>
+</pre></div>
+</div>
+<p>Now reboot.  It should fail to start X if you have a graphics environment going.  That’s fine, you’d need to kill it anyway to install the driver.</p>
+<p>Once at a prompt, type <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-a</span></code> and verify that the PREEMPT kernel-rt is running.</p>
+</div>
+<div class="section" id="installing-the-nvidia-driver-cuda">
+<h2>2 Installing the NVIDIA driver &amp; CUDA<a class="headerlink" href="#installing-the-nvidia-driver-cuda" title="Permalink to this headline">¶</a></h2>
+<p>With hacks to make it build against the rt kernel.</p>
+<p>These steps inspired by the <a class="reference external" href="https://gitlab.manjaro.org/packages/community/realtime-kernels/linux416-rt-extramodules/blob/master/nvidia/PKGBUILD">Manjaro PKGBUILD for NVIDIA + RT</a> but with additions.</p>
+<div class="section" id="shutdown-x">
+<h3>2.1 Shutdown X<a class="headerlink" href="#shutdown-x" title="Permalink to this headline">¶</a></h3>
+<p>You will need to switch to <code class="docutils literal notranslate"><span class="pre">multi-user.target</span></code> to do the install.</p>
+<ul>
+<li><p><strong>Temporary change:</strong>
+From command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">isolate</span> <span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+<p>Or from grub boot menu, add <code class="docutils literal notranslate"><span class="pre">systemd.unit=multi-user.target</span></code> at end of the linux16 line.</p>
+</li>
+<li><p><strong>Permanent change:</strong>
+I find it easier to do this with the default changed. In case anything goes wrong it is easier to reboot:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="nb">set</span><span class="o">-</span><span class="n">default</span> <span class="n">multi</span><span class="o">-</span><span class="n">user</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="preparing-the-driver">
+<h3>2.2 Preparing The Driver<a class="headerlink" href="#preparing-the-driver" title="Permalink to this headline">¶</a></h3>
+<p>Get the CUDA <code class="docutils literal notranslate"><span class="pre">.run</span></code> file from the NVIDIA website, and make it executable (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">cuda_10.0.130_410.48_linux.run</span></code>).  Next, unpack it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./cuda_10.0.130_410.48_linux.run --extract=$(pwd)/cuda_10.0.130_410.48_linux
+</pre></div>
+</div>
+<p>Now cd to that directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">cuda_10</span><span class="o">.</span><span class="mf">0.130_410</span><span class="o">.</span><span class="mi">48</span><span class="n">_linux</span>
+</pre></div>
+</div>
+<p>And now unpack the driver run file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="mf">410.48</span><span class="o">.</span><span class="n">run</span> <span class="o">-</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>and cd to that directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">NVIDIA</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="mf">410.48</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>And now run the <code class="docutils literal notranslate"><span class="pre">nvrthack_410.48.sh</span></code> script, which you can obtain from Jared, while in that directory.</p>
+</div>
+<div class="section" id="build-and-install">
+<h3>2.3 Build and Install<a class="headerlink" href="#build-and-install" title="Permalink to this headline">¶</a></h3>
+<p>Next, switch to root.  Then type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">IGNORE_PREEMPT_RT_PRESENCE</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>which will cause the build configuration to accept that you have the PREEMPT kernel. Then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">nvidia</span><span class="o">-</span><span class="n">installer</span>
+</pre></div>
+</div>
+<p>The first time you run <code class="docutils literal notranslate"><span class="pre">nvidia-installer</span></code>, it may fail due to the Noveau driver.  Allow the installer to install the blacklist files automatically, and then reboot. This will remove the conflict, so the 2nd time you run <code class="docutils literal notranslate"><span class="pre">nvidia-installer</span></code> it should work.</p>
+<p>If you are using the <code class="docutils literal notranslate"><span class="pre">devtools</span></code>, which provides a more advanced <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, the installer will complain.  It seems to be ok to ignore the CC version check.</p>
+<p>After the installer completes, reboot.  After it completes, in a terminal type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dmesg</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">NV</span>
+</pre></div>
+</div>
+<p>which should produce two lines something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>    <span class="mf">5.466790</span><span class="p">]</span> <span class="n">NVRM</span><span class="p">:</span> <span class="n">loading</span> <span class="n">NVIDIA</span> <span class="n">UNIX</span> <span class="n">x86_64</span> <span class="n">Kernel</span> <span class="n">Module</span>  <span class="mf">410.48</span>  <span class="n">Thu</span> <span class="n">Sep</span>  <span class="mi">6</span> <span class="mi">06</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">33</span> <span class="n">CDT</span> <span class="mi">2018</span> <span class="p">(</span><span class="n">using</span> <span class="n">threaded</span> <span class="n">interrupts</span><span class="p">)</span>
+<span class="p">[</span>    <span class="mf">5.569665</span><span class="p">]</span> <span class="n">nvidia</span><span class="o">-</span><span class="n">modeset</span><span class="p">:</span> <span class="n">Loading</span> <span class="n">NVIDIA</span> <span class="n">Kernel</span> <span class="n">Mode</span> <span class="n">Setting</span> <span class="n">Driver</span> <span class="k">for</span> <span class="n">UNIX</span> <span class="n">platforms</span>  <span class="mf">410.48</span>  <span class="n">Thu</span> <span class="n">Sep</span>  <span class="mi">6</span> <span class="mi">06</span><span class="p">:</span><span class="mi">18</span><span class="p">:</span><span class="mi">22</span> <span class="n">CDT</span> <span class="mi">2018</span>
+</pre></div>
+</div>
+<p>in addition to several others.  This indicates that the driver is being loaded and works.  You can also run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> to verify that it is working with the installed GPU.</p>
+</div>
+<div class="section" id="restoring-x">
+<h3>2.4 Restoring X<a class="headerlink" href="#restoring-x" title="Permalink to this headline">¶</a></h3>
+<p>Ignore this step if you do not intend to run X.</p>
+<p>To test booting into graphical mode, if you changed the default target you can do:</p>
+<ul class="simple">
+<li><p>Temporarily, from command line:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">isolate</span> <span class="n">graphical</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+<p>or from grub boot menu, add <code class="docutils literal notranslate"><span class="pre">systemd.unit=graphical.target</span></code> at end of the linux16 line.</p>
+<ul class="simple">
+<li><p>To change the default:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">default</span><span class="o">.</span><span class="n">target</span> <span class="n">to</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">systemd</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">graphical</span><span class="o">.</span><span class="n">target</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-cuda">
+<h3>2.5 Installing CUDA<a class="headerlink" href="#installing-cuda" title="Permalink to this headline">¶</a></h3>
+<p>Now we can install the rest of CUDA, if not already done.  For this, run the original (packed) install file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">cuda_10</span><span class="o">.</span><span class="mf">0.130_410</span><span class="o">.</span><span class="mi">48</span><span class="n">_linux</span><span class="o">.</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>Accept the EULA (of course reading it carefully first). When it asks if you want to install the driver <strong>SAY NO!!!</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 410.48?
+(y)es/(n)o/(q)uit: n
+</pre></div>
+</div>
+<p>Do install the samples, and do make a symbolic link for <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda</span></code>.</p>
+<p>After it’s installed, create a file <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf.d/cuda.conf</span></code> with contents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">lib64</span>
+</pre></div>
+</div>
+<p>and run <code class="docutils literal notranslate"><span class="pre">ldconfig</span></code>.  Then add <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda-10.0/bin</span></code> to your path.  This can be done for a single user in <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> with the line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PATH=$PATH:/usr/local/cuda/bin
+</pre></div>
+</div>
+<p>or for all users by creating a file <code class="docutils literal notranslate"><span class="pre">/etc/profile.d/cuda.sh</span></code> with the same contents.</p>
+</div>
+<div class="section" id="build-the-samples">
+<h3>2.6 Build The Samples<a class="headerlink" href="#build-the-samples" title="Permalink to this headline">¶</a></h3>
+<p>In whatever directory you installed the source (chosen during CUDA install), cd to <code class="docutils literal notranslate"><span class="pre">NVIDIA_CUDA-10.0_Samples</span></code> and type make.  It should complete without errors.</p>
+<p>Then cd to <code class="docutils literal notranslate"><span class="pre">0_Simple/matrixMulCUBLAS/</span></code> and run <code class="docutils literal notranslate"><span class="pre">./matrixMulCUBLAS</span></code> which should give a result like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Matrix Multiply CUBLAS] - Starting...
+GPU Device 0: &quot;GeForce GTX 1080 Ti&quot; with compute capability 6.1
+
+GPU Device 0: &quot;GeForce GTX 1080 Ti&quot; with compute capability 6.1
+
+MatrixA(640,480), MatrixB(480,320), MatrixC(640,320)
+Computing result using CUBLAS...done.
+Performance= 3643.26 GFlop/s, Time= 0.054 msec, Size= 196608000 Ops
+Computing result using host CPU...done.
+Comparing CUBLAS Matrix Multiply with CPU results: PASS
+
+NOTE: The CUDA Samples are not meant for performance measurements. Results may vary when GPU Boost is enabled.
+</pre></div>
+</div>
+<p>To get the maximum speed, you will need to enable persistance mode, like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span> <span class="o">-</span><span class="n">pm</span> <span class="n">ENABLED</span> <span class="o">-</span><span class="n">i</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="computer_setup.html" class="btn btn-neutral float-left" title="Instrument computer setup guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
