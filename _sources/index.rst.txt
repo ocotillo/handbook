@@ -12,15 +12,8 @@ Table of contents
     capabilities
     planning
     reduction
+    appendices/index
 
-Appendices
-==========
-
-.. toctree::
-    :maxdepth: 1
-
-    appendices/pdr/index
-    appendices/documenting
 
 Indices and tables
 ==================

@@ -126,14 +126,14 @@ If you want to include a downloadable file (e.g. filter transmission curve table
 
 ~~~
 ```eval_rst
-:download:`Click here to download the star logo <../mini-star.png>`
+:download:`Click here to download the star logo <mini-star.png>`
 ```
 ~~~
 
 **Output:**
 
 ```eval_rst
-:download:`Click here to download the star logo <../mini-star.png>`
+:download:`Click here to download the star logo <mini-star.png>`
 ```
 
 Alternatively, you can simply write the whole document in reStructuredText as in the [Preliminary design review](pdr/index) page.
@@ -145,12 +145,12 @@ By default, images are included inline and left aligned. Image inclusion takes t
 Example markup:
 
 ```
-![](../mini-star.png)
+![](mini-star.png)
 ```
 
 Output:
 
-![](../mini-star.png)
+![](mini-star.png)
 
 *Note: reCommonMark does not correctly handle "alternative text", normally placed between the square brackets, meaning the `alt=` attribute is not populated and the handbook is not as accessible to the visually impaired as it could be.*
 
