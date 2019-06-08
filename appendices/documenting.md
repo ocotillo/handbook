@@ -126,14 +126,14 @@ If you want to include a downloadable file (e.g. filter transmission curve table
 
 ~~~
 ```eval_rst
-:download:`Click here to download the star logo <../mini-star.png>`
+:download:`Click here to download the star logo <mini-star.png>`
 ```
 ~~~
 
 **Output:**
 
 ```eval_rst
-:download:`Click here to download the star logo <../mini-star.png>`
+:download:`Click here to download the star logo <mini-star.png>`
 ```
 
 Alternatively, you can simply write the whole document in reStructuredText as in the [Preliminary design review](pdr/index) page.
