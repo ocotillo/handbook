@@ -1,6 +1,6 @@
 # Instrument description and capabilities
 
-## Hal the H-α detector
+## Hal the H-alpha detector
 
 ## Connie the continuum detector
 
