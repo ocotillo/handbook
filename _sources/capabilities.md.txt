@@ -4,6 +4,6 @@
 
 ## Connie the continuum detector
 
-## Hyacinth the high-order wavefront sensing camera (HOWFS)
+## Heidi the high-order wavefront sensing camera (HOWFS)
 
 ## Lois the low-order wavefront sensing camera (LOWFS)
