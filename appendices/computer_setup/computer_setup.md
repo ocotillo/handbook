@@ -9,10 +9,35 @@ Unfortunately, not _everything_ can be automated when real hardware is involved.
 
 Enter BIOS and change the following settings:
 
-    - Advanced > ACPI > Enable Hibernation Disabled.
-    - Advanced > ACPI > Suspend Disabled.
-    - IntelRCSetup > Processor Config > Hyper-Threading Disabled
-    - Advanced > APM > Restore AC Power Loss > Power On
+```
+AI Tweaker
+| 
+ -- Spread Spectrum [Disabled] {This is critical for allowing PCIe expanion to work}
+ 
+Advanced
+|
+ -- APM
+   |
+    -- Restore AC Power Loss [Power OFF]
+ -- ACPI Settings
+   | 
+    -- Enable Hibernation [Disabled]
+    -- ACPI Suspend State [Suspend Disabled]
+ -- PCI Subsystem Settings
+   |
+     -- Above 4G Decoding [Enabled] {This is critical for allowing PCIe expansion to work}
+     
+IntelRCSetup
+|
+ --Processor Configuration
+   |
+   -- DCU Mode [16KB 4Way With ECC] {This is critical for allowing PCIe expansion to work}
+|
+ --Miscellaneous Configuration
+   | 
+   -- Active Video [Onboard Device] {Prevents sending video to a GPU}
+```
+
 
 ## OS Installation
 
