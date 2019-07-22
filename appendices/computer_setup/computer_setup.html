@@ -186,10 +186,32 @@
 <div class="section" id="bios">
 <h2>BIOS<a class="headerlink" href="#bios" title="Permalink to this headline">¶</a></h2>
 <p>Enter BIOS and change the following settings:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Advanced</span> <span class="o">&gt;</span> <span class="n">ACPI</span> <span class="o">&gt;</span> <span class="n">Enable</span> <span class="n">Hibernation</span> <span class="n">Disabled</span><span class="o">.</span>
-<span class="o">-</span> <span class="n">Advanced</span> <span class="o">&gt;</span> <span class="n">ACPI</span> <span class="o">&gt;</span> <span class="n">Suspend</span> <span class="n">Disabled</span><span class="o">.</span>
-<span class="o">-</span> <span class="n">IntelRCSetup</span> <span class="o">&gt;</span> <span class="n">Processor</span> <span class="n">Config</span> <span class="o">&gt;</span> <span class="n">Hyper</span><span class="o">-</span><span class="n">Threading</span> <span class="n">Disabled</span>
-<span class="o">-</span> <span class="n">Advanced</span> <span class="o">&gt;</span> <span class="n">APM</span> <span class="o">&gt;</span> <span class="n">Restore</span> <span class="n">AC</span> <span class="n">Power</span> <span class="n">Loss</span> <span class="o">&gt;</span> <span class="n">Power</span> <span class="n">On</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AI</span> <span class="n">Tweaker</span>
+<span class="o">|</span> 
+ <span class="o">--</span> <span class="n">Spread</span> <span class="n">Spectrum</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expanion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+ 
+<span class="n">Advanced</span>
+<span class="o">|</span>
+ <span class="o">--</span> <span class="n">APM</span>
+   <span class="o">|</span>
+    <span class="o">--</span> <span class="n">Restore</span> <span class="n">AC</span> <span class="n">Power</span> <span class="n">Loss</span> <span class="p">[</span><span class="n">Power</span> <span class="n">OFF</span><span class="p">]</span>
+ <span class="o">--</span> <span class="n">ACPI</span> <span class="n">Settings</span>
+   <span class="o">|</span> 
+    <span class="o">--</span> <span class="n">Enable</span> <span class="n">Hibernation</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span>
+    <span class="o">--</span> <span class="n">ACPI</span> <span class="n">Suspend</span> <span class="n">State</span> <span class="p">[</span><span class="n">Suspend</span> <span class="n">Disabled</span><span class="p">]</span>
+ <span class="o">--</span> <span class="n">PCI</span> <span class="n">Subsystem</span> <span class="n">Settings</span>
+   <span class="o">|</span>
+     <span class="o">--</span> <span class="n">Above</span> <span class="mi">4</span><span class="n">G</span> <span class="n">Decoding</span> <span class="p">[</span><span class="n">Enabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expansion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+     
+<span class="n">IntelRCSetup</span>
+<span class="o">|</span>
+ <span class="o">--</span><span class="n">Processor</span> <span class="n">Configuration</span>
+   <span class="o">|</span>
+   <span class="o">--</span> <span class="n">DCU</span> <span class="n">Mode</span> <span class="p">[</span><span class="mi">16</span><span class="n">KB</span> <span class="mi">4</span><span class="n">Way</span> <span class="n">With</span> <span class="n">ECC</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expansion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+<span class="o">|</span>
+ <span class="o">--</span><span class="n">Miscellaneous</span> <span class="n">Configuration</span>
+   <span class="o">|</span> 
+   <span class="o">--</span> <span class="n">Active</span> <span class="n">Video</span> <span class="p">[</span><span class="n">Onboard</span> <span class="n">Device</span><span class="p">]</span> <span class="p">{</span><span class="n">Prevents</span> <span class="n">sending</span> <span class="n">video</span> <span class="n">to</span> <span class="n">a</span> <span class="n">GPU</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
