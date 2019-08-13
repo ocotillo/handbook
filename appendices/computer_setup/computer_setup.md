@@ -1,6 +1,6 @@
 # Instrument computer setup guide
 
-The setup process for the instrument control computers is automated (to the extent possible) by scripts in the [`setup/`](https://github.com/magao-x/MagAOX/tree/master/setup) folder of [magao-x/MagAOX](https://github.com/magao-x/MagAOX).
+The setup process for the instrument computers (ICC, RTC, AOC) is automated (to the extent possible) by scripts in the [`setup/`](https://github.com/magao-x/MagAOX/tree/master/setup) folder of [magao-x/MagAOX](https://github.com/magao-x/MagAOX).
 
 Unfortunately, not _everything_ can be automated when real hardware is involved. To set up a new instrument computer, follow the steps below. Once the BIOS and OS are setup, you can [run the provisioning scripts](#run-provisioning-scripts).
 
@@ -194,11 +194,11 @@ For either:
     service sshd restart
     ```
 
-## Prepare for automated provisioning
+## Perform (mostly) automated provisioning
 
 Log in via `ssh` as a user with `sudo` access.
 
-**If you are provisioning an instrument control computer that needs a realtime kernel and the NVIDIA SDKs, first follow [Installing the realtime Linux kernel and the NVIDIA GPU driver](realtime_linux_config) and come back.**
+**If you are provisioning a computer that needs a realtime kernel and the NVIDIA SDKs, first follow [Installing the realtime Linux kernel and the NVIDIA GPU driver](realtime_linux_config) and come back.**
 
 1. Clone [magao-x/MagAOX](https://github.com/magao-x/MagAOX) into your home directory (**not** into `/opt/MagAOX`, yet)
 
@@ -207,46 +207,14 @@ Log in via `ssh` as a user with `sudo` access.
    $ git clone https://github.com/magao-x/MagAOX.git
    ```
 
-2. Download Intel MKL — This has to be done interactively, since Intel enforces a registration requirement to download the MKL package.
-
-    **If you're not yet registered with Intel:** Starting at https://software.intel.com/en-us/mkl, click "Free Download" and follow the prompts to create and verify an account.
-
-    **If you've registered before:** It's well hidden, but https://registrationcenter.intel.com/en/products/ should take you right to the page with the download links. We want Intel Performance Libraries for Linux, specifically Intel Math Kernel Library.
-
-    Copy the download link (e.g. right-click and "Copy Link Location") and switch to a terminal on a production machine.
-
-    ```
-    $ cd
-    $ curl -OL <pasted-url>
-    ```
-    (I'd put the download link in these docs, but it changes when there's a new release.)
-
-3. Extract and install Intel MKL
-
-   ```
-   $ tar xvzf l_mkl_<tab>  # name subject to change ;)
-   $ cd l_mkl_<tab>
-   ```
-
-   Install as root:
-
-   ```
-   $ sudo ./install.sh -s ~/MagAOX/setup/intel_mkl_silent_install.cfg
-   ```
-
-   Wait a few minutes for it to complete. You shouldn't see any output, but `/opt/intel` should now exist.
-
-## Run provisioning scripts
-
-1. Switch to the `setup` subdirectory in the MagAOX directory you cloned (in this example: `~/MagAOX/setup`) to set up users and groups.
+2. Switch to the `setup` subdirectory in the MagAOX directory you cloned (in this example: `~/MagAOX/setup`) to set up users and groups.
 
     ```
     $ cd ~/MagAOX/setup
     $ ./setup_users_and_groups.sh
     ```
 
-    Note: on ubuntu you will need to add a symlink: 'ln -s /usr/bin/sudo /bin/sudo
-2. Log out and back in, verify groups
+3. Log out and back in, verify groups
 
     ```
     $ logout
@@ -257,12 +225,24 @@ Log in via `ssh` as a user with `sudo` access.
 
     Because the last step changed the group memberships of the installing user (i.e. `$USER`, so most likely you), you will have to log out and back in. (Alternatively, you can run `newgrp magaox-dev` to start a new subshell where the new group is active, but this can get confusing.)
 
-    Note: on ubuntu instead of `wheel` it will be `sudo`
+4. *(optional)* Install `tmux` for convenience
 
-3. Run the provisioning script
+    `tmux` allows you to preserve a running session across ssh disconnection and reconnection. (Ten second tutorial: Running `tmux` with no arguments starts a new self-contained session. `Ctrl-b` followed by `d` detatches from it, while any scripts you started continue to run. The `tmux attach` command reattaches.)
+
+    ```
+    $ sudo yum install -y tmux
+    $ tmux
+    ```
+
+5. Run the provisioning script
 
     ```
     $ cd ~/MagAOX/setup
-    $ screen  # optional: lets you detach from the build and come back later. ("sudo yum install -y screen" to install.)
     $ ./production_provision.sh
     ```
+
+    If you installed and invoked `tmux` in the previous step, this would be a good time to `Ctrl-b` + `d` and go get a coffee.
+
+Successful provisioning will end with the message "Finished!" and installed copies of MagAOX and its dependencies.
+
+Full details of the automated provisioning process are in [Automated provisioning steps explained](provisioning_details).
