@@ -10,6 +10,12 @@ User accounts on the RTC, ICC, and AOC machines are members of `magaox`. Develop
 
 Creates a new user account in the group `magaox`, creates `.ssh` (`u=rwx,g=r,o=r`), and `.ssh/authorized_keys` (`u=rw,g=,o=`).
 
+Example:
+
+```
+$ /opt/MagAOX/source/MagAOX/setup/add_a_user.sh klmiller
+```
+
 ### `add_a_developer.sh`
 
-Just like `add_a_user.sh` (in fact, uses it). Additionally adds the new account to the `wheel` (i.e. sudo) and `magaox-dev` groups.
+Just like `add_a_user.sh` (in fact, uses it). Additionally adds the new account to the `wheel` (RTC/ICC) or `sudo` (AOC) group and `magaox-dev` groups.

@@ -11,5 +11,6 @@ Table of contents
 
     capabilities
     planning
+    operations
     reduction
     appendices/index
