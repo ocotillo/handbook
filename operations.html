@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data reduction and calibration &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>Operation of the MagAO-X instrument &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Appendices" href="appendices/index.html" />
-    <link rel="prev" title="Operation of the MagAO-X instrument" href="operations.html" /> 
+    <link rel="next" title="Data reduction and calibration" href="reduction.html" />
+    <link rel="prev" title="Planning your observations" href="planning.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,8 +88,15 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="capabilities.html">Instrument description and capabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="planning.html">Planning your observations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="operations.html">Operation of the MagAO-X instrument</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data reduction and calibration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Operation of the MagAO-X instrument</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-user-or-developer-account">Adding a new user or developer account</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-user-sh"><code class="docutils literal notranslate"><span class="pre">add_a_user.sh</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-a-developer-sh"><code class="docutils literal notranslate"><span class="pre">add_a_developer.sh</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reduction.html">Data reduction and calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="appendices/index.html">Appendices</a></li>
 </ul>
 
@@ -136,13 +143,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Data reduction and calibration</li>
+      <li>Operation of the MagAO-X instrument</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/reduction.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/operations.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -155,9 +162,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="data-reduction-and-calibration">
-<h1>Data reduction and calibration<a class="headerlink" href="#data-reduction-and-calibration" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+  <div class="section" id="operation-of-the-magao-x-instrument">
+<h1>Operation of the MagAO-X instrument<a class="headerlink" href="#operation-of-the-magao-x-instrument" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-a-new-user-or-developer-account">
+<h2>Adding a new user or developer account<a class="headerlink" href="#adding-a-new-user-or-developer-account" title="Permalink to this headline">¶</a></h2>
+<p>User accounts on the RTC, ICC, and AOC machines are members of <code class="docutils literal notranslate"><span class="pre">magaox</span></code>. Developer accounts are additionally members of <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> and <code class="docutils literal notranslate"><span class="pre">wheel</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/source/MagAOX/setup/</span></code> contains scripts to help you remember which groups and what permissions the <code class="docutils literal notranslate"><span class="pre">~/.ssh</span></code> folder should have.</p>
+<div class="section" id="add-a-user-sh">
+<h3><code class="docutils literal notranslate"><span class="pre">add_a_user.sh</span></code><a class="headerlink" href="#add-a-user-sh" title="Permalink to this headline">¶</a></h3>
+<p>Creates a new user account in the group <code class="docutils literal notranslate"><span class="pre">magaox</span></code>, creates <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> (<code class="docutils literal notranslate"><span class="pre">u=rwx,g=r,o=r</span></code>), and <code class="docutils literal notranslate"><span class="pre">.ssh/authorized_keys</span></code> (<code class="docutils literal notranslate"><span class="pre">u=rw,g=,o=</span></code>).</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ /opt/MagAOX/source/MagAOX/setup/add_a_user.sh klmiller
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-developer-sh">
+<h3><code class="docutils literal notranslate"><span class="pre">add_a_developer.sh</span></code><a class="headerlink" href="#add-a-developer-sh" title="Permalink to this headline">¶</a></h3>
+<p>Just like <code class="docutils literal notranslate"><span class="pre">add_a_user.sh</span></code> (in fact, uses it). Additionally adds the new account to the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> (RTC/ICC) or <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (AOC) group and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups.</p>
+</div>
+</div>
 </div>
 
 
@@ -168,10 +191,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="appendices/index.html" class="btn btn-neutral float-right" title="Appendices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="reduction.html" class="btn btn-neutral float-right" title="Data reduction and calibration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="operations.html" class="btn btn-neutral float-left" title="Operation of the MagAO-X instrument" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="planning.html" class="btn btn-neutral float-left" title="Planning your observations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

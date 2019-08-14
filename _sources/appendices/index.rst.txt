@@ -6,5 +6,6 @@ Appendices
 
     pdr/index
     documenting
+    networking
     computer_setup/computer_setup
-    computer_setup/realtime_linux_config
+

@@ -91,9 +91,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#connie-the-continuum-detector">Connie the continuum detector</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#heidi-the-high-order-wavefront-sensing-camera-howfs">Heidi the high-order wavefront sensing camera (HOWFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lois-the-low-order-wavefront-sensing-camera-lowfs">Lois the low-order wavefront sensing camera (LOWFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#computer-architecture">Computer architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#real-time-controller">Real Time Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instrument-control-computer">Instrument Control Computer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Operation of the MagAO-X instrument</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reduction.html">Data reduction and calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="appendices/index.html">Appendices</a></li>
 </ul>
@@ -173,6 +179,24 @@
 </div>
 <div class="section" id="lois-the-low-order-wavefront-sensing-camera-lowfs">
 <h2>Lois the low-order wavefront sensing camera (LOWFS)<a class="headerlink" href="#lois-the-low-order-wavefront-sensing-camera-lowfs" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="computer-architecture">
+<h2>Computer architecture<a class="headerlink" href="#computer-architecture" title="Permalink to this headline">¶</a></h2>
+<p>The computers that run MagAO-X are:</p>
+<ul class="simple">
+<li><p>The Instrument Control Computer (ICC)</p></li>
+<li><p>The Real Time control Computer (RTC)</p></li>
+<li><p>The Adaptive optics Operator Computer (AOC) <em>TODO</em></p></li>
+</ul>
+<p>While on the University of Arizona network, the RTC is known as <code class="docutils literal notranslate"><span class="pre">exao2.as.arizona.edu</span></code> (<code class="docutils literal notranslate"><span class="pre">10.130.133.207</span></code>) and the ICC as <code class="docutils literal notranslate"><span class="pre">exao3.as.arizona.edu</span></code> (<code class="docutils literal notranslate"><span class="pre">10.130.133.208</span></code>). Both ICC and RTC run modified Linux kernels (see <a class="reference internal" href="appendices/computer_setup/realtime_linux_config.html"><span class="doc">Installing the realtime Linux kernel and the NVIDIA GPU driver</span></a>) optimized for low and predictable latency.</p>
+<div class="section" id="real-time-controller">
+<h3>Real Time Controller<a class="headerlink" href="#real-time-controller" title="Permalink to this headline">¶</a></h3>
+<p>Responsible for wavefront sensing and control, and directly connected to the HOWFS detector and deformable mirrors. The operation of the control loop depends on <a class="reference external" href="https://github.com/cacao-org/cacao">CACAO: Compute And Control for Adaptive Optics</a> authored by <a class="reference external" href="https://github.com/cacao-org/cacao/graphs/contributors">Olivier Guyon and collaborators</a>.</p>
+</div>
+<div class="section" id="instrument-control-computer">
+<h3>Instrument Control Computer<a class="headerlink" href="#instrument-control-computer" title="Permalink to this headline">¶</a></h3>
+<p>Responsible for functions that do not depend on strong realtime constraints, including LOWFS, configuring and reading out science cameras, etc.</p>
+</div>
 </div>
 </div>
 
