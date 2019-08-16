@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>filterWheelCtrl &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/stats.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ocam2KCtrl" href="ocam2KCtrl.html" />
+    <link rel="prev" title="dmMode" href="dmMode.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Instrument description and capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reduction.html">Data reduction and calibration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Applications</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="alpaoCtrl.html">alpaoCtrl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dmMode.html">dmMode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">filterWheelCtrl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#name">Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#indi-properties">INDI Properties</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#read-only-indi-properties">Read-Only INDI Properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-write-indi-properties">Read-Write INDI Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#exit-status">Exit Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocam2KCtrl.html">ocam2KCtrl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sshDigger.html">sshDigger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trippLitePDU.html">trippLitePDU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xindiserver.html">xindiserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xt1121DCDU.html">xt1121DCDU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#standard-options">Standard Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Applications</a> &raquo;</li>
+        
+      <li>filterWheelCtrl</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apps/filterWheelCtrl.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="filterwheelctrl">
+<h1>filterWheelCtrl<a class="headerlink" href="#filterwheelctrl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>filterWheelCtrl − controls a Faulhaber MCBL 3006S based filter wheel for MagAO-X.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filterWheelCtrl</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> is normally configured with a configuration file, hence all command-line arguments are optional. But note that if the <code class="docutils literal notranslate"><span class="pre">-n</span> <span class="pre">name</span></code> option is not given, then a configuration file named <code class="docutils literal notranslate"><span class="pre">filterWheelCtrl.conf</span></code> must be available at the MagAO-X standard config path.</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> controls an MCBL 3006S based filter wheel for MagAO-X.  As of Dec, 2018, there are 6 such wheels in MagAO-X.  This program communicates with the MCBL 3006S controller via USB.  It monitors the position and motion status of the wheel, and via INDI accepts commands to home and change wheel position.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File *</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td><code>--config</code></td>
+<td>config</td>
+<td>string</td>
+<td>A local config file</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--help</code></td>
+<td></td>
+<td>none</td>
+<td>Print this message and exit</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td><code>--loopPause</code></td>
+<td>loopPause</td>
+<td>unsigned long</td>
+<td>The main loop pause time in ns</td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td><code>--RTPriority</code></td>
+<td>RTPriority</td>
+<td>unsigned</td>
+<td>The real-time priority (0-99)</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td><code>--logDir</code></td>
+<td>logger.logDir</td>
+<td>string</td>
+<td>The directory for log files</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--logExt</code></td>
+<td>logger.logExt</td>
+<td>string</td>
+<td>The extension for log files</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--maxLogSize</code></td>
+<td>logger.maxLogSize</td>
+<td>string</td>
+<td>The maximum size of log files</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--writePause</code></td>
+<td>logger.writePause</td>
+<td>unsigned long</td>
+<td>The log thread pause time in ns</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--logThreadPrio</code></td>
+<td>logger.logThreadPrio</td>
+<td>int</td>
+<td>The log thread priority</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>--logLevel</code></td>
+<td>logger.logLevel</td>
+<td>string</td>
+<td>The log level</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--name</code></td>
+<td>name</td>
+<td>string</td>
+<td>The name of the application, specifies config.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--power.device</code></td>
+<td>power.device</td>
+<td>string</td>
+<td>Device controlling power for this app's device (INDI name).</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--power.outlet</code></td>
+<td>power.outlet</td>
+<td>string</td>
+<td>Outlet (or channel) on device for this app's device (INDI name).</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--power.element</code></td>
+<td>power.element</td>
+<td>string</td>
+<td>INDI element name.  Default is "state", only need to specify if different.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--usb.idVendor</code></td>
+<td>usb.idVendor</td>
+<td>string</td>
+<td>USB vendor id, 4 digits</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--usb.idProduct</code></td>
+<td>usb.idProduct</td>
+<td>string</td>
+<td>USB product id, 4 digits</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--usb.serial</code></td>
+<td>usb.serial</td>
+<td>string</td>
+<td>USB serial number</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--usb.baud</code></td>
+<td>usb.baud</td>
+<td>real</td>
+<td>USB tty baud rate (i.e. 9600)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--timeouts.write</code></td>
+<td>timeouts.write</td>
+<td>int</td>
+<td>The timeout for writing to the device [msec]. Default = 1000</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--timeouts.read</code></td>
+<td>timeouts.read</td>
+<td>int</td>
+<td>The timeout for reading the device [msec]. Default = 1000</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--motor.acceleration</code></td>
+<td>motor.acceleration</td>
+<td>real</td>
+<td>The motor acceleration parameter. Default=1000.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--motor.speed</code></td>
+<td>motor.speeed</td>
+<td>real</td>
+<td>The motor speed parameter.  Default=1000.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--motor.circleSteps</code></td>
+<td>motor.circleSteps</td>
+<td>long</td>
+<td>The number of steps in 1 revolution.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--motor.homeOffset</code></td>
+<td>motor.homeOffset</td>
+<td>long</td>
+<td>The homing offset in motor counts.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--motor.powerOnHome</code></td>
+<td>motor.powerOnHome</td>
+<td>bool</td>
+<td>If true, home at startup/power-on. Default=false.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--filters.names</code></td>
+<td>filters.names</td>
+<td>vector of strings</td>
+<td>The names of the filters.</td>
+</tr>
+<tr>
+<td></td>
+<td><code>--filters.positions</code></td>
+<td>filters.positions</td>
+<td>vector of doubles</td>
+<td>The positions of the filters.  If omitted or 0 then order is used.</td>
+</tr>
+</tbody>
+</table><p><code class="docutils literal notranslate"><span class="pre">*</span></code> format in the config file column is section.option which implies the format</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">section</span><span class="p">]</span>
+<span class="n">option</span><span class="o">=</span><span class="n">value</span>
+</pre></div>
+</div>
+<p>in the config file.</p>
+</div>
+<div class="section" id="indi-properties">
+<h2>INDI Properties<a class="headerlink" href="#indi-properties" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="read-only-indi-properties">
+<h3>Read-Only INDI Properties<a class="headerlink" href="#read-only-indi-properties" title="Permalink to this headline">¶</a></h3>
+<p>list them here</p>
+</div>
+<div class="section" id="read-write-indi-properties">
+<h3>Read-Write INDI Properties<a class="headerlink" href="#read-write-indi-properties" title="Permalink to this headline">¶</a></h3>
+<p>list them here</p>
+</div>
+</div>
+<div class="section" id="exit-status">
+<h2>Exit Status<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">filterWheelCtrl</span></code> runs until killed.  Use the <code class="docutils literal notranslate"><span class="pre">logdump</span></code> utility to examine the process log for errors.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>To start the filter wheel controller for science camera 1:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">MagAOX</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">filterWheelCtrl</span> <span class="o">-</span><span class="n">n</span> <span class="n">fwsci1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="../sw_html/group__filterWheelCtrl.html">Source code.</a>
+<a class="reference external" href="../api/group__filterWheelCtrl.html">Source code.</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ocam2KCtrl.html" class="btn btn-neutral float-right" title="ocam2KCtrl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dmMode.html" class="btn btn-neutral float-left" title="dmMode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>getINDI &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/stats.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="setINDI" href="setINDI.html" />
+    <link rel="prev" title="Utilities" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Instrument description and capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reduction.html">Data reduction and calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Applications</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">getINDI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#name">Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-format">Output Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exit-status">Exit Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#see-also">See ALso</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setINDI.html">setINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indiserver.html">indiserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logdump.html">logdump</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Utilities</a> &raquo;</li>
+        
+      <li>getINDI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/utils/getINDI.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getindi">
+<h1>getINDI<a class="headerlink" href="#getindi" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>getINDI − get INDI property values</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">getINDI</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">device</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">element</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>getINDI connects to an indiserver and reports the current value of one or more properties. Each property is specified using three components in the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">element</span>
+</pre></div>
+</div>
+<p>Any component may be an asterisk, “*”, to serve as a wild card that matches all names in that component of the specification. If no property is specified, then all properties match, i.e., it is as if the specification “*.*.*” were given.</p>
+<p>The last component of the property specification is usually the element name, but may be a reserved name to indicate an attribute of the property as a whole. These reserved names are as follows:</p>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="30%" />
+<col width="60%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>_LABEL</p></td>
+<td align="left"><p>report the label attribute</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>_GROUP</p></td>
+<td align="left"><p>report the group attribute</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>_STATE</p></td>
+<td align="left"><p>report the state attribute</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>_PERM</p></td>
+<td align="left"><p>report the permission attribute</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>_TO</p></td>
+<td align="left"><p>report the timeout attribute</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>_TS</p></td>
+<td align="left"><p>report the timestamp attribute</p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="30%" />
+<col width="60%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-1</p></td>
+<td align="left"><p>print just the value if expectiong exactly one matching property</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>-B</p></td>
+<td align="left"><p>enable downloading BLOBs</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-d &lt;f&gt;</p></td>
+<td align="left"><p>use file descriptor f already open as a socket to the indiserver. This is useful for scripts to make a session connection one time then reuse it for each invocation. If the file descriptor seems to be being closed, check that the close-on-exec flag is off; for example in perl use something like:</p>
+`#!/usr/bin/perl` <br />
+`use Socket;`<br />
+`use Fcntl;`<br />
+`socket(SOCK, PF_INET, SOCK_STREAM, getprotobyname(’tcp’));`<br />
+`connect(SOCK, sockaddr_in(7624,inet_aton(’localhost’)));`<br />
+`fcntl(SOCK,F_SETFD,0);`<br />
+`$directfd = fileno(SOCK);`<br />
+`%props = split (/[=0/, ’getINDI -d $directfd’);`<br /></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-h &lt;h&gt;</p></td>
+<td align="left"><p>connect to alternate host h; the default is localhost.</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>-m</p></td>
+<td align="left"><p>continue to monitor for subsequent changes to each specified property until timeout.</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-p &lt;p&gt;</p></td>
+<td align="left"><p>connect using alternate port p; the default is 7624.</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>-q</p></td>
+<td align="left"><p>suppress some error message.</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-t &lt;t&gt;</p></td>
+<td align="left"><p>wait no longer than t seconds of no activity to gather the values for all the specified properties; the default is 2 seconds. Specify 0 to wait forever.</p></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><p>-v</p></td>
+<td align="left"><p>generate additional information on stderr. This is cumulative in that specifying more -v options will generate more output.</p></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><p>-w</p></td>
+<td align="left"><p>Usually only readable properties are shown. If this flag is set, then all properties, including those that are write-only, are shown.</p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="output-format">
+<h2>Output Format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h2>
+<p>For properties that are not BLOBs, the output of getINDI is one line per property. Unless the -1 option is given, each line is of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">property</span><span class="o">=</span><span class="n">value</span>
+</pre></div>
+</div>
+<p>A property that is a BLOB is saved in a file name device.property.element.format. Z compression is handled automatically, other formats are left unchanged. Note that BLOBs are not read by default, only when the -B option is used.</p>
+</div>
+<div class="section" id="exit-status">
+<h2>Exit Status<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p>The getINDI program exits with a status of 0 if it suceeded in finding the value for each specified property. It exits with 1 if there was at least one property for which no value was found within the given timeout period. It exits with 2 if there was some other error such as not being able to connect to the indiserver.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>In a perl script, gather all properties for the default indiserver and save them in an associative array %props which can then be used to look up a property value by name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>%props = split (/[=0/, ’getINDI’);
+</pre></div>
+</div>
+<p>Wait up to ten seconds to get the values of all properties from the Mount device on the given host and non-standard port:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">getINDI</span> <span class="o">-</span><span class="n">h</span> <span class="n">indihost</span> <span class="o">-</span><span class="n">p</span> <span class="mi">7655</span> <span class="o">-</span><span class="n">t</span> <span class="mi">10</span> <span class="s2">&quot;Mount.\*.\*&quot;</span>
+</pre></div>
+</div>
+<p>Print just current value of the wind speed element from the weather device:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">getINDI</span> <span class="o">-</span><span class="mi">1</span> <span class="n">Weather</span><span class="o">.</span><span class="n">Wind</span><span class="o">.</span><span class="n">Speed</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See ALso<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="evalINDI.html"><span class="doc">evalINDI</span></a></p></li>
+<li><p><a class="reference internal" href="setINDI.html"><span class="doc">setINDI</span></a></p></li>
+<li><p><a class="reference internal" href="indiserver.html"><span class="doc">indiserver</span></a></p></li>
+<li><p>The <a class="reference external" href="http://www.clearskyinstitute.com/INDI/INDI.pdf">INDI specification v. 1.7</a></p></li>
+</ul>
+<hr class="docutils" />
+<p>This getINDI.md generated from the man documentation with the commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">groff</span> <span class="o">-</span><span class="n">mandoc</span> <span class="o">-</span><span class="n">Thtml</span> <span class="n">getINDI</span><span class="o">.</span><span class="n">man</span> <span class="o">&gt;</span> <span class="n">getINDI</span><span class="o">.</span><span class="n">html</span>
+<span class="n">pandoc</span> <span class="o">-</span><span class="n">t</span> <span class="n">markdown_github</span> <span class="n">getINDI</span><span class="o">.</span><span class="n">html</span> <span class="o">&gt;</span> <span class="n">getINDI</span><span class="o">.</span><span class="n">md</span>
+</pre></div>
+</div>
+<p>and then tweaked for presentation.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="setINDI.html" class="btn btn-neutral float-right" title="setINDI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

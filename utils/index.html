@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Networking &mdash; MagAO-X Instrument Handbook  documentation</title>
+  <title>Utilities &mdash; MagAO-X Instrument Handbook  documentation</title>
   
 
   
@@ -37,8 +37,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Instrument computer setup guide" href="computer_setup/computer_setup.html" />
-    <link rel="prev" title="Documenting MagAO-X" href="documenting.html" /> 
+    <link rel="next" title="getINDI" href="getINDI.html" />
+    <link rel="prev" title="xt1121DCDU" href="../apps/xt1121DCDU.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,18 +91,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Operation of the MagAO-X instrument</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reduction.html">Data reduction and calibration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Applications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Appendices</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="pdr/index.html">Preliminary design review</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documenting.html">Documenting MagAO-X</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Networking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#university-of-arizona">University of Arizona</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#las-campanas-observatory">Las Campanas Observatory</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getINDI.html">getINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setINDI.html">setINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="indiserver.html">indiserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logdump.html">logdump</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="computer_setup/computer_setup.html">Instrument computer setup guide</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">Appendices</a></li>
 </ul>
 
             
@@ -148,15 +145,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">Appendices</a> &raquo;</li>
-        
-      <li>Networking</li>
+      <li>Utilities</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/appendices/networking.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/utils/index.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -169,22 +164,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="networking">
-<h1>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h1>
-<p>This document uses the hostnames of the machines interchangeably with their roles. For reference:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">exao1</span></code> — AOC</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">exao2</span></code> — RTC</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">exao3</span></code> — ICC</p></li>
+  <div class="section" id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getINDI.html">getINDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setINDI.html">setINDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indiserver.html">indiserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logdump.html">logdump</a></li>
 </ul>
-<div class="section" id="university-of-arizona">
-<h2>University of Arizona<a class="headerlink" href="#university-of-arizona" title="Permalink to this headline">¶</a></h2>
-<p>While at the University of Arizona, the FQDN is <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.as.arizona.edu</span></code>. Only <code class="docutils literal notranslate"><span class="pre">exao1</span></code> has a publicly-routable IP address, while <code class="docutils literal notranslate"><span class="pre">exao2</span></code> and <code class="docutils literal notranslate"><span class="pre">exao3</span></code> live behind the NAT.</p>
-<p>TODO</p>
-</div>
-<div class="section" id="las-campanas-observatory">
-<h2>Las Campanas Observatory<a class="headerlink" href="#las-campanas-observatory" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
 </div>
 </div>
 
@@ -196,10 +185,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="computer_setup/computer_setup.html" class="btn btn-neutral float-right" title="Instrument computer setup guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="getINDI.html" class="btn btn-neutral float-right" title="getINDI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="documenting.html" class="btn btn-neutral float-left" title="Documenting MagAO-X" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../apps/xt1121DCDU.html" class="btn btn-neutral float-left" title="xt1121DCDU" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
