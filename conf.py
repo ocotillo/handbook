@@ -30,7 +30,6 @@ author = 'Extreme Wavefront Control Lab, The University of Arizona'
 # ones.
 extensions = [
     'recommonmark',
-    'breathe',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
