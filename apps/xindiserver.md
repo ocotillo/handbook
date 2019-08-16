@@ -40,13 +40,13 @@ xindiserver [options]
 | `-R`  | `--remote`        | remote.drivers       | vector of string  | List of remote drivers to start, in the form of name\@hostname without the port.  Hostname needs an entry in remote.hosts |
 | `-H`  | `--hosts`         | remote.hosts         | vector of string  | List of remote hosts, in the form of `hostname[:remote_port]:local_port`.  `remote_port` is optional if it is the INDI default. |
 
-## DRIVER SPECIFICATIONS
+## Driver Specifications
 
 Lists of driver names are passed to `xindiserver` via the configuration system.  Drivers can be either local or remote.
 
 Driver names can not be repeated, whether local or remote.
 
-## Local Drivers
+### Local Drivers
 
 Drivers running on the same machine are specified by their names only.  On the command line this would be
 ```
@@ -87,7 +87,7 @@ If the `indiserver` process exits for any reason, then `xindiserver` will produc
 If the `xindidriver` program for a driver reports that it can not get a lock, which indicates that another instance of `xindidriver` already has the FIFO open, then `xindiserver` will produce a log entry, change to state FAILURE, and exit.
 
 
-### Troubleshooting
+## Troubleshooting
 
 If `indiserver` exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the `xindidriver` processes running.  A subsequent attempt to restart will fail when new instances of `xindidriver` can not lock the FIFOs.  The solution is manually kill each of the `xindidriver` processes, which will have the symlinked names of the `MagAOXApp` they are communicating with.
 
