@@ -93,4 +93,4 @@ If `indiserver` exits abnormally (this is extremly rare, and is not expected exc
 
 ## See Also
 
-[Source code.](../sw_html/group__xindiserver.html)
+[Source code](../../reference/group__xindiserver.html)
