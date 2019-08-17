@@ -134,4 +134,4 @@ If that doesn't work, you need to completely unplug the device to force a full r
 
 ## See Also
 
-[Source code](../../reference/group__trippLitePDU.html)
+[Source code](../../MagAOX/group__trippLitePDU.html)

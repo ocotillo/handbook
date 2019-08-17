@@ -54,4 +54,4 @@ To start the [description of app or ocam2KCtrl] for [context]:
 
 ## See also
 
-[Source code.](../../reference/group__ocam2KCtrl.html)
+[Source code.](../../MagAOX/group__ocam2KCtrl.html)

@@ -52,4 +52,4 @@ To start the [description of app or dmMode] for [context]:
 
 ## See also
 
-[Source code.](../../reference/group__dmMode.html)
+[Source code.](../../MagAOX/group__dmMode.html)

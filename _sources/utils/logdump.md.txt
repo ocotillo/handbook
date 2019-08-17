@@ -81,4 +81,4 @@ $ logdump -L W -f trippLitePDU0
 
 ## See Also
 
-[Source code.](../sw_html/group__logdump.html)
+[Source code.](../../MagAOX/group__logdump.html)
