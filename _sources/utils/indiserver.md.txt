@@ -89,3 +89,13 @@ This technique can also be used to manage which Devices are available to INDI cl
   * [getINDI](./getINDI)
   * The [INDI specification v. 1.7](http://www.clearskyinstitute.com/INDI/INDI.pdf)
 
+------------------------------------------------------------------------
+
+This indiserver.md generated from the man documentation with the commands:
+
+```
+groff -mandoc -Thtml indiserver.man > indiserver.html
+pandoc -t markdown_github indiserver.html > indiserver.md
+```
+
+and then tweaked for presentation.
