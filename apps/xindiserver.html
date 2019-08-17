@@ -104,13 +104,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#options">Options</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#driver-specifications">DRIVER SPECIFICATIONS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#local-drivers">Local Drivers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#driver-specifications">Driver Specifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#local-drivers">Local Drivers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#remote-drivers">Remote Drivers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#exit-status">Exit Status</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#see-also">See Also</a></li>
 </ul>
 </li>
@@ -352,12 +352,11 @@
 </table></div>
 </div>
 <div class="section" id="driver-specifications">
-<h2>DRIVER SPECIFICATIONS<a class="headerlink" href="#driver-specifications" title="Permalink to this headline">¶</a></h2>
+<h2>Driver Specifications<a class="headerlink" href="#driver-specifications" title="Permalink to this headline">¶</a></h2>
 <p>Lists of driver names are passed to <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> via the configuration system.  Drivers can be either local or remote.</p>
 <p>Driver names can not be repeated, whether local or remote.</p>
-</div>
 <div class="section" id="local-drivers">
-<h2>Local Drivers<a class="headerlink" href="#local-drivers" title="Permalink to this headline">¶</a></h2>
+<h3>Local Drivers<a class="headerlink" href="#local-drivers" title="Permalink to this headline">¶</a></h3>
 <p>Drivers running on the same machine are specified by their names only.  On the command line this would be</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">local</span><span class="o">=</span><span class="n">driverX</span><span class="p">,</span><span class="n">driverY</span><span class="p">,</span><span class="n">driverZ</span>
 </pre></div>
@@ -366,6 +365,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">local</span><span class="p">]</span>
 <span class="n">drivers</span><span class="o">=</span><span class="n">driverX</span><span class="p">,</span><span class="n">driverY</span><span class="p">,</span><span class="n">driverZ</span>
 </pre></div>
+</div>
 </div>
 <div class="section" id="remote-drivers">
 <h3>Remote Drivers<a class="headerlink" href="#remote-drivers" title="Permalink to this headline">¶</a></h3>
@@ -389,10 +389,10 @@
 <p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> process exits for any reason, then <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> will produce a log entry, change to state FAILURE, and exit.</p>
 <p>If the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> program for a driver reports that it can not get a lock, which indicates that another instance of <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> already has the FIFO open, then <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> will produce a log entry, change to state FAILURE, and exit.</p>
 </div>
-<div class="section" id="troubleshooting">
-<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
-<p>If <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes running.  A subsequent attempt to restart will fail when new instances of <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> can not lock the FIFOs.  The solution is manually kill each of the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes, which will have the symlinked names of the <code class="docutils literal notranslate"><span class="pre">MagAOXApp</span></code> they are communicating with.</p>
 </div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> exits abnormally (this is extremly rare, and is not expected except due to operator error!), it can leave the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes running.  A subsequent attempt to restart will fail when new instances of <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> can not lock the FIFOs.  The solution is manually kill each of the <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes, which will have the symlinked names of the <code class="docutils literal notranslate"><span class="pre">MagAOXApp</span></code> they are communicating with.</p>
 </div>
 <div class="section" id="see-also">
 <h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
