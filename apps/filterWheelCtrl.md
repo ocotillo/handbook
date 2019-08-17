@@ -80,4 +80,4 @@ To start the filter wheel controller for science camera 1:
 
 ## See Also
 
-[Source code.](../../reference/group__filterWheelCtrl.html)
+[Source code.](../../MagAOX/group__filterWheelCtrl.html)
