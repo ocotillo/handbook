@@ -73,7 +73,15 @@ Log in via `ssh` as a normal user with `sudo` access.
     $ tmux
     ```
 
-5. Run the provisioning script as a normal user
+5. **RTC/ICC only:** Obtain proprietary / non-redistributable software from the team Box folder
+
+    Go to [MagAO-X/vendor_software/](https://arizona.box.com/s/dhmxrhjv00yh8lz4m0j7meivfaoyn9cn) _(invite required)_, click the "..." on `bundle` and choose "Download". Save `bundle.zip` in `MagAOX/setup/` next to `provision.sh`.
+
+    ![Screenshot of Box interface to download bundle](download_bundle.png)
+
+    This bundle includes software for the Andor, ALPAO, and Boston Micromachines hardware.
+
+6. Run the provisioning script as a normal user
 
     ```
     $ cd ~/MagAOX/setup
@@ -83,3 +91,5 @@ Log in via `ssh` as a normal user with `sudo` access.
     If you installed and invoked `tmux` in the previous step, this would be a good time to `Ctrl-b` + `d` and go get a coffee.
 
 Successful provisioning will end with the message "Finished!" and installed copies of MagAOX and its dependencies.
+
+A lot of the things this script installs need environment variables set, so `source /etc/profile.d/*.sh` to keep working in the same terminal (or just log in again).
