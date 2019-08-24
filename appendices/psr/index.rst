@@ -16,7 +16,7 @@ Table of Contents
 2. Instrument and Project Status
 
      1. :download:`Opto-Mechanical Status <2_1_MagAOX_Optics_Mechanics_2.1_preship_Laird_Close_V3.pdf>`
-     2. :download:`Deformable Mirros <2_2_Deformable_Mirrors.pdf>`
+     2. :download:`Deformable Mirrors <2_2_Deformable_Mirrors.pdf>`
      3. :download:`Pyramid Wavefront Sensor <2_3_Pyramid_Preship_Doc.pdf>`
      4. Optics Quality 
      5. :download:`Software Processes <2_5_Software_Processes-1.pdf>`
