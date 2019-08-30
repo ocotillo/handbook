@@ -3,7 +3,7 @@ Pre-ship Review
 
 The following are downloadable PDFs of documents produced for the MagAO-X pre-ship review on Sep 6, 2019. 
 
-:download:`download all files as a .tgz <magaox_psr_2019.08.23.tgz>`, :download:`download all files as a .zip <magaox_psr_2019.08.23.zip>`
+:download:`download all files as a .tgz <magaox_psr_2019.08.30.tgz>`, :download:`download all files as a .zip <magaox_psr_2019.08.30.zip>`
 
 :download:`Pre-ship Review Agenda (DRAFT) <MagAO-X_PSR_Draft_Agenda.pdf>`
 
@@ -20,12 +20,12 @@ Table of Contents
      3. :download:`Pyramid Wavefront Sensor <2_3_Pyramid_Preship_Doc.pdf>`
      4. Optics Quality 
      5. :download:`Software Processes <2_5_Software_Processes-1.pdf>`
-     6. Management and Logistics 
+     6. Management and Logistics [by email]
      
 3. Commissioning Run 1
 
      1. :download:`Installation Plan <3.1_MagAO-X_Commissioning_Plan.pdf>` (:download:`Graphical Schedule <3.1_att_MagAO-X_Schedule.pdf>`)
-     2. Shipping and Handling Plan
+     2. :download:`Shipping and Handling Plan <3.2_Shipping_and_Handling_Plan.pdf>`
      3. :download:`Alignment Plan <3.3_MagAO-X_alignment_procedure.pdf>`
      4. :download:`Draft Support Agreement <3.4_Draft_MagAO-X_support_agreement.pdf>`
      5. :download:`Scientific Commissioning Plan <3.5_MagAO-X_Scientific_Commissioning_Plan.pdf>`
