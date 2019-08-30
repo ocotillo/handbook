@@ -98,6 +98,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Documenting MagAO-X</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#where-the-documentation-lives">Where the documentation lives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#how-to-make-changes">How to make changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-the-required-software">Installing the required software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-brand-new-document">Creating a brand new document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#edit-and-publish">Edit and publish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#markup">Markup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#linking">Linking</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#code-samples">Code samples</a></li>
@@ -188,17 +191,48 @@
 </div>
 <div class="section" id="how-to-make-changes">
 <h2>How to make changes<a class="headerlink" href="#how-to-make-changes" title="Permalink to this headline">¶</a></h2>
-<p>The first time you make an edit:</p>
-<ol class="simple">
-<li><p>Click “Fork” on <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> to make your own copy of the documentation to edit</p></li>
-<li><p>Clone your new fork to your own computer</p></li>
-<li><p>Change into the directory where you just cloned the documentation and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> to install software so you can preview your changes.</p></li>
+<div class="section" id="installing-the-required-software">
+<h3>Installing the required software<a class="headerlink" href="#installing-the-required-software" title="Permalink to this headline">¶</a></h3>
+<p>You will need Python 3.5 or newer (with <code class="docutils literal notranslate"><span class="pre">pip</span></code>) and a recent version of <code class="docutils literal notranslate"><span class="pre">git</span></code>.</p>
+<ol>
+<li><p>Clone https://github.com/magao-x/handbook to your own computer</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># full clone</span>
+$ git clone https://github.com/magao-x/handbook.git
+
+<span class="c1"># shallow clone (faster)</span>
+$ git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/magao-x/handbook.git
+</pre></div>
+</div>
+</li>
+<li><p>Change into the directory where you just cloned the documentation and install software so you can preview your changes.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># if &#39;pip&#39; and &#39;python&#39; are provided by Python 3.x:</span>
+$ pip install --user -r requirements.txt
+
+<span class="c1"># if your OS calls pip for Python 3.x &#39;pip3&#39;:</span>
+$ pip3 install --user -r requirements.txt
+</pre></div>
+</div>
+<p>(Installing Python 3 is outside the scope of this document, but <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a> is a popular installer.)</p>
+</li>
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> is on the path</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ which sphinx-build
+/Users/jlong/miniconda3/bin/sphinx-build
+</pre></div>
+</div>
+<p>(If you’re using your OS-provided Python, and don’t see output for <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">sphinx-build</span></code>, you should make sure <code class="docutils literal notranslate"><span class="pre">$HOME/.local/bin</span></code> is on <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>.)</p>
+</li>
 </ol>
-<p>You now have a copy of the sources for the handbook. If you’re just editing an existing document, skip ahead. Otherwise, here are the special instructions for creating a <em>brand new document</em>:</p>
+<p>You now have a copy of the sources for the handbook. If you’re just editing an existing document, <a class="reference external" href="#edit-and-publish">skip ahead</a>.</p>
+</div>
+<div class="section" id="creating-a-brand-new-document">
+<h3>Creating a brand new document<a class="headerlink" href="#creating-a-brand-new-document" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">.md</span></code> (or <code class="docutils literal notranslate"><span class="pre">.rst</span></code>, see <a class="reference external" href="#markup">below</a>) file with the name you want</p></li>
 <li><p>Find the file with the appropriate <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">toctree::</span></code> directive (probably <code class="docutils literal notranslate"><span class="pre">index.rst</span></code>) and edit it to add the base name of your file (e.g. <code class="docutils literal notranslate"><span class="pre">funny-business.md</span></code> would be <code class="docutils literal notranslate"><span class="pre">funny-business</span></code> in the toctree)</p></li>
 </ol>
+</div>
+<div class="section" id="edit-and-publish">
+<h3>Edit and publish<a class="headerlink" href="#edit-and-publish" title="Permalink to this headline">¶</a></h3>
 <p>Finally, to preview and publish your edits:</p>
 <ol class="simple">
 <li><p>Edit the document you want to change</p></li>
@@ -206,9 +240,9 @@
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">_build/html/index.html</span></code> to see the updated site, and verify your changes look good</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">./path/to/file/you/changed.md</span></code> and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Description</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">changes&quot;</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">master</span></code></p></li>
-<li><p>Return to <a class="reference external" href="https://github.com/magao-x/handbook">magao-x/handbook</a> and click the button to create a new pull request</p></li>
 </ol>
-<p>If everything looks good, your changes will be merged by someone and the public copy of the docs will update automatically!</p>
+<p>If everything looks good, the public copy of the docs will update automatically!</p>
+</div>
 <div class="section" id="markup">
 <h3>Markup<a class="headerlink" href="#markup" title="Permalink to this headline">¶</a></h3>
 <p>Documents can be written in Markdown (<a class="reference external" href="https://spec.commonmark.org/0.29/">CommonMark</a> variant), in which case the filename must end with <code class="docutils literal notranslate"><span class="pre">.md</span></code>, or reStructuredText, in which case the filename must end with <code class="docutils literal notranslate"><span class="pre">.rst</span></code>. If you want to see how a particular bit of formatting was achieved, you can click the “Page source” link at the bottom of the page.</p>
