@@ -8,16 +8,42 @@ The built copy of this documentation is hosted at [https://magao-x.github.io/han
 
 ## How to make changes
 
-The first time you make an edit:
+### Installing the required software
 
-  1. Click "Fork" on [magao-x/handbook](https://github.com/magao-x/handbook) to make your own copy of the documentation to edit
-  2. Clone your new fork to your own computer
-  3. Change into the directory where you just cloned the documentation and run `pip install -r requirements.txt` to install software so you can preview your changes.
+You will need Python 3.5 or newer (with `pip`) and a recent version of `git`.
 
-You now have a copy of the sources for the handbook. If you're just editing an existing document, skip ahead. Otherwise, here are the special instructions for creating a *brand new document*:
+  1. Clone https://github.com/magao-x/handbook to your own computer
+     ```bash
+     # full clone
+     $ git clone https://github.com/magao-x/handbook.git
+
+     # shallow clone (faster)
+     $ git clone --depth=1 https://github.com/magao-x/handbook.git
+     ```
+  2. Change into the directory where you just cloned the documentation and install software so you can preview your changes.
+     ```bash
+     # if 'pip' and 'python' are provided by Python 3.x:
+     $ pip install --user -r requirements.txt
+
+     # if your OS calls pip for Python 3.x 'pip3':
+     $ pip3 install --user -r requirements.txt
+     ```
+     (Installing Python 3 is outside the scope of this document, but [Anaconda](https://www.anaconda.com/distribution/) is a popular installer.)
+  3. Ensure `sphinx-build` is on the path
+     ```bash
+     $ which sphinx-build
+     /Users/jlong/miniconda3/bin/sphinx-build
+     ```
+     (If you're using your OS-provided Python, and don't see output for `which sphinx-build`, you should make sure `$HOME/.local/bin` is on `$PATH`.)
+
+You now have a copy of the sources for the handbook. If you're just editing an existing document, [skip ahead](#edit-and-publish).
+
+### Creating a brand new document
 
   1. Create a `.md` (or `.rst`, see [below](#markup)) file with the name you want
   2. Find the file with the appropriate `.. toctree::` directive (probably `index.rst`) and edit it to add the base name of your file (e.g. `funny-business.md` would be `funny-business` in the toctree)
+
+### Edit and publish
 
 Finally, to preview and publish your edits:
 
@@ -26,9 +52,8 @@ Finally, to preview and publish your edits:
   3. Open `_build/html/index.html` to see the updated site, and verify your changes look good
   4. `git add ./path/to/file/you/changed.md` and `git commit -m "Description of your changes"`
   5. `git push origin master`
-  6. Return to [magao-x/handbook](https://github.com/magao-x/handbook) and click the button to create a new pull request
 
-If everything looks good, your changes will be merged by someone and the public copy of the docs will update automatically!
+If everything looks good, the public copy of the docs will update automatically!
 
 ### Markup
 
