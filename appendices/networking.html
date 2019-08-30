@@ -97,8 +97,16 @@
 <li class="toctree-l2"><a class="reference internal" href="psr/index.html">Pre-ship Review</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documenting.html">Documenting MagAO-X</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Networking</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#university-of-arizona">University of Arizona</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#las-campanas-observatory">Las Campanas Observatory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hostnames">Hostnames</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#university-of-arizona">University of Arizona</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#las-campanas-observatory">Las Campanas Observatory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#time-synchronization">Time synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#topology">Topology</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="computer_setup/computer_setup.html">Instrument computer setup guide</a></li>
@@ -178,14 +186,69 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">exao2</span></code> — RTC</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">exao3</span></code> — ICC</p></li>
 </ul>
+<div class="section" id="hostnames">
+<h2>Hostnames<a class="headerlink" href="#hostnames" title="Permalink to this headline">¶</a></h2>
+<p>Each instrument computer has a <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file installed with names and aliases for devices internal to MagAO-X. Changes to this file are made in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_etc_hosts.sh">setup/steps/configure_etc_hosts.sh</a>, and applied with <code class="docutils literal notranslate"><span class="pre">provision.sh</span></code>.</p>
 <div class="section" id="university-of-arizona">
-<h2>University of Arizona<a class="headerlink" href="#university-of-arizona" title="Permalink to this headline">¶</a></h2>
+<h3>University of Arizona<a class="headerlink" href="#university-of-arizona" title="Permalink to this headline">¶</a></h3>
 <p>While at the University of Arizona, the FQDN is <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.as.arizona.edu</span></code>. Only <code class="docutils literal notranslate"><span class="pre">exao1</span></code> has a publicly-routable IP address, while <code class="docutils literal notranslate"><span class="pre">exao2</span></code> and <code class="docutils literal notranslate"><span class="pre">exao3</span></code> live behind the NAT.</p>
-<p>TODO</p>
 </div>
 <div class="section" id="las-campanas-observatory">
-<h2>Las Campanas Observatory<a class="headerlink" href="#las-campanas-observatory" title="Permalink to this headline">¶</a></h2>
+<h3>Las Campanas Observatory<a class="headerlink" href="#las-campanas-observatory" title="Permalink to this headline">¶</a></h3>
 <p>TODO</p>
+</div>
+</div>
+<div class="section" id="time-synchronization">
+<h2>Time synchronization<a class="headerlink" href="#time-synchronization" title="Permalink to this headline">¶</a></h2>
+<p>Time synchronization depends on <a class="reference external" href="https://chrony.tuxfamily.org/index.html">chrony</a>, configured at <code class="docutils literal notranslate"><span class="pre">/etc/chrony/chrony.conf</span></code> (Ubuntu 18.04) or <code class="docutils literal notranslate"><span class="pre">/etc/chrony.conf</span></code> (CentOS 7). Those files are updated by <code class="docutils literal notranslate"><span class="pre">provision.sh</span></code> according to the script in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_chrony.sh">setup/steps/configure_chrony.sh</a>.</p>
+<p>The ICC and RTC take their time from AOC, which is configured to allow NTP queries from anyone in the <code class="docutils literal notranslate"><span class="pre">192.168.0.0/24</span></code> subnet.</p>
+<p>AOC, in turn gets its time from a combination of</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lbtntp.as.arizona.edu</span></code> - LBT / Steward Observatory NTP server (when in the lab)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ntp1.lco.cl</span></code> - Las Campanas NTP server (when at the telescope)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ntp2.lco.cl</span></code> - Backup Las Campanas NTP server (when at the telescope)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0.centos.pool.ntp.org</span></code> — Alias for a pool of hosts that contribute to pool.ntp.org (whenever reachable)</p></li>
+</ul>
+<div class="section" id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+<p>To force a (potentially discontinuous) time sync, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chronyc</span> <span class="pre">-a</span> <span class="pre">makestep</span></code>.</p>
+<p>To verify correct operation from RTC or ICC, use <code class="docutils literal notranslate"><span class="pre">chronyc</span> <span class="pre">sources</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chronyc sources
+210 Number of sources = 1
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* exao1                         2   6   377    25   +379ns[+1194ns] +/-   14ms
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">exao1</span></code> is shown with a <code class="docutils literal notranslate"><span class="pre">?</span></code> in the second column or <code class="docutils literal notranslate"><span class="pre">0</span></code> in the <code class="docutils literal notranslate"><span class="pre">Reach</span></code> column, consult the <a class="reference external" href="https://chrony.tuxfamily.org/faq.html">chrony FAQ</a>.</p>
+<p>To verify correct operation from the AOC end, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chronyc</span> <span class="pre">clients</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo chronyc clients
+[sudo] password for jlong:
+Hostname                      NTP   Drop Int IntL Last     Cmd   Drop Int  Last
+===============================================================================
+localhost                       0      0   -   -     -      49      0  11    16
+exao2                          92      0   6   -    21       0      0   -     -
+exao3                          27      0   6   -    16       0      0   -     -
+</pre></div>
+</div>
+<p>If either exao2 or exao3 does not appear, ssh into them and verify <code class="docutils literal notranslate"><span class="pre">chronyd</span></code> has started…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl is-active chronyd
+active
+</pre></div>
+</div>
+<p>…ensure <code class="docutils literal notranslate"><span class="pre">exao1</span></code> is reachable via that name…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ping exao1
+PING exao1 (192.168.0.10) 56(84) bytes of data.
+64 bytes from exao1 (192.168.0.10): icmp_seq=1 ttl=64 time=0.196 ms
+...
+</pre></div>
+</div>
+<p>…and finally, consult the <a class="reference external" href="https://chrony.tuxfamily.org/faq.html">chrony FAQ</a>.</p>
+</div>
+</div>
+<div class="section" id="topology">
+<h2>Topology<a class="headerlink" href="#topology" title="Permalink to this headline">¶</a></h2>
+<p>Figure TODO</p>
 </div>
 </div>
 
