@@ -2,18 +2,17 @@
 
 ## Troubleshooting a MagAO-X app that won't start
 
-The typical MagAO-X app is started with `magaox_procstart.sh $ROLE`, which parses a config file in `/opt/MagAOX/config/proclist_$ROLE.txt` to determine which applications should be started and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)).
+The typical MagAO-X app is started by `magaox startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `magaox startup`.
 
-Many, if not all, MagAO-X apps are intended to run "forever" (i.e until shutdown). Obviously, if the process exits early, that's cause for concern. To interrogate the list of running processes, use `magaox_status.sh $ROLE`. To attempt a restart, you can attach to the `tmux` session that's the parent of the process in question.
+Many, if not all, MagAO-X apps are intended to run "forever" (i.e until shutdown). Obviously, if the process exits early, that's cause for concern. To interrogate the list of running processes, use `magaox status`. To attempt a restart, you can attach to the `tmux` session that's the parent of the process in question with `magaox inspect PROCNAME` (where `PROCNAME` is the name of the failed process).
 
-For example, if `trippLitePDU` is started by `magaox_procstart.sh` with `-n pdu0` and there's a syntax error in `/opt/MagAOX/config/pdu0.conf` preventing startup, you can attach with
+For example, if `trippLitePDU` is started by `magaox startup` with config specified by `-n pdu0` and there's a syntax error in `/opt/MagAOX/config/pdu0.conf` preventing startup, you can attach to the tmux session with
 
 ```
-yourlogin$ su xsup
-xsup$ tmux at -t pdu0
+yourlogin$ magaox inspect pdu0
 ```
 
-The errors before exit, if any, will be in the log. The last few lines of the log are shown in `magaox_status.sh` output, or you can do `logdump pdu0`.
+The errors before exit, if any, will be in the log. The last few lines of the log are shown in `magaox status` output, or you can do `logdump -f pdu0`.
 
 The command that started the app will be of the form `/opt/MagAOX/bin/$appName -n $configName`. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you've corrected whatever error was preventing startup.
 
