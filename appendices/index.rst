@@ -4,9 +4,10 @@ Appendices
 .. toctree::
     :maxdepth: 1
 
-    pdr/index
-    psr/index
-    documenting
+    development_vm
     networking
     computer_setup/computer_setup
+    documenting
+    pdr/index
+    psr/index
 
