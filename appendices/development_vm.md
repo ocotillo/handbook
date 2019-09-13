@@ -1,6 +1,6 @@
 # Developing in a virtual machine
 
-The MagAO-X software is designed for use on Linux with CentOS 7 and Ubuntu 18.04, and the included [provisioning script](https://github.com/magao-x/MagAOX/setup/provision.sh) will automatically set up a fresh install on these operating systems (OSes).
+The MagAO-X software is designed for use on Linux with CentOS 7 and Ubuntu 18.04, and the included [provisioning script](https://github.com/magao-x/MagAOX/blob/master/setup/provision.sh) will automatically set up a fresh install on these operating systems (OSes).
 
 If you're on a Mac or Windows machine, or if you just want to keep MagAO-X isolated from the rest of your OS, you should use a virtual machine (VM). A virtual machine is a simulated computer (running whatever "guest OS" you like) that runs as a program on your computer's OS (which we call the "host OS").
 
@@ -99,7 +99,7 @@ vm$ ./bin/pwr
 
 ...and the power GUI will come up like any other window on your host machine.
 
-The additional dependencies of the GUIs are tracked in [magao-x/MagAOX/setup/steps/install_gui_dependencies.sh](https://github.com/magao-x/MagAOX/setup/steps/install_gui_dependencies.sh) for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run `vagrant provision` from the host!)
+The additional dependencies of the GUIs are tracked in [magao-x/MagAOX/setup/steps/install_gui_dependencies.sh](https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_gui_dependencies.sh) for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run `vagrant provision` from the host!)
 
 ### Developing MagAO-X
 
