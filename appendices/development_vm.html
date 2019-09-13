@@ -182,7 +182,7 @@
             
   <div class="section" id="developing-in-a-virtual-machine">
 <h1>Developing in a virtual machine<a class="headerlink" href="#developing-in-a-virtual-machine" title="Permalink to this headline">¶</a></h1>
-<p>The MagAO-X software is designed for use on Linux with CentOS 7 and Ubuntu 18.04, and the included <a class="reference external" href="https://github.com/magao-x/MagAOX/setup/provision.sh">provisioning script</a> will automatically set up a fresh install on these operating systems (OSes).</p>
+<p>The MagAO-X software is designed for use on Linux with CentOS 7 and Ubuntu 18.04, and the included <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/provision.sh">provisioning script</a> will automatically set up a fresh install on these operating systems (OSes).</p>
 <p>If you’re on a Mac or Windows machine, or if you just want to keep MagAO-X isolated from the rest of your OS, you should use a virtual machine (VM). A virtual machine is a simulated computer (running whatever “guest OS” you like) that runs as a program on your computer’s OS (which we call the “host OS”).</p>
 <p>Conceptually, you just create a virtual CentOS or Ubuntu computer and go through the normal installation process on it. To automate this process, and make certain customizations for speed and convenience, there’s <a class="reference external" href="https://www.vagrantup.com/">Vagrant</a>. Vagrant can start a virtual machine from a pre-made image, run your install script, and configure things like forwarding network ports from the VM to your host OS.</p>
 <p>As it happens, MagAO-X has a <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/Vagrantfile">Vagrantfile</a> that defines two VM configurations, <code class="docutils literal notranslate"><span class="pre">AOC</span></code> (Ubuntu 18.04, the default) and <code class="docutils literal notranslate"><span class="pre">ICC</span></code> (CentOS 7).</p>
@@ -268,7 +268,7 @@ vm$ ./bin/pwr
 </pre></div>
 </div>
 <p>…and the power GUI will come up like any other window on your host machine.</p>
-<p>The additional dependencies of the GUIs are tracked in <a class="reference external" href="https://github.com/magao-x/MagAOX/setup/steps/install_gui_dependencies.sh">magao-x/MagAOX/setup/steps/install_gui_dependencies.sh</a> for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> from the host!)</p>
+<p>The additional dependencies of the GUIs are tracked in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_gui_dependencies.sh">magao-x/MagAOX/setup/steps/install_gui_dependencies.sh</a> for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> from the host!)</p>
 </div>
 <div class="section" id="developing-magao-x">
 <h3>Developing MagAO-X<a class="headerlink" href="#developing-magao-x" title="Permalink to this headline">¶</a></h3>
