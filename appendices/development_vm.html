@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developing in a virtual machine &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/stats.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../capabilities.html">Instrument description and capabilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../planning.html">Planning your observations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reduction.html">Data reduction and calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apps/index.html">Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Developing in a virtual machine</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/appendices/development_vm.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="developing-in-a-virtual-machine">
+<h1>Developing in a virtual machine<a class="headerlink" href="#developing-in-a-virtual-machine" title="Permalink to this headline">¶</a></h1>
+<p>The MagAO-X software is designed for use on Linux with CentOS 7 and Ubuntu 18.04, and the included <a class="reference external" href="https://github.com/magao-x/MagAOX/setup/provision.sh">provisioning script</a> will automatically set up a fresh install on these operating systems (OSes).</p>
+<p>If you’re on a Mac or Windows machine, or if you just want to keep MagAO-X isolated from the rest of your OS, you should use a virtual machine (VM). A virtual machine is a simulated computer (running whatever “guest OS” you like) that runs as a program on your computer’s OS (which we call the “host OS”).</p>
+<p>Conceptually, you just create a virtual CentOS or Ubuntu computer and go through the normal installation process on it. To automate this process, and make certain customizations for speed and convenience, there’s <a class="reference external" href="https://www.vagrantup.com/">Vagrant</a>. Vagrant can start a virtual machine from a pre-made image, run your install script, and configure things like forwarding network ports from the VM to your host OS.</p>
+<p>As it happens, MagAO-X has a <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/Vagrantfile">Vagrantfile</a> that defines two VM configurations, <code class="docutils literal notranslate"><span class="pre">AOC</span></code> (Ubuntu 18.04, the default) and <code class="docutils literal notranslate"><span class="pre">ICC</span></code> (CentOS 7).</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a> — Preferred virtualization backend, available for free</p></li>
+<li><p><a class="reference external" href="https://www.vagrantup.com/">Vagrant</a> — Program to automate creation / provisioning of development VMs</p></li>
+<li><p>NFS — available preinstalled on macOS hosts (Vagrant knows how to enable it)</p></li>
+</ul>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> command is available:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ vagrant --help
+Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;]
+...
+</pre></div>
+</div>
+</li>
+<li><p>Clone <a class="reference external" href="#">magao-x/MagAOX</a> (if necessary) and <code class="docutils literal notranslate"><span class="pre">cd</span></code> into MagAOX</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/magao-x/MagAOX.git
+Cloning into &#39;MagAOX&#39;...
+...
+
+$ cd MagAOX
+</pre></div>
+</div>
+</li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code> (or <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span> <span class="pre">ICC</span></code>)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ vagrant up
+</pre></div>
+</div>
+<p><strong>Note:</strong> This is CPU and bandwidth intensive the first time, as it will download an OS image and all of the MagAO-X dependencies, then compile them. Subsequent <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>s will just boot the existing machine.</p>
+</li>
+</ol>
+<p>Don’t be alarmed by the output from <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>. Provisioning is very noisy, and messages in red aren’t necessarily errors. Successful provisioning will end with a message like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">You</span><span class="s1">&#39;ll want to &#39;</span><span class="n">vagrant</span> <span class="n">ssh</span><span class="s1">&#39; and then &#39;</span><span class="n">magaox</span> <span class="n">startup</span><span class="s1">&#39; next.</span>
+</pre></div>
+</div>
+<p>Read on to see how to use it.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="connecting">
+<h3>Connecting<a class="headerlink" href="#connecting" title="Permalink to this headline">¶</a></h3>
+<p>To connect to the VM, use <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>. You’ll be logged in as user <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> with no password. (Plus, passwordless <code class="docutils literal notranslate"><span class="pre">sudo</span></code> for the VM!) The rest of the commands in this section are to be run in a <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session, unless otherwise noted.</p>
+</div>
+<div class="section" id="running-magao-x">
+<h3>Running MagAO-X<a class="headerlink" href="#running-magao-x" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">magaox</span></code> script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code>.</p>
+<p>The proclist for VM usage is in <a class="reference external" href="https://github.com/magao-x/config/blob/master/proclist_vm.txt">magao-x/config/proclist_vm.txt</a>.</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code> finishes, you can use <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code> to see the current set of properties from the INDI drivers started in the VM.</p>
+</div>
+<div class="section" id="network-access">
+<h3>Network access<a class="headerlink" href="#network-access" title="Permalink to this headline">¶</a></h3>
+<p>Aside from SSH, which is usually accomplished with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> on the host (see <a class="reference external" href="https://www.vagrantup.com/docs/cli/ssh.html">their docs</a>), there is also access to the VM on these ports:</p>
+<ul class="simple">
+<li><p>7624 — INDI</p></li>
+<li><p>8080 — HTTP</p></li>
+</ul>
+<p>These ports on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> in the host OS are forwarded to their counterparts on the guest VM. (In other words, to connect to the INDI server on the VM port 7624, you connect to <code class="docutils literal notranslate"><span class="pre">localhost:7624</span></code> on the host OS.)</p>
+</div>
+<div class="section" id="using-guis-in-the-vm">
+<h3>Using GUIs in the VM<a class="headerlink" href="#using-guis-in-the-vm" title="Permalink to this headline">¶</a></h3>
+<p>The VM is configured to be “headless”, meaning there’s no graphical display window. However, we can still build and run MagAO-X GUIs as long as your host OS has an X11 server (like <a class="reference external" href="https://www.xquartz.org/">XQuartz</a> on macOS).</p>
+<p>If you’re unfamiliar with SSH X forwarding, the short version is that the app runs on the VM but the window pops up like any other window on your own computer (the host). SSH (i.e. <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>) is the transport that moves information about the window back and forth to the GUI app, which is still running inside the VM.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+------------------------------------------+
+|                  +----------------------+|
+|    Host OS       |          VM          ||
+|                  |                      ||
+|  [GUI window] &lt;-SSH-&gt; [MagAO-X GUI app] ||
+|                  +----------------------+|
++------------------------------------------+
+</pre></div>
+</div>
+<p>So, to start the <code class="docutils literal notranslate"><span class="pre">pwr</span></code> GUI, you could do…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>host$ vagrant ssh
+vm$ cd /opt/MagAOX/source/MagAOX/gui/apps/pwr
+vm$ make
+vm$ ./bin/pwr
+</pre></div>
+</div>
+<p>…and the power GUI will come up like any other window on your host machine.</p>
+<p>The additional dependencies of the GUIs are tracked in <a class="reference external" href="https://github.com/magao-x/MagAOX/setup/steps/install_gui_dependencies.sh">magao-x/MagAOX/setup/steps/install_gui_dependencies.sh</a> for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> from the host!)</p>
+</div>
+<div class="section" id="developing-magao-x">
+<h3>Developing MagAO-X<a class="headerlink" href="#developing-magao-x" title="Permalink to this headline">¶</a></h3>
+<p>The VM has a view of your copy of this repository under <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code>. For example, no matter where you cloned this repository on your own (host) machine, the virtual machine will see this file at <code class="docutils literal notranslate"><span class="pre">/vagrant/README.md</span></code>. (For consistency with production, we symlink <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/source/MagAOX</span></code> to <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code>.) Edits to the MagAO-X software source on your computer will be instantly reflected on the VM side, ready for you to <code class="docutils literal notranslate"><span class="pre">make</span></code> or <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> in your ssh session.</p>
+<p>There are some other paths under <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX</span></code> that are also symlinked to the host:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/.cache</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/cache</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/calib</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/calib</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/config</span></code></p></li>
+</ul>
+<p>In other words, if you cloned from GitHub into <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX</span></code>, the copy of the MagAO-X config files used by your VM would be in <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX/setup/config</span></code>. (<strong>Unlike</strong> like the real instrument.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> user you log in as with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> will be a member of the <code class="docutils literal notranslate"><span class="pre">magaox</span></code> and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups following successful provisioning, and should have all the necessary permissions to run the system (or, at least, the parts you can run in a VM).</p>
+</div>
+<div class="section" id="advanced-usage">
+<h3>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ICC</span></code> and <code class="docutils literal notranslate"><span class="pre">AOC</span></code> configurations in the Vagrantfile are mutually exclusive (i.e. map the same ports). Switching between the <code class="docutils literal notranslate"><span class="pre">ICC</span></code> and <code class="docutils literal notranslate"><span class="pre">AOC</span></code> configurations is not recommended, as you must <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">all_clean</span></code> and ensure there are no binaries built with Ubuntu’s toolchain present when CentOS boots up and vice-versa.</p>
+<p>If you want both, the easiest way is to just clone another copy of the MagAO-X repository and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">newMagAOX/</span> <span class="pre">&amp;&amp;</span> <span class="pre">vagrant</span> <span class="pre">up</span> <span class="pre">ICC</span></code> (or <code class="docutils literal notranslate"><span class="pre">AOC</span></code>) in there. (Note that you can copy or symlink the <code class="docutils literal notranslate"><span class="pre">setup/cache/</span></code>, <code class="docutils literal notranslate"><span class="pre">setup/calib/</span></code>, and <code class="docutils literal notranslate"><span class="pre">setup/config/</span></code> folders to avoid having too many redundant copies of things.)</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
