@@ -100,7 +100,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#connecting">Connecting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#running-magao-x">Running MagAO-X</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#network-access">Network access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jupyterlab">JupyterLab</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#using-guis-in-the-vm">Using GUIs in the VM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simulating-image-data-streams">Simulating image data streams</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#developing-magao-x">Developing MagAO-X</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#advanced-usage">Advanced usage</a></li>
 </ul>
@@ -191,7 +193,7 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a> — Preferred virtualization backend, available for free</p></li>
 <li><p><a class="reference external" href="https://www.vagrantup.com/">Vagrant</a> — Program to automate creation / provisioning of development VMs</p></li>
-<li><p>NFS — available preinstalled on macOS hosts (Vagrant knows how to enable it)</p></li>
+<li><p>NFS — available preinstalled on macOS and most Linux hosts <em>(ICC guest on macOS and Linux hosts only)</em></p></li>
 </ul>
 </div>
 <div class="section" id="setup">
@@ -204,7 +206,7 @@ Usage: vagrant [options] &lt;command&gt; [&lt;args&gt;]
 </pre></div>
 </div>
 </li>
-<li><p>Clone <a class="reference external" href="#">magao-x/MagAOX</a> (if necessary) and <code class="docutils literal notranslate"><span class="pre">cd</span></code> into MagAOX</p>
+<li><p>Clone <a class="reference external" href="https://github.com/magao-x/MagAOX">magao-x/MagAOX</a> (if necessary) and <code class="docutils literal notranslate"><span class="pre">cd</span></code> into MagAOX</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/magao-x/MagAOX.git
 Cloning into &#39;MagAOX&#39;...
 ...
@@ -217,39 +219,63 @@ $ cd MagAOX
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ vagrant up
 </pre></div>
 </div>
-<p><strong>Note:</strong> This is CPU and bandwidth intensive the first time, as it will download an OS image and all of the MagAO-X dependencies, then compile them. Subsequent <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>s will just boot the existing machine.</p>
+<p>If prompted, enter your password to configure NFS exports. (See <a class="reference external" href="https://www.vagrantup.com/docs/synced-folders/nfs.html#root-privilege-requirement">this doc</a> for information on eliminating that prompt.)</p>
+<p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code> step is CPU and bandwidth intensive the first time, as it will download an OS image and all of the MagAO-X dependencies, then compile them. Subsequent <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>s will just boot the existing machine.</p>
 </li>
 </ol>
-<p>Don’t be alarmed by the output from <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>. Provisioning is very noisy, and messages in red aren’t necessarily errors. Successful provisioning will end with a message like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">You</span><span class="s1">&#39;ll want to &#39;</span><span class="n">vagrant</span> <span class="n">ssh</span><span class="s1">&#39; and then &#39;</span><span class="n">magaox</span> <span class="n">startup</span><span class="s1">&#39; next.</span>
+<p>Don’t be alarmed by the output from <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code>. Provisioning is very noisy, and messages in red aren’t necessarily errors. Successful provisioning will end with the message</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Provisioning</span> <span class="n">complete</span>
 </pre></div>
 </div>
-<p>Read on to see how to use it.</p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="connecting">
 <h3>Connecting<a class="headerlink" href="#connecting" title="Permalink to this headline">¶</a></h3>
-<p>To connect to the VM, use <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>. You’ll be logged in as user <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> with no password. (Plus, passwordless <code class="docutils literal notranslate"><span class="pre">sudo</span></code> for the VM!) The rest of the commands in this section are to be run in a <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session, unless otherwise noted.</p>
+<p>To connect to the VM, use <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>. You’ll be logged in as user <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> with no password. The rest of the commands in this section are to be run in a <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session, unless otherwise noted.</p>
 </div>
 <div class="section" id="running-magao-x">
 <h3>Running MagAO-X<a class="headerlink" href="#running-magao-x" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">magaox</span></code> script is installed during provisioning, and a default set of (non-hardware-interfacing) apps is configured to run on <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code>.</p>
 <p>The proclist for VM usage is in <a class="reference external" href="https://github.com/magao-x/config/blob/master/proclist_vm.txt">magao-x/config/proclist_vm.txt</a>.</p>
-<p>Once <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code> finishes, you can use <code class="docutils literal notranslate"><span class="pre">cursesINDI</span></code> to see the current set of properties from the INDI drivers started in the VM.</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code> finishes, you can use <code class="docutils literal notranslate"><span class="pre">getINDI</span></code> to see the current set of properties from the INDI drivers started in the VM.</p>
+<p>Try it and see:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ magaox startup
+
+Session isVM does not exist
+Created tmux session &#39;isVM&#39;
+Executed in isVM session: /opt/MagAOX/bin/xindiserver -n isVM
+Waiting 5 seconds for xindiserver...
+...
+
+$ getINDI
+
+maths_y.fsm.state=READY
+maths_y.maths.abs=0
+maths_y.maths.prod=0
+maths_y.maths.sqr=0
+...
+</pre></div>
+</div>
 </div>
 <div class="section" id="network-access">
 <h3>Network access<a class="headerlink" href="#network-access" title="Permalink to this headline">¶</a></h3>
 <p>Aside from SSH, which is usually accomplished with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> on the host (see <a class="reference external" href="https://www.vagrantup.com/docs/cli/ssh.html">their docs</a>), there is also access to the VM on these ports:</p>
 <ul class="simple">
 <li><p>7624 — INDI</p></li>
-<li><p>8080 — HTTP</p></li>
+<li><p>8080 — HTTP (reserved for web UI, maps to guest port 80)</p></li>
+<li><p>9999 — HTTP (JupyterLab)</p></li>
 </ul>
 <p>These ports on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> in the host OS are forwarded to their counterparts on the guest VM. (In other words, to connect to the INDI server on the VM port 7624, you connect to <code class="docutils literal notranslate"><span class="pre">localhost:7624</span></code> on the host OS.)</p>
 </div>
+<div class="section" id="jupyterlab">
+<h3>JupyterLab<a class="headerlink" href="#jupyterlab" title="Permalink to this headline">¶</a></h3>
+<p>The VM automatically starts a JupyterLab instance on port 9999, running as the <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> user. So, to quickly run Python code in the VM, open a browser in your host OS and enter <code class="docutils literal notranslate"><span class="pre">http://localhost:9999</span></code>. (The password is <code class="docutils literal notranslate"><span class="pre">extremeAO!</span></code>.)</p>
+<p>This JupyterLab instance runs in the <code class="docutils literal notranslate"><span class="pre">py37</span></code> conda environment created from the recipe in <a class="reference external" href="https://github.com/magao-x/config/blob/master/conda_env_py37.yml">conda_env_py37.yml</a> and instructions in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/create_conda_envs.sh">create_conda_envs.sh</a>. So, you should have packages like <code class="docutils literal notranslate"><span class="pre">purepyindi</span></code> and <code class="docutils literal notranslate"><span class="pre">ImageStreamIOWrap</span></code> already. (If you need a package that’s not there, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-i</span> <span class="pre">conda</span> <span class="pre">install</span> <span class="pre">NameOfPackage</span></code> should fix it. Note the <code class="docutils literal notranslate"><span class="pre">-i</span></code>!)</p>
+</div>
 <div class="section" id="using-guis-in-the-vm">
 <h3>Using GUIs in the VM<a class="headerlink" href="#using-guis-in-the-vm" title="Permalink to this headline">¶</a></h3>
-<p>The VM is configured to be “headless”, meaning there’s no graphical display window. However, we can still build and run MagAO-X GUIs as long as your host OS has an X11 server (like <a class="reference external" href="https://www.xquartz.org/">XQuartz</a> on macOS).</p>
+<p>The VM is configured to be “headless”, meaning there’s no graphical display window. However, we can still build and run MagAO-X GUIs as long as your host OS has an X11 server (most Linux systems do by default, but you will need <a class="reference external" href="https://www.xquartz.org/">XQuartz</a> on macOS).</p>
 <p>If you’re unfamiliar with SSH X forwarding, the short version is that the app runs on the VM but the window pops up like any other window on your own computer (the host). SSH (i.e. <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code>) is the transport that moves information about the window back and forth to the GUI app, which is still running inside the VM.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>+------------------------------------------+
 |                  +----------------------+|
@@ -269,6 +295,23 @@ vm$ ./bin/pwr
 </div>
 <p>…and the power GUI will come up like any other window on your host machine.</p>
 <p>The additional dependencies of the GUIs are tracked in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_gui_dependencies.sh">magao-x/MagAOX/setup/steps/install_gui_dependencies.sh</a> for both CentOS and Ubuntu, and are installed automatically when you provision the VM. (Something missing? Add the package name to the script and run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">provision</span></code> from the host!)</p>
+</div>
+<div class="section" id="simulating-image-data-streams">
+<h3>Simulating image data streams<a class="headerlink" href="#simulating-image-data-streams" title="Permalink to this headline">¶</a></h3>
+<p>In operation, MagAO-X uses shared memory buffers (shared memory images, or ‘shmims’) to relay image data between different parts of the system. (This includes things like detector images, which you probably expected, but also things like DM commands, which you might not.)</p>
+<p>The MagAO-X system software then streams these images to disk as as <code class="docutils literal notranslate"><span class="pre">xrif</span></code> files. The <code class="docutils literal notranslate"><span class="pre">.xrif</span></code> format is internal to MagAO-X, and was developed as a compromise between speed of write-out and compression ratio. It’s possible to play back an <code class="docutils literal notranslate"><span class="pre">xrif</span></code> file into a shmim to simulate a real instrument image data stream using the <code class="docutils literal notranslate"><span class="pre">xrif2shmim</span></code> utility.</p>
+<p>Start by grabbing an example xrif file like <code class="docutils literal notranslate"><span class="pre">camwfs_20190904220756666636000.xrif</span></code> from Box under <code class="docutils literal notranslate"><span class="pre">MagAO-X/example_data/</span></code> and save it somewhere on your host machine. To make it available in the VM, copy it into the folder where you cloned <code class="docutils literal notranslate"><span class="pre">MagAOX</span></code>. For example, if you cloned MagAOX to <code class="docutils literal notranslate"><span class="pre">~/devel/MagAOX/</span></code> on the host, copy the xrif to <code class="docutils literal notranslate"><span class="pre">~/devel/MagAOX/camwfs_20190904220756666636000.xrif</span></code>.</p>
+<p>Now, in your <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> session:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ xrif2shmim /vagrant/camwfs_20190904220756666636000.xrif &amp;
+</pre></div>
+</div>
+<p>This creates a shmim called <code class="docutils literal notranslate"><span class="pre">xrif2shmim</span></code> that plays back the contents of <code class="docutils literal notranslate"><span class="pre">/vagrant/camwfs_20190904220756666636000.xrif</span></code> on a loop. (The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> places the stream reader in the background.)</p>
+<p>To see what it’s doing, you can use the <code class="docutils literal notranslate"><span class="pre">rtimv</span></code> image viewer installed in the VM:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ rtimv xrif2shmim
+</pre></div>
+</div>
+<p>You should see something like this:</p>
+<p><img alt="../_images/example_rtimv_xrif2shmim.png" src="../_images/example_rtimv_xrif2shmim.png" />example view of pyramid wfs data</p>
 </div>
 <div class="section" id="developing-magao-x">
 <h3>Developing MagAO-X<a class="headerlink" href="#developing-magao-x" title="Permalink to this headline">¶</a></h3>
