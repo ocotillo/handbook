@@ -1,6 +1,8 @@
 # Operation of the MagAO-X instrument
 
-## Troubleshooting a MagAO-X app that won't start
+## Troubleshooting
+
+### Troubleshooting a MagAO-X app that won't start
 
 The typical MagAO-X app is started by `magaox startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `magaox startup`.
 
@@ -15,6 +17,24 @@ yourlogin$ magaox inspect pdu0
 The errors before exit, if any, will be in the log. The last few lines of the log are shown in `magaox status` output, or you can do `logdump -f pdu0`.
 
 The command that started the app will be of the form `/opt/MagAOX/bin/$appName -n $configName`. You can use the up-arrow key in the tmux session to retrieve it from the shell history and try to relaunch once you've corrected whatever error was preventing startup.
+
+### EDT Framegrabber Problems (camwfs and camlowfs)
+
+The EDT PCIe framegrabber occassionally stops responding.  The main symptom of this is no data from `camwfs`, and no response on the serial over camera link.  This has not yet been observed on `camlowfs` (which does not use serial over C.L.).
+
+If camwfs (or any EDT camera) stops responding on serial, first shutdown the controlling application.
+```
+tmux a -t camwfs
+ctrl-c
+```
+then do these steps as root:
+```
+1) modprobe -r edt
+2) cd /opt/EDTpdv
+3) ./edt_load 
+```
+
+This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.
 
 ## Adding a new user or developer account
 
