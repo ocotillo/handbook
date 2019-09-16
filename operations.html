@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">killing indi zombies</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-a-new-user-or-developer-account">Adding a new user or developer account</a><ul>
@@ -187,18 +188,29 @@
 <div class="section" id="edt-framegrabber-problems-camwfs-and-camlowfs">
 <h3>EDT Framegrabber Problems (camwfs and camlowfs)<a class="headerlink" href="#edt-framegrabber-problems-camwfs-and-camlowfs" title="Permalink to this headline">¶</a></h3>
 <p>The EDT PCIe framegrabber occassionally stops responding.  The main symptom of this is no data from <code class="docutils literal notranslate"><span class="pre">camwfs</span></code>, and no response on the serial over camera link.  This has not yet been observed on <code class="docutils literal notranslate"><span class="pre">camlowfs</span></code> (which does not use serial over C.L.).</p>
-<p>If camwfs (or any EDT camera) stops responding on serial, first shutdown the controlling application.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tmux</span> <span class="n">a</span> <span class="o">-</span><span class="n">t</span> <span class="n">camwfs</span>
-<span class="n">ctrl</span><span class="o">-</span><span class="n">c</span>
+<p>If <code class="docutils literal notranslate"><span class="pre">camwfs</span></code> (or any EDT camera) stops responding on serial, first shutdown the controlling application.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux a -t camwfs
+$ ctrl-c
 </pre></div>
 </div>
 <p>then do these steps as root:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="n">modprobe</span> <span class="o">-</span><span class="n">r</span> <span class="n">edt</span>
-<span class="mi">2</span><span class="p">)</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">EDTpdv</span>
-<span class="mi">3</span><span class="p">)</span> <span class="o">./</span><span class="n">edt_load</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ modprobe -r edt
+$ cd /opt/EDTpdv
+$ ./edt_load 
 </pre></div>
 </div>
 <p>This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.</p>
+</div>
+<div class="section" id="killing-indi-zombies">
+<h3>killing indi zombies<a class="headerlink" href="#killing-indi-zombies" title="Permalink to this headline">¶</a></h3>
+<p>If the <code class="docutils literal notranslate"><span class="pre">indiserver</span></code> crashes uncleanly (itself a subprocess of <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code>), the associated <code class="docutils literal notranslate"><span class="pre">xindidriver</span></code> processes may become orphans.  This will prevent <code class="docutils literal notranslate"><span class="pre">xindiserver</span></code> from starting gain until these processes have been killed.  The following shell command will kill them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ kill $(ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers | awk &#39;{print $1}&#39;)
+</pre></div>
+</div>
+<p>To check if any remain use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers 
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="adding-a-new-user-or-developer-account">

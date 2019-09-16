@@ -22,19 +22,30 @@ The command that started the app will be of the form `/opt/MagAOX/bin/$appName -
 
 The EDT PCIe framegrabber occassionally stops responding.  The main symptom of this is no data from `camwfs`, and no response on the serial over camera link.  This has not yet been observed on `camlowfs` (which does not use serial over C.L.).
 
-If camwfs (or any EDT camera) stops responding on serial, first shutdown the controlling application.
+If `camwfs` (or any EDT camera) stops responding on serial, first shutdown the controlling application.
 ```
-tmux a -t camwfs
-ctrl-c
+$ tmux a -t camwfs
+$ ctrl-c
 ```
 then do these steps as root:
 ```
-1) modprobe -r edt
-2) cd /opt/EDTpdv
-3) ./edt_load 
+$ modprobe -r edt
+$ cd /opt/EDTpdv
+$ ./edt_load 
 ```
 
 This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.
+
+### killing indi zombies
+
+If the `indiserver` crashes uncleanly (itself a subprocess of `xindiserver`), the associated `xindidriver` processes may become orphans.  This will prevent `xindiserver` from starting gain until these processes have been killed.  The following shell command will kill them:
+```
+$ kill $(ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers | awk '{print $1}')
+```
+To check if any remain use
+```
+$ ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers 
+```
 
 ## Adding a new user or developer account
 
