@@ -94,7 +94,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../utils/index.html">Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Appendices</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Developing in a virtual machine</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#additional-notes-for-windows-users">Additional notes for Windows users</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#connecting">Connecting</a></li>
@@ -191,10 +194,19 @@
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span></code> — Preinstalled on most Linuxes, install with <code class="docutils literal notranslate"><span class="pre">xcode-select</span> <span class="pre">--install</span></code> on macOS, see <a class="reference external" href="#additional-notes-for-windows-users">below</a> for Windows</p></li>
 <li><p><a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a> — Preferred virtualization backend, available for free</p></li>
 <li><p><a class="reference external" href="https://www.vagrantup.com/">Vagrant</a> — Program to automate creation / provisioning of development VMs</p></li>
 <li><p>NFS — available preinstalled on macOS and most Linux hosts <em>(ICC guest on macOS and Linux hosts only)</em></p></li>
 </ul>
+<div class="section" id="additional-notes-for-windows-users">
+<h3>Additional notes for Windows users<a class="headerlink" href="#additional-notes-for-windows-users" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>It’s probably easiest to get <code class="docutils literal notranslate"><span class="pre">git</span></code> from <a class="reference external" href="#">Anaconda</a> if you’re already using it (use <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">git</span></code> at the Anaconda command line)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span></code> needs to be configured not to alter line endings. After installing git, you should do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">core.autocrlf</span> <span class="pre">false</span></code> <em>before</em> cloning MagAOX. (However, if you use <code class="docutils literal notranslate"><span class="pre">git</span></code> for other things, you may not want this to be a global setting.)</p></li>
+<li><p>The section below on <a class="reference external" href="#Using-GUIs-in-the-VM">Using GUIs in the VM</a> needs to be expanded with instructions for Windows. (Basically, we need to figure out which of the X11 servers for Windows works with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> in the current configuration.) Until then, no GUIs in Windows.</p></li>
+</ol>
+</div>
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
