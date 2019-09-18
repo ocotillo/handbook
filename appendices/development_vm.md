@@ -10,9 +10,16 @@ As it happens, MagAO-X has a [Vagrantfile](https://github.com/magao-x/MagAOX/blo
 
 ## Prerequisites
 
+  * `git` — Preinstalled on most Linuxes, install with `xcode-select --install` on macOS, see [below](#additional-notes-for-windows-users) for Windows
   * [VirtualBox](https://www.virtualbox.org/) — Preferred virtualization backend, available for free
   * [Vagrant](https://www.vagrantup.com/) — Program to automate creation / provisioning of development VMs
   * NFS — available preinstalled on macOS and most Linux hosts *(ICC guest on macOS and Linux hosts only)*
+
+### Additional notes for Windows users
+
+  1. It's probably easiest to get `git` from [Anaconda]() if you're already using it (use `conda install git` at the Anaconda command line)
+  2. `git` needs to be configured not to alter line endings. After installing git, you should do `git config --global core.autocrlf false` *before* cloning MagAOX. (However, if you use `git` for other things, you may not want this to be a global setting.)
+  3. The section below on [Using GUIs in the VM](#Using-GUIs-in-the-VM) needs to be expanded with instructions for Windows. (Basically, we need to figure out which of the X11 servers for Windows works with `vagrant ssh` in the current configuration.) Until then, no GUIs in Windows.
 
 ## Setup
 
