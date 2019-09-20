@@ -6,6 +6,34 @@ This document uses the hostnames of the machines interchangeably with their role
   - `exao2` — RTC
   - `exao3` — ICC
 
+## Network Connections
+
+### exao1
+
+| connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
+| --- | --- | --- | --- | --- | --- | --- |
+| www-ua | enp7s0 | n/a (DHCP) | — | — | — | — |
+| www-lco | enp7s0 | TODO | TODO | TODO | TODO | TODO |
+| instrument | enp6s0 | 192.168.0.10 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+
+### exao2
+
+| connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
+| --- | --- | --- | --- | --- | --- | --- |
+| www-ua | enp9s0 | 10.130.133.207 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
+| www-lco | enp9s0 | TODO | TODO | TODO | TODO | TODO |
+| instrument | enp8s0 | 192.168.0.11 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+
+### exao3
+
+| connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
+| --- | --- | --- | --- | --- | --- | --- |
+| www-ua | enp10s0 | 10.130.133.208 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
+| www-lco | enp10s0 | TODO | TODO | TODO | TODO | TODO |
+| instrument | enp9s0 | 192.168.0.12 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+| camsci1 | ens2 | 192.168.102.2 | 255.255.255.0 | 192.168.102.1 | -- | -- |
+| camsci2 | ens3 | 192.168.101.2 | 255.255.255.0 | 192.168.101.1 | -- | -- |
+
 ## Hostnames
 
 Each instrument computer has a `/etc/hosts` file installed with names and aliases for devices internal to MagAO-X. Changes to this file are made in [setup/steps/configure_etc_hosts.sh](https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_etc_hosts.sh), and applied with `provision.sh`.

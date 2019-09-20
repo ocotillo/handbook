@@ -38,7 +38,7 @@ Log in via `ssh` as a normal user with `sudo` access.
     $ ./pre_provision.sh
     ```
 
-    This sets up an `xsup` user and the `magaox` and `magaox-dev` groups. Because this step adds whoever ran it to `magaox-dev`, you will have to log out and back in.
+    This sets up an `xsup` user and the `magaox` and `magaox-dev` groups. Because this step adds whoever ran it to `magaox-dev`, you will have to **log out and back in**.
 
     **RTC/ICC only:** This step installs the CentOS realtime kernel and updates the kernel command line for ALPAO compatibility reasons. You must reboot before continuing.
 
@@ -93,3 +93,23 @@ Log in via `ssh` as a normal user with `sudo` access.
 Successful provisioning will end with the message "Finished!" and installed copies of MagAOX and its dependencies.
 
 A lot of the things this script installs need environment variables set, so `source /etc/profile.d/*.sh` to keep working in the same terminal (or just log in again).
+
+## Perform `xsup` key management
+
+A new installation will generate new SSH keys for `xsup`. If you have an existing `.ssh` folder for the machine role (ICC, RTC, AOC) you're setting up, you can just copy its contents over the new `/home/xsup/.ssh/` (taking care not to change permissions).
+
+If not, you must ensure passwordless SSH works bidirectionally by installing other servers' `xsup` keys and installing your own in their `/home/xsup/.ssh/authorized_keys`.
+
+In the guide below, `$NEW_ROLE` is the role we just set up and `$OTHER_ROLE` is each of the other roles in turn. (For example, if we just set up the RTC, `$NEW_ROLE == RTC` and `$OTHER_ROLE` would be ICC and AOC.)
+
+### Step-by-step
+
+For each of the `$OTHER_ROLE`s:
+
+1. On `$NEW_ROLE`, copy `/home/xsup/.ssh/id_ed25519.pub` to the clipboard
+2. Connect to `$OTHER_ROLE` with your normal user account over SSH
+3. Become `xsup` on `$OTHER_ROLE` and edit `/home/xsup/.ssh/authorized_keys` to insert the one you copied
+4. On `$OTHER_ROLE`, copy `/home/xsup/.ssh/id_ed25519.pub` to the clipboard
+5. Back on `$NEW_ROLE`, append the key you just copied to `/home/xsup/.ssh/authorized_keys`
+6. On `$NEW_ROLE`, test you can `ssh $OTHER_ROLE` as `xsup` (potentially amending `~/.ssh/known_hosts`)
+7. On `$OTHER_ROLE`, test you can `ssh $NEW_ROLE` as `xsup` (potentially amending `~/.ssh/known_hosts`)
