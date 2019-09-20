@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Controller operating system setup" href="controller_os_setup.html" />
-    <link rel="prev" title="Networking" href="../networking.html" /> 
+    <link rel="prev" title="Data Storage Management" href="../data_storage_management.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,12 +95,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Appendices</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../development_vm.html">Developing in a virtual machine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../networking.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../data_storage_management.html">Data Storage Management</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Instrument computer setup guide</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="controller_os_setup.html">Controller operating system setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="workstation_os_setup.html">Workstation operating system setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#real-time-control-computer-rtc-and-instrument-control-computer-icc">Real Time control Computer (RTC) and Instrument Control Computer (ICC)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adaptive-optics-operator-computer-aoc">Adaptive optics Operator Computer (AOC)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#perform-mostly-automated-provisioning">Perform (mostly) automated provisioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#perform-xsup-key-management">Perform <code class="docutils literal notranslate"><span class="pre">xsup</span></code> key management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#step-by-step">Step-by-step</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../documenting.html">Documenting MagAO-X</a></li>
@@ -203,7 +208,7 @@ $ git clone https://github.com/magao-x/MagAOX.git
 $ ./pre_provision.sh
 </pre></div>
 </div>
-<p>This sets up an <code class="docutils literal notranslate"><span class="pre">xsup</span></code> user and the <code class="docutils literal notranslate"><span class="pre">magaox</span></code> and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups. Because this step adds whoever ran it to <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code>, you will have to log out and back in.</p>
+<p>This sets up an <code class="docutils literal notranslate"><span class="pre">xsup</span></code> user and the <code class="docutils literal notranslate"><span class="pre">magaox</span></code> and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups. Because this step adds whoever ran it to <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code>, you will have to <strong>log out and back in</strong>.</p>
 <p><strong>RTC/ICC only:</strong> This step installs the CentOS realtime kernel and updates the kernel command line for ALPAO compatibility reasons. You must reboot before continuing.</p>
 </li>
 <li><p>Reboot, verify groups</p>
@@ -246,6 +251,25 @@ $ bash ./provision.sh
 <p>Successful provisioning will end with the message “Finished!” and installed copies of MagAOX and its dependencies.</p>
 <p>A lot of the things this script installs need environment variables set, so <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/etc/profile.d/*.sh</span></code> to keep working in the same terminal (or just log in again).</p>
 </div>
+<div class="section" id="perform-xsup-key-management">
+<h2>Perform <code class="docutils literal notranslate"><span class="pre">xsup</span></code> key management<a class="headerlink" href="#perform-xsup-key-management" title="Permalink to this headline">¶</a></h2>
+<p>A new installation will generate new SSH keys for <code class="docutils literal notranslate"><span class="pre">xsup</span></code>. If you have an existing <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> folder for the machine role (ICC, RTC, AOC) you’re setting up, you can just copy its contents over the new <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/</span></code> (taking care not to change permissions).</p>
+<p>If not, you must ensure passwordless SSH works bidirectionally by installing other servers’ <code class="docutils literal notranslate"><span class="pre">xsup</span></code> keys and installing your own in their <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/authorized_keys</span></code>.</p>
+<p>In the guide below, <code class="docutils literal notranslate"><span class="pre">$NEW_ROLE</span></code> is the role we just set up and <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code> is each of the other roles in turn. (For example, if we just set up the RTC, <code class="docutils literal notranslate"><span class="pre">$NEW_ROLE</span> <span class="pre">==</span> <span class="pre">RTC</span></code> and <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code> would be ICC and AOC.)</p>
+<div class="section" id="step-by-step">
+<h3>Step-by-step<a class="headerlink" href="#step-by-step" title="Permalink to this headline">¶</a></h3>
+<p>For each of the <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code>s:</p>
+<ol class="simple">
+<li><p>On <code class="docutils literal notranslate"><span class="pre">$NEW_ROLE</span></code>, copy <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/id_ed25519.pub</span></code> to the clipboard</p></li>
+<li><p>Connect to <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code> with your normal user account over SSH</p></li>
+<li><p>Become <code class="docutils literal notranslate"><span class="pre">xsup</span></code> on <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code> and edit <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/authorized_keys</span></code> to insert the one you copied</p></li>
+<li><p>On <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code>, copy <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/id_ed25519.pub</span></code> to the clipboard</p></li>
+<li><p>Back on <code class="docutils literal notranslate"><span class="pre">$NEW_ROLE</span></code>, append the key you just copied to <code class="docutils literal notranslate"><span class="pre">/home/xsup/.ssh/authorized_keys</span></code></p></li>
+<li><p>On <code class="docutils literal notranslate"><span class="pre">$NEW_ROLE</span></code>, test you can <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">$OTHER_ROLE</span></code> as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> (potentially amending <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code>)</p></li>
+<li><p>On <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code>, test you can <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">$NEW_ROLE</span></code> as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> (potentially amending <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code>)</p></li>
+</ol>
+</div>
+</div>
 </div>
 
 
@@ -259,7 +283,7 @@ $ bash ./provision.sh
         <a href="controller_os_setup.html" class="btn btn-neutral float-right" title="Controller operating system setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../networking.html" class="btn btn-neutral float-left" title="Networking" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../data_storage_management.html" class="btn btn-neutral float-left" title="Data Storage Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -6,6 +6,7 @@ Appendices
 
     development_vm
     networking
+    data_storage_management
     computer_setup/computer_setup
     documenting
     pdr/index

@@ -189,14 +189,14 @@
 <h3>EDT Framegrabber Problems (camwfs and camlowfs)<a class="headerlink" href="#edt-framegrabber-problems-camwfs-and-camlowfs" title="Permalink to this headline">¶</a></h3>
 <p>The EDT PCIe framegrabber occassionally stops responding.  The main symptom of this is no data from <code class="docutils literal notranslate"><span class="pre">camwfs</span></code>, and no response on the serial over camera link.  This has not yet been observed on <code class="docutils literal notranslate"><span class="pre">camlowfs</span></code> (which does not use serial over C.L.).</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">camwfs</span></code> (or any EDT camera) stops responding on serial, first shutdown the controlling application.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tmux a -t camwfs
-$ ctrl-c
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ magaox inspect camwfs
+&lt;Ctrl-C&gt;
 </pre></div>
 </div>
 <p>then do these steps as root:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ modprobe -r edt
 $ cd /opt/EDTpdv
-$ ./edt_load 
+$ ./edt_load
 </pre></div>
 </div>
 <p>This will reset the kernel module and restore operation.  Now restart the controlling application by returning to the tmux session, up-arrow to find the command, and press enter.</p>
@@ -208,7 +208,7 @@ $ ./edt_load
 </pre></div>
 </div>
 <p>To check if any remain use</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ps -elf | awk &#39;{if ($5 == 1){print $4&quot; &quot;$5&quot; &quot;$15}}&#39; | grep MagAOX/drivers
 </pre></div>
 </div>
 </div>

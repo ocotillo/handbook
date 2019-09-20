@@ -36,7 +36,14 @@ IntelRCSetup
  --Miscellaneous Configuration
    |
    -- Active Video [Onboard Device] {Prevents sending video to a GPU}
+
+Boot
+|
+ -- Network Device BBS Priorities -- set all to "disabled"
+ -- Hard Drive BBS Priorities -- set "disabled" for all non-boot SSDs
 ```
+
+(Note that the BIOS likes to reshuffle boot order when drives appear and disappear in testing or RAID swapping. Disabling non-boot drives ensures it doesn't accidentally try to boot from them.)
 
 ## OS Installation
 
@@ -46,14 +53,41 @@ Boot into CentOS 7 x86_64 install media and proceed with interactive installatio
 
 Language: English (United States)
 
-### Network
+### Network & Hostname
 
-Enter given static IP. (TODO: networking doc.)
+In the box at lower left, fill in the appropriate fully qualified domain name (e.g. `exao2.as.arizona.edu` not `exao2`). (TODO: Does this need changing when we travel to LCO?)
+
+For each Ethernet controller listed on the left, click to select and click "Configure" to bring up the settings.
+
+In the "Addresses" panel, click "Add" and enter the appropriate address from [the Networking Doc](../networking.md) table under "Network Connections". If the IP address  in the table is not "n/a (DHCP)", select Method: "Manual" from the dropdown under "IPv4 Settings".
+
+To confirm the link works, `Ctrl-Alt-F2` gets you to a command prompt.
+
+Try pinging Google:
+```
+$ ping 8.8.8.8
+...
+# Hit Ctrl-C after a few seconds
+^C
+```
+
+Verify "0% packet loss".
+
+And the MagAO-X internal router:
+
+```
+$ ping 192.168.0.1
+# Hit Ctrl-C after a few seconds
+^C
+```
+
+Verify "0% packet loss".
+
+To return to the main installer, hit `Ctrl-Alt-F6`.
 
 ### Date & Time
 
 - Timezone: America/Phoenix
-- Ensure setting time from the network (NTP) is enabled
 
 ### Partitions
 
@@ -67,6 +101,10 @@ Enter given static IP. (TODO: networking doc.)
     - All space as `/data` - RAID 5
 
 #### Detailed steps
+- *If this is a reinstall:*
+  - Click on the arrow next to "CentOS Linux..." to expand the list of existing partitions.
+  - Click one to select and click the `-` button at the bottom of the list
+  - Check the box saying `Delete all filesystems which are only used by CentOS Linux ...` and confirm
 - Choose partitioning scheme = Standard Partition in drop down menu
 - Then press `+` button:
     - Mount Point: `/boot`
@@ -88,45 +126,83 @@ Enter given static IP. (TODO: networking doc.)
     - Press `Update Settings`
 - Then press `+` button:
     - Mount Point: `/`
-    - Desired Capacity: `0`
+    - Desired Capacity: **blank**
     - Now press `Modify`
         - Select the 2x 500 GB O/S drives (Ctrl-click)
         - Press select
     - Device Type: `RAID - RAID 1`
     - File System: `XFS`
-    - Change Desired Capacity to `0`
+    - Change Desired Capacity to **blank** (again)
     - Press Update Settings
         - should be using all available space for `/`
 - Then press `+` button:
     - Mount Point: `/data`
-    - Desired Capacity: `0`
+    - Desired Capacity: **blank**
     - Now press `Modify`
-        - Select the  data drives (Ctrl-click)
+        - Select the three 1 TB data drives (Ctrl-click)
         - Press select
     - Device Type: `RAID - RAID 5`
     - File System: `XFS`
-    - Change Desired Capacity to `0`
+    - Change Desired Capacity to **blank** (again)
     - Press Update Settings
         - Should now have the full capacity for RAID 5 (N-1)
-- Be sure to choose one of the 500 GB disks for boot loader install (at the "Full disk summary and boot loader" screen).
+
+If you are prompted for a location to install the UEFI boot loader, you have somehow booted in UEFI mode instead of Legacy Boot / BIOS mode. (This has been observed booting from a liveUSB, despite UEFI boot being disabled in BIOS, but it goes away after reordering boot options in the BIOS interface and attempting to boot again.)
 
 ### Software
 
+From the list on the Left:
+
 - Select "Minimal install"
+
+From the list on the right:
+
 - Select "Development Tools"
+- Select "Debugging Tools"
 - Select "System Administration Tools"
+
+### Begin the installation
 
 ### Users
 
 - Set `root` password
 - Create normal (admin) user account for use after reboot
 
-### Begin the installation
-
 ## After OS installation
 
 - Log in as `root`
 - Run `yum update`
+- Check RAID mirroring status: `cat /proc/mdstat`.
+  - On new installs, it takes some time for the initial synchronization of the drives. (Like, "leave it overnight" time.)
+- Configure internal-only network connections
+  - Run `sudo nmtui`
+  - Choose `Edit a connection`
+  - Highlight `instrument` and hit `Enter`
+  - Under `IPv4 CONFIGURATION` ensure `Never use this network for default route` is checked with an `[X]`
+  - At the bottom of the list, ensure `Automatically connect` and `Available to all users` are checked
+
+## Verify bootloader installation / RAID1 correctness
+
+- Ensure RAID arrays are fully built with `cat /proc/mdstat`
+- `shutdown`
+- pop one of the two boot drives from the SSD cage
+- boot, verify that 1) `grub` appears and 2) the OS comes up (after a longer boot delay)
+- replace that boot drive, pop the other drive
+- repeat verification step
+- replace boot drive
+- boot with both in place
+
+## Configure `/data` array options
+
+We should be able to boot with zero of the drives in the `/data` array without systemd dropping to a recovery prompt.
+
+Edit `/etc/fstab`, and on the line for `/data` replace `defaults` with the options `noauto,x-systemd.automount`.
+
+To verify:
+
+  - `shutdown`
+  - pop all data drives
+  - verify boot is possible without dropping to recovery prompt
 
 ## Setup ssh
 
@@ -136,46 +212,20 @@ Enter given static IP. (TODO: networking doc.)
 
     Allow only ecdsa and ed25519:
     ```
-    # HostKey /etc/ssh/ssh_host_rsa_key
-    # HostKey /etc/ssh/ssh_host_dsa_key
+    #HostKey /etc/ssh/ssh_host_rsa_key
+    #HostKey /etc/ssh/ssh_host_dsa_key
     HostKey /etc/ssh/ssh_host_ecdsa_key
     HostKey /etc/ssh/ssh_host_ed25519_key
-    ```
-
-    Ensure that authorized_keys is the file checked for keys:
-    ```
-    AuthorizedKeysFile      .ssh/authorized_keys
     ```
 
     Disable password authentication:
     ```
     PasswordAuthentication no
-    ChallengeResponseAuthentication no
-    UsePAM yes
     ```
 
 - And finally, restart the sshd
     ```
     service sshd restart
     ```
-
-## Install GRUB to both candidate boot disks
-
-From MagAO, thus far untested on MagAO-X:
-
-> - to ensure the system will boot off either drive we must intall grub on
-> both boot sectors
->    - as root, type grub
->    - in grub execute:
->       ```
->       grub>root (hd0,0)
->       grub>setup (hd0)
->       grub>root (hd1,0)
->       grub>setup (hd1)
->       ```
->    - This should be tested, by unplugging each drive (while shutdown) then verifying that grub loads with only one drive
->    - a full boot test should be conducted, but will require ~2.5 hours perdisk to rebuild the array.
-
-Update https://github.com/magao-x/MagAOX/issues/19 if you do this!
 
 ## Return to the [main setup guide](computer_setup.md)
