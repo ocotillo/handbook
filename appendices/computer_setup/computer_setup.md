@@ -1,13 +1,5 @@
 # Instrument computer setup guide
 
-```eval_rst
-.. toctree::
-    :hidden:
-
-    controller_os_setup
-    workstation_os_setup
-```
-
 The setup process for the instrument computers (ICC, RTC, AOC) is automated (to the extent possible) by scripts in the [`setup/`](https://github.com/magao-x/MagAOX/tree/master/setup) folder of [magao-x/MagAOX](https://github.com/magao-x/MagAOX).
 
 Unfortunately, not _everything_ can be automated when real hardware is involved. To set up a new instrument computer, follow the steps below. Once the BIOS and OS are setup, you can [run the provisioning scripts](#run-provisioning-scripts).
