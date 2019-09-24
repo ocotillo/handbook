@@ -97,8 +97,21 @@
 <li class="toctree-l2"><a class="reference internal" href="../networking.html">Networking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_storage_management.html">Data Storage Management</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Instrument computer setup guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#real-time-control-computer-rtc-and-instrument-control-computer-icc">Real Time control Computer (RTC) and Instrument Control Computer (ICC)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaptive-optics-operator-computer-aoc">Adaptive optics Operator Computer (AOC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bios">BIOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#os-installation">OS Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#language">Language</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#network-hostname">Network &amp; Hostname</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#date-time">Date &amp; Time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#partitions">Partitions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#software">Software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#begin-the-installation">Begin the installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#after-os-installation">After OS installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verify-bootloader-installation-raid1-correctness">Verify bootloader installation / RAID1 correctness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-data-array-options">Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-ssh">Setup ssh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#perform-mostly-automated-provisioning">Perform (mostly) automated provisioning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#perform-xsup-key-management">Perform <code class="docutils literal notranslate"><span class="pre">xsup</span></code> key management</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#step-by-step">Step-by-step</a></li>
@@ -183,13 +196,282 @@
 </div>
 <p>The setup process for the instrument computers (ICC, RTC, AOC) is automated (to the extent possible) by scripts in the <a class="reference external" href="https://github.com/magao-x/MagAOX/tree/master/setup"><code class="docutils literal notranslate"><span class="pre">setup/</span></code></a> folder of <a class="reference external" href="https://github.com/magao-x/MagAOX">magao-x/MagAOX</a>.</p>
 <p>Unfortunately, not <em>everything</em> can be automated when real hardware is involved. To set up a new instrument computer, follow the steps below. Once the BIOS and OS are setup, you can <a class="reference external" href="#run-provisioning-scripts">run the provisioning scripts</a>.</p>
-<div class="section" id="real-time-control-computer-rtc-and-instrument-control-computer-icc">
-<h2>Real Time control Computer (RTC) and Instrument Control Computer (ICC)<a class="headerlink" href="#real-time-control-computer-rtc-and-instrument-control-computer-icc" title="Permalink to this headline">¶</a></h2>
-<p>Follow the steps in <a class="reference external" href="controller_os_setup">Controller operating system setup</a> from BIOS configuration through OS install and first boot.</p>
+<p>The instrument computers use CentOS 7 for two reasons:</p>
+<ul class="simple">
+<li><p>It has a long window of support, and will receive security and bug-fix updates <a class="reference external" href="https://en.wikipedia.org/wiki/CentOS#End-of-support_schedule">until June 30, 2024</a>.</p></li>
+<li><p>It (or, equivalently, RHEL 7) is a supported platform for our more niche hardware like DMs and framegrabbers.</p></li>
+</ul>
+<p>Once the hardware has been connected up, setup proceeds as follows.</p>
+<div class="section" id="bios">
+<h2>BIOS<a class="headerlink" href="#bios" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AI</span> <span class="n">Tweaker</span>
+<span class="o">|</span>
+ <span class="o">--</span> <span class="n">Spread</span> <span class="n">Spectrum</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expanion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+
+<span class="n">Advanced</span>
+<span class="o">|</span>
+ <span class="o">--</span> <span class="n">APM</span>
+   <span class="o">|</span>
+    <span class="o">--</span> <span class="n">Restore</span> <span class="n">AC</span> <span class="n">Power</span> <span class="n">Loss</span> <span class="p">[</span><span class="n">Power</span> <span class="n">OFF</span><span class="p">]</span>
+ <span class="o">--</span> <span class="n">ACPI</span> <span class="n">Settings</span>
+   <span class="o">|</span>
+    <span class="o">--</span> <span class="n">Enable</span> <span class="n">Hibernation</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span>
+    <span class="o">--</span> <span class="n">ACPI</span> <span class="n">Suspend</span> <span class="n">State</span> <span class="p">[</span><span class="n">Suspend</span> <span class="n">Disabled</span><span class="p">]</span>
+ <span class="o">--</span> <span class="n">PCI</span> <span class="n">Subsystem</span> <span class="n">Settings</span>
+   <span class="o">|</span>
+     <span class="o">--</span> <span class="n">Above</span> <span class="mi">4</span><span class="n">G</span> <span class="n">Decoding</span> <span class="p">[</span><span class="n">Enabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expansion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+
+<span class="n">IntelRCSetup</span>
+<span class="o">|</span>
+ <span class="o">--</span><span class="n">Processor</span> <span class="n">Configuration</span>
+   <span class="o">|</span>
+   <span class="o">--</span> <span class="n">DCU</span> <span class="n">Mode</span> <span class="p">[</span><span class="mi">16</span><span class="n">KB</span> <span class="mi">4</span><span class="n">Way</span> <span class="n">With</span> <span class="n">ECC</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expansion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+<span class="o">|</span>
+ <span class="o">--</span><span class="n">Miscellaneous</span> <span class="n">Configuration</span>
+   <span class="o">|</span>
+   <span class="o">--</span> <span class="n">Active</span> <span class="n">Video</span> <span class="p">[</span><span class="n">Onboard</span> <span class="n">Device</span><span class="p">]</span> <span class="p">{</span><span class="n">Prevents</span> <span class="n">sending</span> <span class="n">video</span> <span class="n">to</span> <span class="n">a</span> <span class="n">GPU</span><span class="p">}</span>
+
+<span class="n">Boot</span>
+<span class="o">|</span>
+ <span class="o">--</span> <span class="n">Network</span> <span class="n">Device</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="nb">all</span> <span class="n">to</span> <span class="s2">&quot;disabled&quot;</span>
+ <span class="o">--</span> <span class="n">Hard</span> <span class="n">Drive</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="s2">&quot;disabled&quot;</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">non</span><span class="o">-</span><span class="n">boot</span> <span class="n">SSDs</span>
+</pre></div>
 </div>
-<div class="section" id="adaptive-optics-operator-computer-aoc">
-<h2>Adaptive optics Operator Computer (AOC)<a class="headerlink" href="#adaptive-optics-operator-computer-aoc" title="Permalink to this headline">¶</a></h2>
-<p>Follow the steps in <a class="reference external" href="workstation_os_setup">Workstation operating system setup</a> from BIOS configuration through OS install and first boot.</p>
+<p>(Note that the BIOS likes to reshuffle boot order when drives appear and disappear in testing or RAID swapping. Disabling non-boot drives ensures it doesn’t accidentally try to boot from them.)</p>
+</div>
+<div class="section" id="os-installation">
+<h2>OS Installation<a class="headerlink" href="#os-installation" title="Permalink to this headline">¶</a></h2>
+<p>Boot into CentOS 7 x86_64 install media and proceed with interactive installation following these choices.</p>
+<div class="section" id="language">
+<h3>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h3>
+<p>Language: English (United States)</p>
+</div>
+<div class="section" id="network-hostname">
+<h3>Network &amp; Hostname<a class="headerlink" href="#network-hostname" title="Permalink to this headline">¶</a></h3>
+<p>In the box at lower left, fill in the appropriate fully qualified domain name (e.g. <code class="docutils literal notranslate"><span class="pre">exao2.as.arizona.edu</span></code> not <code class="docutils literal notranslate"><span class="pre">exao2</span></code>). (TODO: Does this need changing when we travel to LCO?)</p>
+<p>For each Ethernet controller listed on the left, click to select and click “Configure” to bring up the settings.</p>
+<p>In the “Addresses” panel, click “Add” and enter the appropriate address from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> table under “Network Connections”. If the IP address  in the table is not “n/a (DHCP)”, select Method: “Manual” from the dropdown under “IPv4 Settings”.</p>
+<p>To confirm the link works, <code class="docutils literal notranslate"><span class="pre">Ctrl-Alt-F2</span></code> gets you to a command prompt.</p>
+<p>Try pinging Google:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ping 8.8.8.8
+...
+# Hit Ctrl-C after a few seconds
+^C
+</pre></div>
+</div>
+<p>Verify “0% packet loss”.</p>
+<p>And the MagAO-X internal router:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ping 192.168.0.1
+# Hit Ctrl-C after a few seconds
+^C
+</pre></div>
+</div>
+<p>Verify “0% packet loss”.</p>
+<p>To return to the main installer, hit <code class="docutils literal notranslate"><span class="pre">Ctrl-Alt-F6</span></code>.</p>
+</div>
+<div class="section" id="date-time">
+<h3>Date &amp; Time<a class="headerlink" href="#date-time" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Timezone: America/Phoenix</p></li>
+</ul>
+</div>
+<div class="section" id="partitions">
+<h3>Partitions<a class="headerlink" href="#partitions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Select all disks</p></li>
+<li><p>Select “I will configure partitioning”</p></li>
+<li><p>On 2x 512 drives:</p>
+<ul>
+<li><p>500 MiB <code class="docutils literal notranslate"><span class="pre">/boot</span></code> - RAID 1</p></li>
+<li><p>16 GiB swap - RAID 1</p></li>
+<li><p>The rest as <code class="docutils literal notranslate"><span class="pre">/</span></code> - RAID 1</p></li>
+</ul>
+</li>
+<li><p>On the data drives (should be 3 or more identical drives):</p>
+<ul>
+<li><p>All space as <code class="docutils literal notranslate"><span class="pre">/data</span></code> - RAID 5</p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="detailed-steps">
+<h4>Detailed steps<a class="headerlink" href="#detailed-steps" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p><em>If this is a reinstall:</em></p>
+<ul>
+<li><p>Click on the arrow next to “CentOS Linux…” to expand the list of existing partitions.</p></li>
+<li><p>Click one to select and click the <code class="docutils literal notranslate"><span class="pre">-</span></code> button at the bottom of the list</p></li>
+<li><p>Check the box saying <code class="docutils literal notranslate"><span class="pre">Delete</span> <span class="pre">all</span> <span class="pre">filesystems</span> <span class="pre">which</span> <span class="pre">are</span> <span class="pre">only</span> <span class="pre">used</span> <span class="pre">by</span> <span class="pre">CentOS</span> <span class="pre">Linux</span> <span class="pre">...</span></code> and confirm</p></li>
+</ul>
+</li>
+<li><p>Choose partitioning scheme = Standard Partition in drop down menu</p></li>
+<li><p>Then press <code class="docutils literal notranslate"><span class="pre">+</span></code> button:</p>
+<ul>
+<li><p>Mount Point: <code class="docutils literal notranslate"><span class="pre">/boot</span></code></p></li>
+<li><p>Desired Capacity: <code class="docutils literal notranslate"><span class="pre">500</span> <span class="pre">MiB</span></code></p></li>
+<li><p>Now press <code class="docutils literal notranslate"><span class="pre">Modify</span></code></p>
+<ul>
+<li><p>Select the 2x 500 GB O/S drives (Ctrl-click)</p></li>
+<li><p>Press select</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Device Type: <code class="docutils literal notranslate"><span class="pre">RAID</span> <span class="pre">-</span> <span class="pre">RAID</span> <span class="pre">1</span></code></p></li>
+<li><p>File System: <code class="docutils literal notranslate"><span class="pre">XFS</span></code></p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Settings</span></code></p></li>
+<li><p>Then press <code class="docutils literal notranslate"><span class="pre">+</span></code> button:</p>
+<ul>
+<li><p>Mount Point: swap</p></li>
+<li><p>Desired Capacity: 16 GiB</p></li>
+<li><p>Now press <code class="docutils literal notranslate"><span class="pre">Modify</span></code></p>
+<ul>
+<li><p>Select the 2 500 GB O/S drives (Ctrl-click)</p></li>
+<li><p>Press select</p></li>
+</ul>
+</li>
+<li><p>Device Type: <code class="docutils literal notranslate"><span class="pre">RAID</span> <span class="pre">-</span> <span class="pre">RAID</span> <span class="pre">1</span></code></p></li>
+<li><p>File System: <code class="docutils literal notranslate"><span class="pre">XFS</span></code></p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Settings</span></code></p></li>
+</ul>
+</li>
+<li><p>Then press <code class="docutils literal notranslate"><span class="pre">+</span></code> button:</p>
+<ul>
+<li><p>Mount Point: <code class="docutils literal notranslate"><span class="pre">/</span></code></p></li>
+<li><p>Desired Capacity: <strong>blank</strong></p></li>
+<li><p>Now press <code class="docutils literal notranslate"><span class="pre">Modify</span></code></p>
+<ul>
+<li><p>Select the 2x 500 GB O/S drives (Ctrl-click)</p></li>
+<li><p>Press select</p></li>
+</ul>
+</li>
+<li><p>Device Type: <code class="docutils literal notranslate"><span class="pre">RAID</span> <span class="pre">-</span> <span class="pre">RAID</span> <span class="pre">1</span></code></p></li>
+<li><p>File System: <code class="docutils literal notranslate"><span class="pre">XFS</span></code></p></li>
+<li><p>Change Desired Capacity to <strong>blank</strong> (again)</p></li>
+<li><p>Press Update Settings</p>
+<ul>
+<li><p>should be using all available space for <code class="docutils literal notranslate"><span class="pre">/</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Then press <code class="docutils literal notranslate"><span class="pre">+</span></code> button:</p>
+<ul>
+<li><p>Mount Point: <code class="docutils literal notranslate"><span class="pre">/data</span></code></p></li>
+<li><p>Desired Capacity: <strong>blank</strong></p></li>
+<li><p>Now press <code class="docutils literal notranslate"><span class="pre">Modify</span></code></p>
+<ul>
+<li><p>Ctrl-click to select all the data drives (&gt;500GB)</p></li>
+<li><p>Press select</p></li>
+</ul>
+</li>
+<li><p>Device Type: <code class="docutils literal notranslate"><span class="pre">RAID</span> <span class="pre">-</span> <span class="pre">RAID</span> <span class="pre">5</span></code></p></li>
+<li><p>File System: <code class="docutils literal notranslate"><span class="pre">XFS</span></code></p></li>
+<li><p>Change Desired Capacity to <strong>blank</strong> (again)</p></li>
+<li><p>Press Update Settings</p>
+<ul>
+<li><p>Should now have the full capacity for RAID 5 (N-1)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>If you are prompted for a location to install the UEFI boot loader, you have somehow booted in UEFI mode instead of Legacy Boot / BIOS mode. (This has been observed booting from a liveUSB, despite UEFI boot being disabled in BIOS, but it goes away after reordering boot options in the BIOS interface and attempting to boot again.)</p>
+</div>
+</div>
+<div class="section" id="software">
+<h3>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h3>
+<p>From the list on the Left:</p>
+<ul class="simple">
+<li><p>Select “Minimal install”</p></li>
+</ul>
+<p>From the list on the right:</p>
+<ul class="simple">
+<li><p>Select “Development Tools”</p></li>
+<li><p>Select “Debugging Tools”</p></li>
+<li><p>Select “System Administration Tools”</p></li>
+</ul>
+</div>
+<div class="section" id="begin-the-installation">
+<h3>Begin the installation<a class="headerlink" href="#begin-the-installation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="users">
+<h3>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">root</span></code> password</p></li>
+<li><p>Create normal (admin) user account for use after reboot</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="after-os-installation">
+<h2>After OS installation<a class="headerlink" href="#after-os-installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span></code></p></li>
+<li><p>Check RAID mirroring status: <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code>.</p>
+<ul>
+<li><p>On new installs, it takes some time for the initial synchronization of the drives. (Like, “leave it overnight” time.)</p></li>
+</ul>
+</li>
+<li><p>Configure internal-only network connections</p>
+<ul>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nmtui</span></code></p></li>
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">a</span> <span class="pre">connection</span></code></p></li>
+<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">instrument</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p></li>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> is checked with an <code class="docutils literal notranslate"><span class="pre">[X]</span></code></p></li>
+<li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> are checked</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="verify-bootloader-installation-raid1-correctness">
+<h2>Verify bootloader installation / RAID1 correctness<a class="headerlink" href="#verify-bootloader-installation-raid1-correctness" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ensure RAID arrays are fully built with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
+<li><p>Pop one of the two boot drives from the SSD cage</p></li>
+<li><p>Boot, verify that 1) <code class="docutils literal notranslate"><span class="pre">grub</span></code> appears and 2) the OS comes up (after a longer boot delay)</p></li>
+<li><p>Replace that boot drive, reboot</p></li>
+<li><p>Ensure RAID arrays are fully <strong>rebuilt</strong> with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
+<li><p>Pop the other drive</p></li>
+<li><p>Repeat verification steps</p></li>
+<li><p>Replace boot drive</p></li>
+<li><p>Boot with both in place</p></li>
+</ul>
+</div>
+<div class="section" id="configure-data-array-options">
+<h2>Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options<a class="headerlink" href="#configure-data-array-options" title="Permalink to this headline">¶</a></h2>
+<p>We should be able to boot with zero of the drives in the <code class="docutils literal notranslate"><span class="pre">/data</span></code> array without systemd dropping to a recovery prompt.</p>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>, and on the line for <code class="docutils literal notranslate"><span class="pre">/data</span></code> replace <code class="docutils literal notranslate"><span class="pre">defaults</span></code> with the options <code class="docutils literal notranslate"><span class="pre">noauto,x-systemd.automount</span></code>.</p>
+<p>To verify:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
+<li><p>pop all data drives</p></li>
+<li><p>verify boot is possible without dropping to recovery prompt</p></li>
+</ul>
+</div>
+<div class="section" id="setup-ssh">
+<h2>Setup ssh<a class="headerlink" href="#setup-ssh" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>Install a key for at least one user in their <code class="docutils literal notranslate"><span class="pre">.ssh</span></code> folder, and make sure they can log in with it without requiring a password.</p></li>
+<li><p>Now configure <code class="docutils literal notranslate"><span class="pre">sshd</span></code>.  Do this by editing <code class="docutils literal notranslate"><span class="pre">/etc/ssh/sshd_config</span></code> as follows:</p>
+<p>Allow only ecdsa and ed25519:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#HostKey /etc/ssh/ssh_host_rsa_key</span>
+<span class="c1">#HostKey /etc/ssh/ssh_host_dsa_key</span>
+<span class="n">HostKey</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">ssh_host_ecdsa_key</span>
+<span class="n">HostKey</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">ssh_host_ed25519_key</span>
+</pre></div>
+</div>
+<p>Disable password authentication:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PasswordAuthentication</span> <span class="n">no</span>
+</pre></div>
+</div>
+</li>
+<li><p>And finally, restart the sshd</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="n">sshd</span> <span class="n">restart</span>
+</pre></div>
+</div>
+</li>
+</ul>
 </div>
 <div class="section" id="perform-mostly-automated-provisioning">
 <h2>Perform (mostly) automated provisioning<a class="headerlink" href="#perform-mostly-automated-provisioning" title="Permalink to this headline">¶</a></h2>
