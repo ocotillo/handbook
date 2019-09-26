@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">killing indi zombies</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#difficulties-with-nvidia-proprietary-drivers">Difficulties with NVIDIA proprietary drivers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-a-new-user-or-developer-account">Adding a new user or developer account</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#add-a-user-sh"><code class="docutils literal notranslate"><span class="pre">add_a_user.sh</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-a-developer-sh"><code class="docutils literal notranslate"><span class="pre">add_a_developer.sh</span></code></a></li>
@@ -212,6 +213,14 @@ $ ./edt_load
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="difficulties-with-nvidia-proprietary-drivers">
+<h2>Difficulties with NVIDIA proprietary drivers<a class="headerlink" href="#difficulties-with-nvidia-proprietary-drivers" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>When installing, ensure you have <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">multi-user.target</span></code> and a display is connected <strong>only</strong> to the VGA header provided by the motherboard</p></li>
+<li><p>If NVIDIA graphical output did work, and now doesn’t: Your kernel may have been updated, requiring a rebuild of the NVIDIA driver. Having <code class="docutils literal notranslate"><span class="pre">dkms</span></code> installed <em>should</em> prevent needing to do this, but an uninstall and reinstall over SSH will also remedy it.</p></li>
+<li><p>Runfile installs can be uninstalled with <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/cuda-uninstaller</span></code></p></li>
+</ol>
 </div>
 <div class="section" id="adding-a-new-user-or-developer-account">
 <h2>Adding a new user or developer account<a class="headerlink" href="#adding-a-new-user-or-developer-account" title="Permalink to this headline">¶</a></h2>

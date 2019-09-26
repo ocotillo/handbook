@@ -50,6 +50,12 @@ To check if any remain use
 $ ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}' | grep MagAOX/drivers
 ```
 
+## Difficulties with NVIDIA proprietary drivers
+
+1. When installing, ensure you have `systemctl set-default multi-user.target` and a display is connected **only** to the VGA header provided by the motherboard
+2. If NVIDIA graphical output did work, and now doesn't: Your kernel may have been updated, requiring a rebuild of the NVIDIA driver. Having `dkms` installed *should* prevent needing to do this, but an uninstall and reinstall over SSH will also remedy it.
+2. Runfile installs can be uninstalled with `/usr/local/cuda/bin/cuda-uninstaller`
+
 ## Adding a new user or developer account
 
 User accounts on the RTC, ICC, and AOC machines are members of `magaox`. Developer accounts are additionally members of `magaox-dev` and `wheel`.

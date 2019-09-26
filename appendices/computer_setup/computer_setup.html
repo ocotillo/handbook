@@ -97,7 +97,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../networking.html">Networking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_storage_management.html">Data Storage Management</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Instrument computer setup guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bios">BIOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bios">BIOS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#for-all-of-aoc-icc-rtc">For all of AOC/ICC/RTC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#for-icc-rtc">For ICC/RTC</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#os-installation">OS Installation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#language">Language</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#network-hostname">Network &amp; Hostname</a></li>
@@ -109,14 +113,15 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#after-os-installation">After OS installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#verify-bootloader-installation-raid1-correctness">Verify bootloader installation / RAID1 correctness</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configure-data-array-options">Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setup-ssh">Setup ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aoc-only-gpu-drivers-setup">AOC only: GPU drivers setup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#perform-mostly-automated-provisioning">Perform (mostly) automated provisioning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#perform-xsup-key-management">Perform <code class="docutils literal notranslate"><span class="pre">xsup</span></code> key management</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#step-by-step">Step-by-step</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#verify-bootloader-installation-raid-correctness">Verify bootloader installation / RAID correctness</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../documenting.html">Documenting MagAO-X</a></li>
@@ -202,9 +207,12 @@
 <p>Once the hardware has been connected up, setup proceeds as follows.</p>
 <div class="section" id="bios">
 <h2>BIOS<a class="headerlink" href="#bios" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AI</span> <span class="n">Tweaker</span>
+<div class="section" id="for-all-of-aoc-icc-rtc">
+<h3>For all of AOC/ICC/RTC<a class="headerlink" href="#for-all-of-aoc-icc-rtc" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Boot</span>
 <span class="o">|</span>
- <span class="o">--</span> <span class="n">Spread</span> <span class="n">Spectrum</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expanion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+ <span class="o">--</span> <span class="n">Network</span> <span class="n">Device</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="nb">all</span> <span class="n">to</span> <span class="s2">&quot;disabled&quot;</span>
+ <span class="o">--</span> <span class="n">Hard</span> <span class="n">Drive</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="s2">&quot;disabled&quot;</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">non</span><span class="o">-</span><span class="n">boot</span> <span class="n">SSDs</span>
 
 <span class="n">Advanced</span>
 <span class="o">|</span>
@@ -215,6 +223,18 @@
    <span class="o">|</span>
     <span class="o">--</span> <span class="n">Enable</span> <span class="n">Hibernation</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span>
     <span class="o">--</span> <span class="n">ACPI</span> <span class="n">Suspend</span> <span class="n">State</span> <span class="p">[</span><span class="n">Suspend</span> <span class="n">Disabled</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>(Note that the BIOS likes to reshuffle boot order when drives appear and disappear in testing or RAID swapping. Disabling non-boot drives ensures it doesn’t accidentally try to boot from them.)</p>
+</div>
+<div class="section" id="for-icc-rtc">
+<h3>For ICC/RTC<a class="headerlink" href="#for-icc-rtc" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AI</span> <span class="n">Tweaker</span>
+<span class="o">|</span>
+ <span class="o">--</span> <span class="n">Spread</span> <span class="n">Spectrum</span> <span class="p">[</span><span class="n">Disabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expanion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
+
+<span class="n">Advanced</span>
+<span class="o">|</span>
  <span class="o">--</span> <span class="n">PCI</span> <span class="n">Subsystem</span> <span class="n">Settings</span>
    <span class="o">|</span>
      <span class="o">--</span> <span class="n">Above</span> <span class="mi">4</span><span class="n">G</span> <span class="n">Decoding</span> <span class="p">[</span><span class="n">Enabled</span><span class="p">]</span> <span class="p">{</span><span class="n">This</span> <span class="ow">is</span> <span class="n">critical</span> <span class="k">for</span> <span class="n">allowing</span> <span class="n">PCIe</span> <span class="n">expansion</span> <span class="n">to</span> <span class="n">work</span><span class="p">}</span>
@@ -228,18 +248,13 @@
  <span class="o">--</span><span class="n">Miscellaneous</span> <span class="n">Configuration</span>
    <span class="o">|</span>
    <span class="o">--</span> <span class="n">Active</span> <span class="n">Video</span> <span class="p">[</span><span class="n">Onboard</span> <span class="n">Device</span><span class="p">]</span> <span class="p">{</span><span class="n">Prevents</span> <span class="n">sending</span> <span class="n">video</span> <span class="n">to</span> <span class="n">a</span> <span class="n">GPU</span><span class="p">}</span>
-
-<span class="n">Boot</span>
-<span class="o">|</span>
- <span class="o">--</span> <span class="n">Network</span> <span class="n">Device</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="nb">all</span> <span class="n">to</span> <span class="s2">&quot;disabled&quot;</span>
- <span class="o">--</span> <span class="n">Hard</span> <span class="n">Drive</span> <span class="n">BBS</span> <span class="n">Priorities</span> <span class="o">--</span> <span class="nb">set</span> <span class="s2">&quot;disabled&quot;</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">non</span><span class="o">-</span><span class="n">boot</span> <span class="n">SSDs</span>
 </pre></div>
 </div>
-<p>(Note that the BIOS likes to reshuffle boot order when drives appear and disappear in testing or RAID swapping. Disabling non-boot drives ensures it doesn’t accidentally try to boot from them.)</p>
+</div>
 </div>
 <div class="section" id="os-installation">
 <h2>OS Installation<a class="headerlink" href="#os-installation" title="Permalink to this headline">¶</a></h2>
-<p>Boot into CentOS 7 x86_64 install media and proceed with interactive installation following these choices.</p>
+<p>Boot into CentOS 7 x86_64 install media (ISOs <a class="reference external" href="http://isoredirect.centos.org/centos/7/isos/x86_64/">here</a>) and proceed with interactive installation following these choices.</p>
 <div class="section" id="language">
 <h3>Language<a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h3>
 <p>Language: English (United States)</p>
@@ -247,8 +262,9 @@
 <div class="section" id="network-hostname">
 <h3>Network &amp; Hostname<a class="headerlink" href="#network-hostname" title="Permalink to this headline">¶</a></h3>
 <p>In the box at lower left, fill in the appropriate fully qualified domain name (e.g. <code class="docutils literal notranslate"><span class="pre">exao2.as.arizona.edu</span></code> not <code class="docutils literal notranslate"><span class="pre">exao2</span></code>). (TODO: Does this need changing when we travel to LCO?)</p>
-<p>For each Ethernet controller listed on the left, click to select and click “Configure” to bring up the settings.</p>
-<p>In the “Addresses” panel, click “Add” and enter the appropriate address from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> table under “Network Connections”. If the IP address  in the table is not “n/a (DHCP)”, select Method: “Manual” from the dropdown under “IPv4 Settings”.</p>
+<p>For each Ethernet controller listed on the left, click to select and click “Configure” to bring up the settings, and select the “IPv4 Settings” panel.</p>
+<p>If the IP address in the table from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> is not “n/a (DHCP)”, select Method: “Manual” from the dropdown under “IPv4 Settings”.</p>
+<p>In the “Addresses” panel, click “Add” and enter the appropriate address from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> table under “Network Connections”.</p>
 <p>To confirm the link works, <code class="docutils literal notranslate"><span class="pre">Ctrl-Alt-F2</span></code> gets you to a command prompt.</p>
 <p>Try pinging Google:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ping 8.8.8.8
@@ -312,10 +328,10 @@
 <li><p>Press select</p></li>
 </ul>
 </li>
-</ul>
-</li>
 <li><p>Device Type: <code class="docutils literal notranslate"><span class="pre">RAID</span> <span class="pre">-</span> <span class="pre">RAID</span> <span class="pre">1</span></code></p></li>
 <li><p>File System: <code class="docutils literal notranslate"><span class="pre">XFS</span></code></p></li>
+</ul>
+</li>
 <li><p>Press <code class="docutils literal notranslate"><span class="pre">Update</span> <span class="pre">Settings</span></code></p></li>
 <li><p>Then press <code class="docutils literal notranslate"><span class="pre">+</span></code> button:</p>
 <ul>
@@ -378,6 +394,7 @@
 </div>
 <div class="section" id="software">
 <h3>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h3>
+<p><strong>ICC/RTC:</strong></p>
 <p>From the list on the Left:</p>
 <ul class="simple">
 <li><p>Select “Minimal install”</p></li>
@@ -387,6 +404,15 @@
 <li><p>Select “Development Tools”</p></li>
 <li><p>Select “Debugging Tools”</p></li>
 <li><p>Select “System Administration Tools”</p></li>
+</ul>
+<p><strong>AOC:</strong></p>
+<p>From the list on the Left:</p>
+<ul class="simple">
+<li><p>Select “KDE Plasma Workspaces”</p></li>
+</ul>
+<p>From the list on the right:</p>
+<ul class="simple">
+<li><p>Select “Development Tools”</p></li>
 </ul>
 </div>
 <div class="section" id="begin-the-installation">
@@ -402,9 +428,10 @@
 </div>
 <div class="section" id="after-os-installation">
 <h2>After OS installation<a class="headerlink" href="#after-os-installation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Note:</strong> For AOC, multiple monitors seem to confuse the default NVIDIA drivers. Stick to the VGA output until the NVIDIA drivers are set up (see below).</p>
 <ul class="simple">
 <li><p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code></p></li>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code></p></li>
 <li><p>Check RAID mirroring status: <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code>.</p>
 <ul>
 <li><p>On new installs, it takes some time for the initial synchronization of the drives. (Like, “leave it overnight” time.)</p></li>
@@ -414,38 +441,27 @@
 <ul>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nmtui</span></code></p></li>
 <li><p>Choose <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">a</span> <span class="pre">connection</span></code></p></li>
-<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">instrument</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p></li>
-<li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> is checked with an <code class="docutils literal notranslate"><span class="pre">[X]</span></code></p></li>
-<li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> are checked</p></li>
+<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">instrument</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
+<ul>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> <strong>is</strong> checked with an <code class="docutils literal notranslate"><span class="pre">[X]</span></code></p></li>
+<li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> <strong>are</strong> checked</p></li>
+</ul>
+</li>
+<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">www-ua</span></code> / <code class="docutils literal notranslate"><span class="pre">www-lco</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
+<ul>
+<li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> is <strong>not</strong> checked</p></li>
+<li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> <strong>are</strong> checked</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="verify-bootloader-installation-raid1-correctness">
-<h2>Verify bootloader installation / RAID1 correctness<a class="headerlink" href="#verify-bootloader-installation-raid1-correctness" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Ensure RAID arrays are fully built with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
-<li><p>Pop one of the two boot drives from the SSD cage</p></li>
-<li><p>Boot, verify that 1) <code class="docutils literal notranslate"><span class="pre">grub</span></code> appears and 2) the OS comes up (after a longer boot delay)</p></li>
-<li><p>Replace that boot drive, reboot</p></li>
-<li><p>Ensure RAID arrays are fully <strong>rebuilt</strong> with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
-<li><p>Pop the other drive</p></li>
-<li><p>Repeat verification steps</p></li>
-<li><p>Replace boot drive</p></li>
-<li><p>Boot with both in place</p></li>
+</li>
+<li><p>Disable graphical boot splash: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">plymouth-set-default-theme</span> <span class="pre">details;</span> <span class="pre">sudo</span> <span class="pre">dracut</span> <span class="pre">-f</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="configure-data-array-options">
 <h2>Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options<a class="headerlink" href="#configure-data-array-options" title="Permalink to this headline">¶</a></h2>
 <p>We should be able to boot with zero of the drives in the <code class="docutils literal notranslate"><span class="pre">/data</span></code> array without systemd dropping to a recovery prompt.</p>
 <p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code>, and on the line for <code class="docutils literal notranslate"><span class="pre">/data</span></code> replace <code class="docutils literal notranslate"><span class="pre">defaults</span></code> with the options <code class="docutils literal notranslate"><span class="pre">noauto,x-systemd.automount</span></code>.</p>
-<p>To verify:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
-<li><p>pop all data drives</p></li>
-<li><p>verify boot is possible without dropping to recovery prompt</p></li>
-</ul>
 </div>
 <div class="section" id="setup-ssh">
 <h2>Setup ssh<a class="headerlink" href="#setup-ssh" title="Permalink to this headline">¶</a></h2>
@@ -465,11 +481,54 @@
 </div>
 </li>
 <li><p>And finally, restart the sshd</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="n">sshd</span> <span class="n">restart</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">restart</span> <span class="n">sshd</span>
 </pre></div>
 </div>
 </li>
 </ul>
+</div>
+<div class="section" id="aoc-only-gpu-drivers-setup">
+<h2>AOC only: GPU drivers setup<a class="headerlink" href="#aoc-only-gpu-drivers-setup" title="Permalink to this headline">¶</a></h2>
+<p>Since we actually use the AOC GPU for <strong>graphics</strong> (shockingly enough), you will need to install NVIDIA’s CUDA package with drivers before the monitors will work right. <strong>You’ll want <code class="docutils literal notranslate"><span class="pre">ssh</span></code> access in case anything goes wrong, so make sure it’s working!</strong></p>
+<ol>
+<li><p>Before starting, make sure everything’s up to date: <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code></p></li>
+<li><p>Download CUDA 10.1 from https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.168_418.67_linux.run (or whatever version is current in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/install_cuda.sh">setup/steps/install_cuda.sh</a>) and take note of where it is saved</p></li>
+<li><p>Install prerequisites: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">kernel-devel</span> <span class="pre">kernel-headers</span></code></p></li>
+<li><p>As root, edit the line in <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> that reads</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;[parts omitted] rhgb quiet&quot;</span>
+</pre></div>
+</div>
+<p>to read</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;[parts omitted] rhgb quiet rd.driver.blacklist=nouveau nouveau.modeset=0&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install the new grub config with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">grub2-mkconfig</span> <span class="pre">-o</span> <span class="pre">/boot/grub2/grub.cfg</span></code></p></li>
+<li><p>Create /etc/modprobe.d/blacklist-nouveau.conf with the contents</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">blacklist</span> <span class="n">nouveau</span>
+<span class="n">options</span> <span class="n">nouveau</span> <span class="n">modeset</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">multi-user.target</span></code></p></li>
+<li><p>Shut down</p></li>
+<li><p>Disconnect all monitors from the NVIDIA card</p></li>
+<li><p>Connect a monitor to the VGA port from the motherboard’s onboard graphics</p></li>
+<li><p>Reboot to a text-mode prompt</p></li>
+<li><p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code></p></li>
+<li><p>Run CUDA installer with <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">cuda_10.1.168_418.67_linux.run</span> <span class="pre">--silent</span> <span class="pre">--driver</span> <span class="pre">--toolkit</span> <span class="pre">--samples</span></code> (or whatever version is downloaded)</p></li>
+<li><p>Default to graphical boot: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">set-default</span> <span class="pre">graphical.target</span></code></p></li>
+<li><p>Shut down</p></li>
+<li><p>Disconnect the VGA port, reconnect the battle station monitors</p></li>
+<li><p>Open up System Settings -&gt; Display &amp; Monitor and arrange the monitor geometry to reflect reality</p></li>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> to remove <code class="docutils literal notranslate"><span class="pre">rd.driver.blacklist=nouveau</span> <span class="pre">nouveau.modeset=0</span></code> from <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> and run <code class="docutils literal notranslate"><span class="pre">grub2-mkconfig</span> <span class="pre">-o</span> <span class="pre">/boot/grub2/grub.cfg</span></code></p></li>
+<li><p>Once everything’s working satisfactorily, we want to lock the kernel version (so that we don’t end up accidentally removing graphical boot capabilities with a <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code>):</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">yum-versionlock</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">versionlock</span> <span class="pre">kernel</span> <span class="pre">kernel-headers</span> <span class="pre">kernel-devel</span></code></p></li>
+</ol>
+</li>
+</ol>
 </div>
 <div class="section" id="perform-mostly-automated-provisioning">
 <h2>Perform (mostly) automated provisioning<a class="headerlink" href="#perform-mostly-automated-provisioning" title="Permalink to this headline">¶</a></h2>
@@ -487,7 +546,7 @@ $ ./pre_provision.sh
 </pre></div>
 </div>
 <p>This sets up an <code class="docutils literal notranslate"><span class="pre">xsup</span></code> user and the <code class="docutils literal notranslate"><span class="pre">magaox</span></code> and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups. Because this step adds whoever ran it to <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code>, you will have to <strong>log out and back in</strong>.</p>
-<p><strong>RTC/ICC only:</strong> This step installs the CentOS realtime kernel and updates the kernel command line for ALPAO compatibility reasons. You must reboot before continuing.</p>
+<p>On ICC and RTC, this step also installs the CentOS realtime kernel and updates the kernel command line for ALPAO compatibility reasons. It also adds settings to disable the open-source <code class="docutils literal notranslate"><span class="pre">nouveau</span></code> drivers for the NVIDIA card. This is so that the CUDA install proceeds without errors. You must reboot before continuing.</p>
 </li>
 <li><p>Reboot, verify groups</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo reboot
@@ -499,12 +558,7 @@ yourname magaox-dev ...
 </li>
 <li><p><em>(optional)</em> Install <code class="docutils literal notranslate"><span class="pre">tmux</span></code> for convenience</p>
 <p><code class="docutils literal notranslate"><span class="pre">tmux</span></code> allows you to preserve a running session across ssh disconnection and reconnection. (Ten second tutorial: Running <code class="docutils literal notranslate"><span class="pre">tmux</span></code> with no arguments starts a new self-contained session. <code class="docutils literal notranslate"><span class="pre">Ctrl-b</span></code> followed by <code class="docutils literal notranslate"><span class="pre">d</span></code> detatches from it, while any scripts you started continue to run. The <code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">attach</span></code> command reattaches.)</p>
-<p><strong>On RTC/ICC:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo yum install -y tmux
-</pre></div>
-</div>
-<p><strong>On AOC:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo apt install -y tmux
 </pre></div>
 </div>
 <p>(It’s used by the system, so it’ll get installed anyway, but you might want it when you run the install.)</p>
@@ -547,6 +601,24 @@ $ bash ./provision.sh
 <li><p>On <code class="docutils literal notranslate"><span class="pre">$OTHER_ROLE</span></code>, test you can <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">$NEW_ROLE</span></code> as <code class="docutils literal notranslate"><span class="pre">xsup</span></code> (potentially amending <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code>)</p></li>
 </ol>
 </div>
+</div>
+<div class="section" id="verify-bootloader-installation-raid-correctness">
+<h2>Verify bootloader installation / RAID correctness<a class="headerlink" href="#verify-bootloader-installation-raid-correctness" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ensure RAID arrays are fully built with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shutdown</span></code></p></li>
+<li><p>Pop one of the two boot drives from the SSD cage</p></li>
+<li><p>Boot, verify that 1) <code class="docutils literal notranslate"><span class="pre">grub</span></code> appears and 2) the OS comes up (after a longer boot delay)</p></li>
+<li><p>Replace that boot drive, reboot</p></li>
+<li><p>Ensure RAID arrays are fully <strong>rebuilt</strong> with <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code></p></li>
+<li><p>Pop the other drive</p></li>
+<li><p>Repeat verification steps</p></li>
+<li><p>Replace boot drive</p></li>
+<li><p>Boot with both in place</p></li>
+<li><p>Shutdown, pop <strong>all</strong> data drives</p></li>
+<li><p>Ensure boot proceeds without dropping to recovery prompt</p></li>
+<li><p>Replace all data drives, boot with everything in place</p></li>
+</ul>
 </div>
 </div>
 

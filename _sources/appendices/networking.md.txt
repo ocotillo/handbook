@@ -16,6 +16,14 @@ This document uses the hostnames of the machines interchangeably with their role
 | www-lco | enp7s0 | TODO | TODO | TODO | TODO | TODO |
 | instrument | enp6s0 | 192.168.0.10 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 
+
+**For reference:** At last setup, the automatic DHCP-assigned configuration for `www-ua` was:
+
+  - IP Address: `128.196.208.35`
+  - Subnet Mask: `255.255.252.0`
+  - Default Route: `128.196.208.1`
+  - DNS: `128.196.208.2 128.196.211.3 128.196.11.233 128.196.11.234`
+
 ### exao2
 
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
