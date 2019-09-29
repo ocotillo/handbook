@@ -81,7 +81,9 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ^* exao1                         2   6   377    25   +379ns[+1194ns] +/-   14ms
 ```
 
-If `exao1` is shown with a `?` in the second column or `0` in the `Reach` column, consult the [chrony FAQ](https://chrony.tuxfamily.org/faq.html).
+If `exao1` is shown with a `?` in the second column or `0` in the `Reach` column, you may have firewalled traffic on the internal "instrument" interface. You can examine the configuration files in `/etc/sysconfig/network-scripts/ifcfg-*` and ensure that the interface corresponding to `instrument` in `nmtui`/`nmcli` has `ZONE=trusted`.
+
+If it's not any of that, consult the [chrony FAQ](https://chrony.tuxfamily.org/faq.html).
 
 To verify correct operation from the AOC end, `sudo chronyc clients`:
 

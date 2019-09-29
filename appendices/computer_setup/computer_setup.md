@@ -214,6 +214,7 @@ From the list on the right:
     - Under `IPv4 CONFIGURATION` ensure `Never use this network for default route` is **not** checked
     - At the bottom of the list, ensure `Automatically connect` and `Available to all users` **are** checked
 - Disable graphical boot splash: `sudo plymouth-set-default-theme details; sudo dracut -f`
+- Trust connections internal to the instrument: `sudo nmcli con modify instrument connection.zone trusted`
 
 ## Configure `/data` array options
 
