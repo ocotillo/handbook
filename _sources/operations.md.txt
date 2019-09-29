@@ -2,6 +2,17 @@
 
 ## Troubleshooting
 
+### Missing GPUs on RTC
+
+Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:
+
+1. If RTC is responding, bring it down cleanly (`shutdown -h now`)
+1. Power down RTC at PDU0 (e.g. with `pwrGUI`)
+2. Wait 10 seconds before attempting to power back on
+3. Once it boots (which can take several minutes, with apparent false-starts), run `nvidia-smi` three times. It'll likely die on the second (and lock up).
+4. Reset using the switch mounted on the RTC motherboard (or the to-be-installed remote reset switch)
+5. Repeatedly run `nvidia-smi` (e.g. `watch nvidia-smi`) to verify it's back up and stable
+
 ### OCAM connectivity / bad data
 
 OCAM connects over two CameraLink connections. CameraLink #1 carries serial communication with the detector, so if you're able to command the camera but your data appear bad in `rtimv camwfs`, the culprit is likely the CameraLink #2 cable. Reseat, on ICC do `magaox restart camwfs`, and restart `rtimv`.

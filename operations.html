@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="planning.html">Planning your observations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operation of the MagAO-X instrument</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#missing-gpus-on-rtc">Missing GPUs on RTC</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
@@ -177,6 +178,18 @@
 <h1>Operation of the MagAO-X instrument<a class="headerlink" href="#operation-of-the-magao-x-instrument" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="missing-gpus-on-rtc">
+<h3>Missing GPUs on RTC<a class="headerlink" href="#missing-gpus-on-rtc" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes the RTC comes up with only one GPU (missing the two on an expansion board). This is due to a weird interaction between the expansion board and the motherboard. To resolve:</p>
+<ol class="simple">
+<li><p>If RTC is responding, bring it down cleanly (<code class="docutils literal notranslate"><span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code>)</p></li>
+<li><p>Power down RTC at PDU0 (e.g. with <code class="docutils literal notranslate"><span class="pre">pwrGUI</span></code>)</p></li>
+<li><p>Wait 10 seconds before attempting to power back on</p></li>
+<li><p>Once it boots (which can take several minutes, with apparent false-starts), run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> three times. It’ll likely die on the second (and lock up).</p></li>
+<li><p>Reset using the switch mounted on the RTC motherboard (or the to-be-installed remote reset switch)</p></li>
+<li><p>Repeatedly run <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">watch</span> <span class="pre">nvidia-smi</span></code>) to verify it’s back up and stable</p></li>
+</ol>
+</div>
 <div class="section" id="ocam-connectivity-bad-data">
 <h3>OCAM connectivity / bad data<a class="headerlink" href="#ocam-connectivity-bad-data" title="Permalink to this headline">¶</a></h3>
 <p>OCAM connects over two CameraLink connections. CameraLink #1 carries serial communication with the detector, so if you’re able to command the camera but your data appear bad in <code class="docutils literal notranslate"><span class="pre">rtimv</span> <span class="pre">camwfs</span></code>, the culprit is likely the CameraLink #2 cable. Reseat, on ICC do <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">restart</span> <span class="pre">camwfs</span></code>, and restart <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>.</p>
