@@ -90,6 +90,8 @@
 <li class="toctree-l1"><a class="reference internal" href="planning.html">Planning your observations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operation of the MagAO-X instrument</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ocam-connectivity-bad-data">OCAM connectivity / bad data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alpao-dm-not-responding">Alpao DM not responding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-a-magao-x-app-that-won-t-start">Troubleshooting a MagAO-X app that won’t start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#edt-framegrabber-problems-camwfs-and-camlowfs">EDT Framegrabber Problems (camwfs and camlowfs)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#killing-indi-zombies">killing indi zombies</a></li>
@@ -175,6 +177,33 @@
 <h1>Operation of the MagAO-X instrument<a class="headerlink" href="#operation-of-the-magao-x-instrument" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ocam-connectivity-bad-data">
+<h3>OCAM connectivity / bad data<a class="headerlink" href="#ocam-connectivity-bad-data" title="Permalink to this headline">¶</a></h3>
+<p>OCAM connects over two CameraLink connections. CameraLink #1 carries serial communication with the detector, so if you’re able to command the camera but your data appear bad in <code class="docutils literal notranslate"><span class="pre">rtimv</span> <span class="pre">camwfs</span></code>, the culprit is likely the CameraLink #2 cable. Reseat, on ICC do <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">restart</span> <span class="pre">camwfs</span></code>, and restart <code class="docutils literal notranslate"><span class="pre">rtimv</span></code>.</p>
+</div>
+<div class="section" id="alpao-dm-not-responding">
+<h3>Alpao DM not responding<a class="headerlink" href="#alpao-dm-not-responding" title="Permalink to this headline">¶</a></h3>
+<p>Make sure it has been initialized. There is an <code class="docutils literal notranslate"><span class="pre">initialize_alpao</span></code> systemd unit that runs at boot and initializes the interface card. Successful execution looks like this in <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">initialize_alpao</span></code> output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl status initialize_alpao
+● initialize_alpao.service - Initialize Alpao interface card
+   Loaded: loaded (/opt/MagAOX/config/initialize_alpao.service; enabled; vendor preset: disabled)
+   Active: active (exited) since Sun 2019-09-29 11:18:34 MST; 20min ago
+  Process: 4449 ExecStart=/opt/MagAOX/config/initialize_alpao.sh (code=exited, status=0/SUCCESS)
+ Main PID: 4449 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/initialize_alpao.service
+
+Sep 29 11:18:34 exao3.as.arizona.edu systemd[1]: Started Initialize Alpao interface card.
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ====================================================================
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: Ref.ID | Model                          | RSW1 |  Type | Device No.
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: --------------------------------------------------------------------
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: 1 | PEX-292144                     |    0 |    DI |    17
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: --------------------------------------------------------------------
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: 2 | PEX-292144                     |    0 |    DO |    18
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ====================================================================
+</pre></div>
+</div>
+<p>The script is saved at <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/initialize_alpao.sh</span></code>, if you want to see what it’s doing. Note that executing it again will appear to fail with a message about not finding cards to initialize if the cards have been previously initialized.</p>
+</div>
 <div class="section" id="troubleshooting-a-magao-x-app-that-won-t-start">
 <h3>Troubleshooting a MagAO-X app that won’t start<a class="headerlink" href="#troubleshooting-a-magao-x-app-that-won-t-start" title="Permalink to this headline">¶</a></h3>
 <p>The typical MagAO-X app is started by <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code> based on a line in a config file in <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt</span></code>. This proclist determines which application to start and which config file from <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config</span></code> should be supplied as the <code class="docutils literal notranslate"><span class="pre">-n</span></code> option (see <a class="reference external" href="#standard-options">Standard options</a>). It also uses <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to run the process as user <code class="docutils literal notranslate"><span class="pre">xsup</span></code>, regardless of which user called <code class="docutils literal notranslate"><span class="pre">magaox</span> <span class="pre">startup</span></code>.</p>

@@ -2,6 +2,35 @@
 
 ## Troubleshooting
 
+### OCAM connectivity / bad data
+
+OCAM connects over two CameraLink connections. CameraLink #1 carries serial communication with the detector, so if you're able to command the camera but your data appear bad in `rtimv camwfs`, the culprit is likely the CameraLink #2 cable. Reseat, on ICC do `magaox restart camwfs`, and restart `rtimv`.
+
+### Alpao DM not responding
+
+Make sure it has been initialized. There is an `initialize_alpao` systemd unit that runs at boot and initializes the interface card. Successful execution looks like this in `systemctl status initialize_alpao` output:
+
+```
+$ systemctl status initialize_alpao
+● initialize_alpao.service - Initialize Alpao interface card
+   Loaded: loaded (/opt/MagAOX/config/initialize_alpao.service; enabled; vendor preset: disabled)
+   Active: active (exited) since Sun 2019-09-29 11:18:34 MST; 20min ago
+  Process: 4449 ExecStart=/opt/MagAOX/config/initialize_alpao.sh (code=exited, status=0/SUCCESS)
+ Main PID: 4449 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/initialize_alpao.service
+
+Sep 29 11:18:34 exao3.as.arizona.edu systemd[1]: Started Initialize Alpao interface card.
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ====================================================================
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: Ref.ID | Model                          | RSW1 |  Type | Device No.
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: --------------------------------------------------------------------
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: 1 | PEX-292144                     |    0 |    DI |    17
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: --------------------------------------------------------------------
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: 2 | PEX-292144                     |    0 |    DO |    18
+Sep 29 11:18:35 exao3.as.arizona.edu initialize_alpao.sh[4449]: ====================================================================
+```
+
+The script is saved at `/opt/MagAOX/config/initialize_alpao.sh`, if you want to see what it's doing. Note that executing it again will appear to fail with a message about not finding cards to initialize if the cards have been previously initialized.
+
 ### Troubleshooting a MagAO-X app that won't start
 
 The typical MagAO-X app is started by `magaox startup` based on a line in a config file in `/opt/MagAOX/config/proclist_$MAGAOX_ROLE.txt`. This proclist determines which application to start and which config file from `/opt/MagAOX/config` should be supplied as the `-n` option (see [Standard options](#standard-options)). It also uses `sudo` to run the process as user `xsup`, regardless of which user called `magaox startup`.
