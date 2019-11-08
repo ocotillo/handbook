@@ -13,7 +13,7 @@ This document uses the hostnames of the machines interchangeably with their role
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
 | www-ua | enp7s0 | n/a (DHCP) | — | — | — | — |
-| www-lco | enp7s0 | TODO | TODO | TODO | TODO | TODO |
+| www-lco | enp7s0 | 200.28.147.221 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
 | instrument | enp6s0 | 192.168.0.10 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 
 
@@ -29,7 +29,7 @@ This document uses the hostnames of the machines interchangeably with their role
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
 | www-ua | enp9s0 | 10.130.133.207 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
-| www-lco | enp9s0 | TODO | TODO | TODO | TODO | TODO |
+| www-lco | enp9s0 | 200.28.147.222 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
 | instrument | enp8s0 | 192.168.0.11 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 
 ### exao3
@@ -37,7 +37,7 @@ This document uses the hostnames of the machines interchangeably with their role
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
 | www-ua | enp10s0 | 10.130.133.208 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
-| www-lco | enp10s0 | TODO | TODO | TODO | TODO | TODO |
+| www-lco | enp10s0 | 200.28.147.223 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
 | instrument | enp9s0 | 192.168.0.12 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 | camsci1 | ens2 | 192.168.102.2 | 255.255.255.0 | 192.168.102.1 | -- | -- |
 | camsci2 | ens3 | 192.168.101.2 | 255.255.255.0 | 192.168.101.1 | -- | -- |
