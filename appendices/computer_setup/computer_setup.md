@@ -68,7 +68,7 @@ Language: English (United States)
 
 ### Network & Hostname
 
-In the box at lower left, fill in the appropriate fully qualified domain name (e.g. `exao2.as.arizona.edu` not `exao2`). (TODO: Does this need changing when we travel to LCO?)
+In the box at lower left, fill in the machine name (i.e. `exao1` for AOC, `exao2` for RTC, `exao3` for ICC).
 
 For each Ethernet controller listed on the left, click to select and click "Configure" to bring up the settings, and select the "IPv4 Settings" panel.
 
@@ -200,21 +200,109 @@ From the list on the right:
 
 **Note:** For AOC, multiple monitors seem to confuse the default NVIDIA drivers. Stick to the VGA output until the NVIDIA drivers are set up (see below).
 
+### Update
+
 - Log in as `root`
 - Run `yum update -y`
-- Check RAID mirroring status: `cat /proc/mdstat`.
-  - On new installs, it takes some time for the initial synchronization of the drives. (Like, "leave it overnight" time.)
-- Configure internal-only network connections
-  - Run `sudo nmtui`
-  - Choose `Edit a connection`
-  - Highlight `instrument` and hit `Enter`
+
+### Check RAID status
+
+Check RAID mirroring status: `cat /proc/mdstat`. On new installs, it takes some time for the initial synchronization of the drives. (Like, "leave it overnight" time.)
+
+### Configure network interface naming
+
+SystemD, udev, and Dell have conspired to implement something called "predictable network interface names" that could more accurately be called "unpredictable network interface names".
+
+To prevent the network interface names from changing every time we move a PCIe card in our instrument, we use the almost-undocumented [Scheme 4](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/ch-consistent_network_device_naming#sec-Naming_Schemes_Hierarchy) naming scheme, where the entire hardware MAC address is placed in the interface name to guarantee it never changes.
+
+To enable this scheme, follow the procedure from [this ServerFault answer](https://serverfault.com/a/981965/45043).
+
+1. `sudo cp /usr/lib/udev/rules.d/80-net-name-slot.rules /etc/udev/rules.d`
+2. Edit `/etc/udev/rules.d/80-net-name-slot.rules` to replace
+
+    ```
+    NAME=="", ENV{ID_NET_NAME_ONBOARD}!="", NAME="$env{ID_NET_NAME_ONBOARD}"
+    NAME=="", ENV{ID_NET_NAME_SLOT}!="", NAME="$env{ID_NET_NAME_SLOT}"
+    NAME=="", ENV{ID_NET_NAME_PATH}!="", NAME="$env{ID_NET_NAME_PATH}"
+    ```
+
+    with
+
+    ```
+    NAME=="", ENV{ID_NET_NAME_MAC}!="", NAME="$env{ID_NET_NAME_MAC}"
+    ```
+3. Reboot
+
+### Configure network connections
+
+Names for network interfaces are now tied to their hardware MAC address, not their location on the PCI bus. The flip side is that replacing a NIC will require repeating the below process, probably from a seat at the computer. (However, this happens much less often than rearranging GPUs and confusing NetworkManager with renumbered `enXpY` devices.)
+
+- Use `ip a` or `nmcli` to verify the new network names. For example, this `nmcli` output is from RTC:
+
+    ```
+    $ nmcli
+    enx2cfda1c6db1b: connected to www-lco
+        "Intel I210"
+        ethernet (igb), 2C:FD:A1:C6:DB:1B, hw, mtu 1500
+        ip4 default
+        inet4 200.28.147.222/24
+        route4 200.28.147.0/24
+        route4 0.0.0.0/0
+        inet6 fe80::e645:b705:d502:3b34/64
+        route6 fe80::/64
+        route6 ff00::/8
+
+    enx2cfda1c6db1a: connected to instrument
+            "Intel I210"
+            ethernet (igb), 2C:FD:A1:C6:DB:1A, hw, mtu 1500
+            inet4 192.168.0.11/24
+            route4 192.168.0.0/24
+            inet6 fe80::58e3:d9ad:61be:f235/64
+            route6 fe80::/64
+            route6 ff00::/8
+    [...]
+    ```
+- **If the strings `connected to www-lco` or `www-ua`, and `connected to instrument` appear in the `nmcli` output, you may be finished.** If the connection profiles do not automatically find the renamed devices, read on.
+- Unplug the instrument interface and run `nmcli` again, noting which of the interfaces shows up as disconnected
+- Copy the full name (`enxaabbccddeeff`) of the interface that is showing up as connected
+- In `sudo nmtui`, rename or delete connections as necessary until there is only `www-ua`, `www-lco`, and `instrument`
+- Edit the `www-*` connections to ensure the "Device" field is set to the interface name you just copied
+- Copy the full name for the instrument interface, plug its cable back in, and repeat the last step for the `instrument` connection
+- Activate the appropriate connections in `nmtui` (or with `nmcli con down www-lco; nmcli con up www-ua; nmcli con up instrument`, swap `www-ua` and `www-lco` if necessary)
+- Choose `Edit a connection` in `nmtui`
+- Highlight `instrument` and hit `Enter`
     - Under `IPv4 CONFIGURATION` ensure `Never use this network for default route` **is** checked with an `[X]`
     - At the bottom of the list, ensure `Automatically connect` and `Available to all users` **are** checked
-  - Highlight `www-ua` / `www-lco` and hit `Enter`
+- Highlight `www-ua` and hit `Enter`
     - Under `IPv4 CONFIGURATION` ensure `Never use this network for default route` is **not** checked
     - At the bottom of the list, ensure `Automatically connect` and `Available to all users` **are** checked
-- Disable graphical boot splash: `sudo plymouth-set-default-theme details; sudo dracut -f`
+- Repeat for `www-lco`
 - Trust connections internal to the instrument: `sudo nmcli con modify instrument connection.zone trusted`
+- Verify they are both active with the appropriate connection profile in `nmcli`. Example from AOC:
+
+    ```
+    $ nmcli
+    enx2cfda1c61ddf: connected to www-lco
+            "Intel I210"
+            ethernet (igb), 2C:FD:A1:C6:1D:DF, hw, mtu 1500
+            ip4 default
+            inet4 200.28.147.221/24
+            route4 200.28.147.0/24
+            route4 0.0.0.0/0
+            inet6 fe80::f8dd:82f0:237d:a4f1/64
+            route6 fe80::/64
+            route6 ff00::/8
+
+    enx2cfda1c61dde: connected to instrument
+            "Intel I210"
+            ethernet (igb), 2C:FD:A1:C6:1D:DE, hw, mtu 1500
+            inet4 192.168.0.10/24
+            route4 192.168.0.0/24
+            inet6 fe80::e992:1899:f32c:95cf/64
+            route6 ff00::/8
+            route6 fe80::/64
+    ```
+- Verify that the internet is reachable from the instrument (e.g. `ping 8.8.8.8`) and the new config works to ping the machine from outside
 
 ## Configure `/data` array options
 

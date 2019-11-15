@@ -12,9 +12,9 @@ This document uses the hostnames of the machines interchangeably with their role
 
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
-| www-ua | enp7s0 | n/a (DHCP) | — | — | — | — |
-| www-lco | enp7s0 | TODO | TODO | TODO | TODO | TODO |
-| instrument | enp6s0 | 192.168.0.10 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+| www-ua | enx2cfda1c61ddf | n/a (DHCP) | — | — | — | — |
+| www-lco | enx2cfda1c61ddf | 200.28.147.221 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
+| instrument | enx2cfda1c61dde | 192.168.0.10 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 
 
 **For reference:** At last setup, the automatic DHCP-assigned configuration for `www-ua` was:
@@ -28,19 +28,19 @@ This document uses the hostnames of the machines interchangeably with their role
 
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
-| www-ua | enp9s0 | 10.130.133.207 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
-| www-lco | enp9s0 | TODO | TODO | TODO | TODO | TODO |
-| instrument | enp8s0 | 192.168.0.11 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+| www-ua | enx2cfda1c6db1b | 10.130.133.207 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
+| www-lco | enx2cfda1c6db1b | 200.28.147.222 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
+| instrument | enx2cfda1c6db1a | 192.168.0.11 | 255.255.255.0 | 192.168.0.1 | -- | -- |
 
 ### exao3
 
 | connection name | device | IPv4 address | subnet mask | default route / gateway | DNS servers | search domains |
 | --- | --- | --- | --- | --- | --- | --- |
-| www-ua | enp10s0 | 10.130.133.208 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
-| www-lco | enp10s0 | TODO | TODO | TODO | TODO | TODO |
-| instrument | enp9s0 | 192.168.0.12 | 255.255.255.0 | 192.168.0.1 | -- | -- |
-| camsci1 | ens2 | 192.168.102.2 | 255.255.255.0 | 192.168.102.1 | -- | -- |
-| camsci2 | ens3 | 192.168.101.2 | 255.255.255.0 | 192.168.101.1 | -- | -- |
+| www-ua | enx2cfda1c61f17 | 10.130.133.208 | 255.255.254.0 | 10.130.132.1 | 128.196.208.2 128.196.209.2 128.196.11.233 | as.arizona.edu |
+| www-lco | enx2cfda1c61f17 | 200.28.147.223 | 255.255.255.0 | 200.28.147.1 | 200.28.147.4 200.28.147.2 139.229.97.26 | lco.cl |
+| instrument | enx2cfda1c61f16 | 192.168.0.12 | 255.255.255.0 | 192.168.0.1 | -- | -- |
+| camsci1 | enx503eaa0ceeff | 192.168.102.2 | 255.255.255.0 | 192.168.102.1 | -- | -- |
+| camsci2 | enx503eaa0cf4cd | 192.168.101.2 | 255.255.255.0 | 192.168.101.1 | -- | -- |
 
 ## Hostnames
 
@@ -52,7 +52,7 @@ While at the University of Arizona, the FQDN is `<hostname>.as.arizona.edu`. Onl
 
 ### Las Campanas Observatory
 
-TODO
+While at LCO, the FQDN is `<hostname>.lco.cl`. All three instruments are accessible from the LCO-VISITORS wireless network and other usual places, but not from the outside internet.
 
 ## Time synchronization
 
@@ -68,6 +68,25 @@ AOC, in turn gets its time from a combination of
   - `0.centos.pool.ntp.org` — Alias for a pool of hosts that contribute to pool.ntp.org (whenever reachable)
 
 ### Troubleshooting
+
+If you need to see how system time relates to network time on an instrument computer, run `chronyc tracking`:
+
+```
+$ chronyc tracking
+Reference ID    : C0A8000A (exao1)
+Stratum         : 3
+Ref time (UTC)  : Fri Nov 15 00:42:34 2019
+System time     : 0.000012438 seconds fast of NTP time
+Last offset     : +0.000014364 seconds
+RMS offset      : 0.000025598 seconds
+Frequency       : 0.688 ppm fast
+Residual freq   : +0.012 ppm
+Skew            : 0.132 ppm
+Root delay      : 0.000474306 seconds
+Root dispersion : 0.000256627 seconds
+Update interval : 130.4 seconds
+Leap status     : Normal
+```
 
 To force a (potentially discontinuous) time sync, `sudo chronyc -a makestep`.
 
