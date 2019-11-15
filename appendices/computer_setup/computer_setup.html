@@ -112,7 +112,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#users">Users</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#after-os-installation">After OS installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#after-os-installation">After OS installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#check-raid-status">Check RAID status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-network-interface-naming">Configure network interface naming</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-network-connections">Configure network connections</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#configure-data-array-options">Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setup-ssh">Setup ssh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aoc-only-gpu-drivers-setup">AOC only: GPU drivers setup</a></li>
@@ -261,7 +267,7 @@
 </div>
 <div class="section" id="network-hostname">
 <h3>Network &amp; Hostname<a class="headerlink" href="#network-hostname" title="Permalink to this headline">¶</a></h3>
-<p>In the box at lower left, fill in the appropriate fully qualified domain name (e.g. <code class="docutils literal notranslate"><span class="pre">exao2.as.arizona.edu</span></code> not <code class="docutils literal notranslate"><span class="pre">exao2</span></code>). (TODO: Does this need changing when we travel to LCO?)</p>
+<p>In the box at lower left, fill in the machine name (i.e. <code class="docutils literal notranslate"><span class="pre">exao1</span></code> for AOC, <code class="docutils literal notranslate"><span class="pre">exao2</span></code> for RTC, <code class="docutils literal notranslate"><span class="pre">exao3</span></code> for ICC).</p>
 <p>For each Ethernet controller listed on the left, click to select and click “Configure” to bring up the settings, and select the “IPv4 Settings” panel.</p>
 <p>If the IP address in the table from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> is not “n/a (DHCP)”, select Method: “Manual” from the dropdown under “IPv4 Settings”.</p>
 <p>In the “Addresses” panel, click “Add” and enter the appropriate address from <a class="reference internal" href="../networking.html"><span class="doc">the Networking Doc</span></a> table under “Network Connections”.</p>
@@ -429,35 +435,116 @@
 <div class="section" id="after-os-installation">
 <h2>After OS installation<a class="headerlink" href="#after-os-installation" title="Permalink to this headline">¶</a></h2>
 <p><strong>Note:</strong> For AOC, multiple monitors seem to confuse the default NVIDIA drivers. Stick to the VGA output until the NVIDIA drivers are set up (see below).</p>
+<div class="section" id="update">
+<h3>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code></p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code></p></li>
-<li><p>Check RAID mirroring status: <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code>.</p>
-<ul>
-<li><p>On new installs, it takes some time for the initial synchronization of the drives. (Like, “leave it overnight” time.)</p></li>
 </ul>
+</div>
+<div class="section" id="check-raid-status">
+<h3>Check RAID status<a class="headerlink" href="#check-raid-status" title="Permalink to this headline">¶</a></h3>
+<p>Check RAID mirroring status: <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">/proc/mdstat</span></code>. On new installs, it takes some time for the initial synchronization of the drives. (Like, “leave it overnight” time.)</p>
+</div>
+<div class="section" id="configure-network-interface-naming">
+<h3>Configure network interface naming<a class="headerlink" href="#configure-network-interface-naming" title="Permalink to this headline">¶</a></h3>
+<p>SystemD, udev, and Dell have conspired to implement something called “predictable network interface names” that could more accurately be called “unpredictable network interface names”.</p>
+<p>To prevent the network interface names from changing every time we move a PCIe card in our instrument, we use the almost-undocumented <a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/ch-consistent_network_device_naming#sec-Naming_Schemes_Hierarchy">Scheme 4</a> naming scheme, where the entire hardware MAC address is placed in the interface name to guarantee it never changes.</p>
+<p>To enable this scheme, follow the procedure from <a class="reference external" href="https://serverfault.com/a/981965/45043">this ServerFault answer</a>.</p>
+<ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">cp</span> <span class="pre">/usr/lib/udev/rules.d/80-net-name-slot.rules</span> <span class="pre">/etc/udev/rules.d</span></code></p></li>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/udev/rules.d/80-net-name-slot.rules</span></code> to replace</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ENV</span><span class="p">{</span><span class="n">ID_NET_NAME_ONBOARD</span><span class="p">}</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;$env</span><span class="si">{ID_NET_NAME_ONBOARD}</span><span class="s2">&quot;</span>
+<span class="n">NAME</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ENV</span><span class="p">{</span><span class="n">ID_NET_NAME_SLOT</span><span class="p">}</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;$env</span><span class="si">{ID_NET_NAME_SLOT}</span><span class="s2">&quot;</span>
+<span class="n">NAME</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ENV</span><span class="p">{</span><span class="n">ID_NET_NAME_PATH</span><span class="p">}</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;$env</span><span class="si">{ID_NET_NAME_PATH}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ENV</span><span class="p">{</span><span class="n">ID_NET_NAME_MAC</span><span class="p">}</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;$env</span><span class="si">{ID_NET_NAME_MAC}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
 </li>
-<li><p>Configure internal-only network connections</p>
+<li><p>Reboot</p></li>
+</ol>
+</div>
+<div class="section" id="configure-network-connections">
+<h3>Configure network connections<a class="headerlink" href="#configure-network-connections" title="Permalink to this headline">¶</a></h3>
+<p>Names for network interfaces are now tied to their hardware MAC address, not their location on the PCI bus. The flip side is that replacing a NIC will require repeating the below process, probably from a seat at the computer. (However, this happens much less often than rearranging GPUs and confusing NetworkManager with renumbered <code class="docutils literal notranslate"><span class="pre">enXpY</span></code> devices.)</p>
 <ul>
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nmtui</span></code></p></li>
-<li><p>Choose <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">a</span> <span class="pre">connection</span></code></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">a</span></code> or <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> to verify the new network names. For example, this <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> output is from RTC:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nmcli
+enx2cfda1c6db1b: connected to www-lco
+    &quot;Intel I210&quot;
+    ethernet (igb), 2C:FD:A1:C6:DB:1B, hw, mtu 1500
+    ip4 default
+    inet4 200.28.147.222/24
+    route4 200.28.147.0/24
+    route4 0.0.0.0/0
+    inet6 fe80::e645:b705:d502:3b34/64
+    route6 fe80::/64
+    route6 ff00::/8
+
+enx2cfda1c6db1a: connected to instrument
+        &quot;Intel I210&quot;
+        ethernet (igb), 2C:FD:A1:C6:DB:1A, hw, mtu 1500
+        inet4 192.168.0.11/24
+        route4 192.168.0.0/24
+        inet6 fe80::58e3:d9ad:61be:f235/64
+        route6 fe80::/64
+        route6 ff00::/8
+[...]
+</pre></div>
+</div>
+</li>
+<li><p><strong>If the strings <code class="docutils literal notranslate"><span class="pre">connected</span> <span class="pre">to</span> <span class="pre">www-lco</span></code> or <code class="docutils literal notranslate"><span class="pre">www-ua</span></code>, and <code class="docutils literal notranslate"><span class="pre">connected</span> <span class="pre">to</span> <span class="pre">instrument</span></code> appear in the <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> output, you may be finished.</strong> If the connection profiles do not automatically find the renamed devices, read on.</p></li>
+<li><p>Unplug the instrument interface and run <code class="docutils literal notranslate"><span class="pre">nmcli</span></code> again, noting which of the interfaces shows up as disconnected</p></li>
+<li><p>Copy the full name (<code class="docutils literal notranslate"><span class="pre">enxaabbccddeeff</span></code>) of the interface that is showing up as connected</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nmtui</span></code>, rename or delete connections as necessary until there is only <code class="docutils literal notranslate"><span class="pre">www-ua</span></code>, <code class="docutils literal notranslate"><span class="pre">www-lco</span></code>, and <code class="docutils literal notranslate"><span class="pre">instrument</span></code></p></li>
+<li><p>Edit the <code class="docutils literal notranslate"><span class="pre">www-*</span></code> connections to ensure the “Device” field is set to the interface name you just copied</p></li>
+<li><p>Copy the full name for the instrument interface, plug its cable back in, and repeat the last step for the <code class="docutils literal notranslate"><span class="pre">instrument</span></code> connection</p></li>
+<li><p>Activate the appropriate connections in <code class="docutils literal notranslate"><span class="pre">nmtui</span></code> (or with <code class="docutils literal notranslate"><span class="pre">nmcli</span> <span class="pre">con</span> <span class="pre">down</span> <span class="pre">www-lco;</span> <span class="pre">nmcli</span> <span class="pre">con</span> <span class="pre">up</span> <span class="pre">www-ua;</span> <span class="pre">nmcli</span> <span class="pre">con</span> <span class="pre">up</span> <span class="pre">instrument</span></code>, swap <code class="docutils literal notranslate"><span class="pre">www-ua</span></code> and <code class="docutils literal notranslate"><span class="pre">www-lco</span></code> if necessary)</p></li>
+<li><p>Choose <code class="docutils literal notranslate"><span class="pre">Edit</span> <span class="pre">a</span> <span class="pre">connection</span></code> in <code class="docutils literal notranslate"><span class="pre">nmtui</span></code></p></li>
 <li><p>Highlight <code class="docutils literal notranslate"><span class="pre">instrument</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
-<ul>
+<ul class="simple">
 <li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> <strong>is</strong> checked with an <code class="docutils literal notranslate"><span class="pre">[X]</span></code></p></li>
 <li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> <strong>are</strong> checked</p></li>
 </ul>
 </li>
-<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">www-ua</span></code> / <code class="docutils literal notranslate"><span class="pre">www-lco</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
-<ul>
+<li><p>Highlight <code class="docutils literal notranslate"><span class="pre">www-ua</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
+<ul class="simple">
 <li><p>Under <code class="docutils literal notranslate"><span class="pre">IPv4</span> <span class="pre">CONFIGURATION</span></code> ensure <code class="docutils literal notranslate"><span class="pre">Never</span> <span class="pre">use</span> <span class="pre">this</span> <span class="pre">network</span> <span class="pre">for</span> <span class="pre">default</span> <span class="pre">route</span></code> is <strong>not</strong> checked</p></li>
 <li><p>At the bottom of the list, ensure <code class="docutils literal notranslate"><span class="pre">Automatically</span> <span class="pre">connect</span></code> and <code class="docutils literal notranslate"><span class="pre">Available</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">users</span></code> <strong>are</strong> checked</p></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>Disable graphical boot splash: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">plymouth-set-default-theme</span> <span class="pre">details;</span> <span class="pre">sudo</span> <span class="pre">dracut</span> <span class="pre">-f</span></code></p></li>
+<li><p>Repeat for <code class="docutils literal notranslate"><span class="pre">www-lco</span></code></p></li>
 <li><p>Trust connections internal to the instrument: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">nmcli</span> <span class="pre">con</span> <span class="pre">modify</span> <span class="pre">instrument</span> <span class="pre">connection.zone</span> <span class="pre">trusted</span></code></p></li>
+<li><p>Verify they are both active with the appropriate connection profile in <code class="docutils literal notranslate"><span class="pre">nmcli</span></code>. Example from AOC:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nmcli
+enx2cfda1c61ddf: connected to www-lco
+        &quot;Intel I210&quot;
+        ethernet (igb), 2C:FD:A1:C6:1D:DF, hw, mtu 1500
+        ip4 default
+        inet4 200.28.147.221/24
+        route4 200.28.147.0/24
+        route4 0.0.0.0/0
+        inet6 fe80::f8dd:82f0:237d:a4f1/64
+        route6 fe80::/64
+        route6 ff00::/8
+
+enx2cfda1c61dde: connected to instrument
+        &quot;Intel I210&quot;
+        ethernet (igb), 2C:FD:A1:C6:1D:DE, hw, mtu 1500
+        inet4 192.168.0.10/24
+        route4 192.168.0.0/24
+        inet6 fe80::e992:1899:f32c:95cf/64
+        route6 ff00::/8
+        route6 fe80::/64
+</pre></div>
+</div>
+</li>
+<li><p>Verify that the internet is reachable from the instrument (e.g. <code class="docutils literal notranslate"><span class="pre">ping</span> <span class="pre">8.8.8.8</span></code>) and the new config works to ping the machine from outside</p></li>
 </ul>
+</div>
 </div>
 <div class="section" id="configure-data-array-options">
 <h2>Configure <code class="docutils literal notranslate"><span class="pre">/data</span></code> array options<a class="headerlink" href="#configure-data-array-options" title="Permalink to this headline">¶</a></h2>

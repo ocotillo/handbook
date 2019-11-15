@@ -213,7 +213,7 @@
 <tbody>
 <tr>
 <td>www-ua</td>
-<td>enp7s0</td>
+<td>enx2cfda1c61ddf</td>
 <td>n/a (DHCP)</td>
 <td>—</td>
 <td>—</td>
@@ -222,7 +222,7 @@
 </tr>
 <tr>
 <td>www-lco</td>
-<td>enp7s0</td>
+<td>enx2cfda1c61ddf</td>
 <td>200.28.147.221</td>
 <td>255.255.255.0</td>
 <td>200.28.147.1</td>
@@ -231,7 +231,7 @@
 </tr>
 <tr>
 <td>instrument</td>
-<td>enp6s0</td>
+<td>enx2cfda1c61dde</td>
 <td>192.168.0.10</td>
 <td>255.255.255.0</td>
 <td>192.168.0.1</td>
@@ -264,7 +264,7 @@
 <tbody>
 <tr>
 <td>www-ua</td>
-<td>enp9s0</td>
+<td>enx2cfda1c6db1b</td>
 <td>10.130.133.207</td>
 <td>255.255.254.0</td>
 <td>10.130.132.1</td>
@@ -273,7 +273,7 @@
 </tr>
 <tr>
 <td>www-lco</td>
-<td>enp9s0</td>
+<td>enx2cfda1c6db1b</td>
 <td>200.28.147.222</td>
 <td>255.255.255.0</td>
 <td>200.28.147.1</td>
@@ -282,7 +282,7 @@
 </tr>
 <tr>
 <td>instrument</td>
-<td>enp8s0</td>
+<td>enx2cfda1c6db1a</td>
 <td>192.168.0.11</td>
 <td>255.255.255.0</td>
 <td>192.168.0.1</td>
@@ -308,7 +308,7 @@
 <tbody>
 <tr>
 <td>www-ua</td>
-<td>enp10s0</td>
+<td>enx2cfda1c61f17</td>
 <td>10.130.133.208</td>
 <td>255.255.254.0</td>
 <td>10.130.132.1</td>
@@ -317,7 +317,7 @@
 </tr>
 <tr>
 <td>www-lco</td>
-<td>enp10s0</td>
+<td>enx2cfda1c61f17</td>
 <td>200.28.147.223</td>
 <td>255.255.255.0</td>
 <td>200.28.147.1</td>
@@ -326,7 +326,7 @@
 </tr>
 <tr>
 <td>instrument</td>
-<td>enp9s0</td>
+<td>enx2cfda1c61f16</td>
 <td>192.168.0.12</td>
 <td>255.255.255.0</td>
 <td>192.168.0.1</td>
@@ -335,7 +335,7 @@
 </tr>
 <tr>
 <td>camsci1</td>
-<td>ens2</td>
+<td>enx503eaa0ceeff</td>
 <td>192.168.102.2</td>
 <td>255.255.255.0</td>
 <td>192.168.102.1</td>
@@ -344,7 +344,7 @@
 </tr>
 <tr>
 <td>camsci2</td>
-<td>ens3</td>
+<td>enx503eaa0cf4cd</td>
 <td>192.168.101.2</td>
 <td>255.255.255.0</td>
 <td>192.168.101.1</td>
@@ -363,7 +363,7 @@
 </div>
 <div class="section" id="las-campanas-observatory">
 <h3>Las Campanas Observatory<a class="headerlink" href="#las-campanas-observatory" title="Permalink to this headline">¶</a></h3>
-<p>TODO</p>
+<p>While at LCO, the FQDN is <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.lco.cl</span></code>. All three instruments are accessible from the LCO-VISITORS wireless network and other usual places, but not from the outside internet.</p>
 </div>
 </div>
 <div class="section" id="time-synchronization">
@@ -379,6 +379,23 @@
 </ul>
 <div class="section" id="troubleshooting">
 <h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+<p>If you need to see how system time relates to network time on an instrument computer, run <code class="docutils literal notranslate"><span class="pre">chronyc</span> <span class="pre">tracking</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chronyc tracking
+Reference ID    : C0A8000A (exao1)
+Stratum         : 3
+Ref time (UTC)  : Fri Nov 15 00:42:34 2019
+System time     : 0.000012438 seconds fast of NTP time
+Last offset     : +0.000014364 seconds
+RMS offset      : 0.000025598 seconds
+Frequency       : 0.688 ppm fast
+Residual freq   : +0.012 ppm
+Skew            : 0.132 ppm
+Root delay      : 0.000474306 seconds
+Root dispersion : 0.000256627 seconds
+Update interval : 130.4 seconds
+Leap status     : Normal
+</pre></div>
+</div>
 <p>To force a (potentially discontinuous) time sync, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chronyc</span> <span class="pre">-a</span> <span class="pre">makestep</span></code>.</p>
 <p>To verify correct operation from RTC or ICC, use <code class="docutils literal notranslate"><span class="pre">chronyc</span> <span class="pre">sources</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chronyc sources
