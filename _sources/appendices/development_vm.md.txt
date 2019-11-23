@@ -17,9 +17,10 @@ As it happens, MagAO-X has a [Vagrantfile](https://github.com/magao-x/MagAOX/blo
 
 ### Additional notes for Windows users
 
-  1. It's probably easiest to get `git` from [Anaconda]() if you're already using it (use `conda install git` at the Anaconda command line)
+  1. It's probably easiest to get `git` from [Anaconda](https://docs.anaconda.com/anaconda/install/windows/) if you're already using it (use `conda install git` at the Anaconda command line)
   2. `git` needs to be configured not to alter line endings. After installing git, you should do `git config --global core.autocrlf false` *before* cloning MagAOX. (However, if you use `git` for other things, you may not want this to be a global setting.)
-  3. The section below on [Using GUIs in the VM](#Using-GUIs-in-the-VM) needs to be expanded with instructions for Windows. (Basically, we need to figure out which of the X11 servers for Windows works with `vagrant ssh` in the current configuration.) Until then, no GUIs in Windows.
+  3. The existence of a `windows_host.txt` advisory file is **required** for provisioning to succeed. (Its presence tells the scripts to work around functionality that is missing on Windows hosts.)
+  4. The section below on [Using GUIs in the VM](#Using-GUIs-in-the-VM) needs to be expanded with instructions for Windows. (Basically, we need to figure out which of the X11 servers for Windows works with `vagrant ssh` in the current configuration.) Until then, no GUIs in Windows.
 
 ## Setup
 
@@ -40,7 +41,9 @@ As it happens, MagAO-X has a [Vagrantfile](https://github.com/magao-x/MagAOX/blo
     $ cd MagAOX
     ```
 
-3. Run `vagrant up` (or `vagrant up ICC`)
+3. **Windows only:** Create a new blank file named `windows_host.txt` in the MagAOX folder.
+
+4. Run `vagrant up` (or `vagrant up ICC`)
 
     ```text
     $ vagrant up
@@ -166,18 +169,8 @@ You should see something like this:
 
  The VM has a view of your copy of this repository under `/vagrant`. For example, no matter where you cloned this repository on your own (host) machine, the virtual machine will see this file at `/vagrant/README.md`. (For consistency with production, we symlink `/opt/MagAOX/source/MagAOX` to `/vagrant`.) Edits to the MagAO-X software source on your computer will be instantly reflected on the VM side, ready for you to `make` or `make install` in your ssh session.
 
-There are some other paths under `/opt/MagAOX` that are also symlinked to the host:
+There are some other paths under `/opt/MagAOX` that are also symlinked to the host under a folder named `vm`. (**Note:** Windows hosts don't support this.)
 
-  * `/opt/MagAOX/.cache -> /vagrant/setup/cache`
-  * `/opt/MagAOX/calib -> /vagrant/setup/calib`
-  * `/opt/MagAOX/config -> /vagrant/setup/config`
-
-In other words, if you cloned from GitHub into `/home/me/devel/MagAOX`, the copy of the MagAO-X config files used by your VM would be in `/home/me/devel/MagAOX/setup/config`. (**Unlike** like the real instrument.)
+For example, if you cloned from GitHub into `/home/me/devel/MagAOX`, the copy of the MagAO-X config files used by your VM would be in `/home/me/devel/MagAOX/vm/config`. (**Unlike** like the real instrument.)
 
 The `vagrant` user you log in as with `vagrant ssh` will be a member of the `magaox` and `magaox-dev` groups following successful provisioning, and should have all the necessary permissions to run the system (or, at least, the parts you can run in a VM).
-
-### Advanced usage
-
-The `ICC` and `AOC` configurations in the Vagrantfile are mutually exclusive (i.e. map the same ports). Switching between the `ICC` and `AOC` configurations is not recommended, as you must `make all_clean` and ensure there are no binaries built with Ubuntu's toolchain present when CentOS boots up and vice-versa.
-
-If you want both, the easiest way is to just clone another copy of the MagAO-X repository and `cd newMagAOX/ && vagrant up ICC` (or `AOC`) in there. (Note that you can copy or symlink the `setup/cache/`, `setup/calib/`, and `setup/config/` folders to avoid having too many redundant copies of things.)

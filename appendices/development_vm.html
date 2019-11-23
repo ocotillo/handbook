@@ -107,7 +107,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#using-guis-in-the-vm">Using GUIs in the VM</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#simulating-image-data-streams">Simulating image data streams</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#developing-magao-x">Developing MagAO-X</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#advanced-usage">Advanced usage</a></li>
 </ul>
 </li>
 </ul>
@@ -203,8 +202,9 @@
 <div class="section" id="additional-notes-for-windows-users">
 <h3>Additional notes for Windows users<a class="headerlink" href="#additional-notes-for-windows-users" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
-<li><p>It’s probably easiest to get <code class="docutils literal notranslate"><span class="pre">git</span></code> from <a class="reference external" href="#">Anaconda</a> if you’re already using it (use <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">git</span></code> at the Anaconda command line)</p></li>
+<li><p>It’s probably easiest to get <code class="docutils literal notranslate"><span class="pre">git</span></code> from <a class="reference external" href="https://docs.anaconda.com/anaconda/install/windows/">Anaconda</a> if you’re already using it (use <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">git</span></code> at the Anaconda command line)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span></code> needs to be configured not to alter line endings. After installing git, you should do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">core.autocrlf</span> <span class="pre">false</span></code> <em>before</em> cloning MagAOX. (However, if you use <code class="docutils literal notranslate"><span class="pre">git</span></code> for other things, you may not want this to be a global setting.)</p></li>
+<li><p>The existence of a <code class="docutils literal notranslate"><span class="pre">windows_host.txt</span></code> advisory file is <strong>required</strong> for provisioning to succeed. (Its presence tells the scripts to work around functionality that is missing on Windows hosts.)</p></li>
 <li><p>The section below on <a class="reference external" href="#Using-GUIs-in-the-VM">Using GUIs in the VM</a> needs to be expanded with instructions for Windows. (Basically, we need to figure out which of the X11 servers for Windows works with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> in the current configuration.) Until then, no GUIs in Windows.</p></li>
 </ol>
 </div>
@@ -228,6 +228,7 @@ $ cd MagAOX
 </pre></div>
 </div>
 </li>
+<li><p><strong>Windows only:</strong> Create a new blank file named <code class="docutils literal notranslate"><span class="pre">windows_host.txt</span></code> in the MagAOX folder.</p></li>
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span></code> (or <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">up</span> <span class="pre">ICC</span></code>)</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ vagrant up
 </pre></div>
@@ -329,19 +330,9 @@ vm$ ./bin/pwr
 <div class="section" id="developing-magao-x">
 <h3>Developing MagAO-X<a class="headerlink" href="#developing-magao-x" title="Permalink to this headline">¶</a></h3>
 <p>The VM has a view of your copy of this repository under <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code>. For example, no matter where you cloned this repository on your own (host) machine, the virtual machine will see this file at <code class="docutils literal notranslate"><span class="pre">/vagrant/README.md</span></code>. (For consistency with production, we symlink <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/source/MagAOX</span></code> to <code class="docutils literal notranslate"><span class="pre">/vagrant</span></code>.) Edits to the MagAO-X software source on your computer will be instantly reflected on the VM side, ready for you to <code class="docutils literal notranslate"><span class="pre">make</span></code> or <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> in your ssh session.</p>
-<p>There are some other paths under <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX</span></code> that are also symlinked to the host:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/.cache</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/cache</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/calib</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/calib</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/config</span> <span class="pre">-&gt;</span> <span class="pre">/vagrant/setup/config</span></code></p></li>
-</ul>
-<p>In other words, if you cloned from GitHub into <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX</span></code>, the copy of the MagAO-X config files used by your VM would be in <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX/setup/config</span></code>. (<strong>Unlike</strong> like the real instrument.)</p>
+<p>There are some other paths under <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX</span></code> that are also symlinked to the host under a folder named <code class="docutils literal notranslate"><span class="pre">vm</span></code>. (<strong>Note:</strong> Windows hosts don’t support this.)</p>
+<p>For example, if you cloned from GitHub into <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX</span></code>, the copy of the MagAO-X config files used by your VM would be in <code class="docutils literal notranslate"><span class="pre">/home/me/devel/MagAOX/vm/config</span></code>. (<strong>Unlike</strong> like the real instrument.)</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">vagrant</span></code> user you log in as with <code class="docutils literal notranslate"><span class="pre">vagrant</span> <span class="pre">ssh</span></code> will be a member of the <code class="docutils literal notranslate"><span class="pre">magaox</span></code> and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups following successful provisioning, and should have all the necessary permissions to run the system (or, at least, the parts you can run in a VM).</p>
-</div>
-<div class="section" id="advanced-usage">
-<h3>Advanced usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">ICC</span></code> and <code class="docutils literal notranslate"><span class="pre">AOC</span></code> configurations in the Vagrantfile are mutually exclusive (i.e. map the same ports). Switching between the <code class="docutils literal notranslate"><span class="pre">ICC</span></code> and <code class="docutils literal notranslate"><span class="pre">AOC</span></code> configurations is not recommended, as you must <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">all_clean</span></code> and ensure there are no binaries built with Ubuntu’s toolchain present when CentOS boots up and vice-versa.</p>
-<p>If you want both, the easiest way is to just clone another copy of the MagAO-X repository and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">newMagAOX/</span> <span class="pre">&amp;&amp;</span> <span class="pre">vagrant</span> <span class="pre">up</span> <span class="pre">ICC</span></code> (or <code class="docutils literal notranslate"><span class="pre">AOC</span></code>) in there. (Note that you can copy or symlink the <code class="docutils literal notranslate"><span class="pre">setup/cache/</span></code>, <code class="docutils literal notranslate"><span class="pre">setup/calib/</span></code>, and <code class="docutils literal notranslate"><span class="pre">setup/config/</span></code> folders to avoid having too many redundant copies of things.)</p>
 </div>
 </div>
 </div>
