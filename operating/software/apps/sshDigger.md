@@ -102,4 +102,4 @@ This then securely forwards traffic from `localhost:7630` to the INDI server on 
 
 ## See Also
 
-[Source code](../../MagAOX/group__sshDigger.html)
+[Source code](../../../MagAOX/group__sshDigger.html)

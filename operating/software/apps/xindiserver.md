@@ -93,4 +93,4 @@ If `indiserver` exits abnormally (this is extremly rare, and is not expected exc
 
 ## See Also
 
-[Source code](../../MagAOX/group__xindiserver.html)
+[Source code](../../../MagAOX/group__xindiserver.html)
