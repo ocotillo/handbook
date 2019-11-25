@@ -1,14 +1,19 @@
-# Instrument description and capabilities
+# Compute System
 
-## Hal the H-alpha detector
+The MagAO-X computing system.
 
-## Connie the continuum detector
+```eval_rst
+.. toctree::
+   :maxdepth: 1
 
-## Heidi the high-order wavefront sensing camera (HOWFS)
-
-## Lois the low-order wavefront sensing camera (LOWFS)
-
-## Computer architecture
+   administration
+   networking
+   data_storage_management
+   computer_setup/computer_setup
+   development_vm
+```
+   
+## Computer Architecture
 
 The computers that run MagAO-X are:
 
@@ -16,7 +21,7 @@ The computers that run MagAO-X are:
   * The Real Time control Computer (RTC)
   * The Adaptive optics Operator Computer (AOC) *TODO*
 
-While on the University of Arizona network, the RTC is known as `exao2.as.arizona.edu` (`10.130.133.207`) and the ICC as `exao3.as.arizona.edu` (`10.130.133.208`). Both ICC and RTC run modified Linux kernels (see [Installing the realtime Linux kernel and the NVIDIA GPU driver](appendices/computer_setup/realtime_linux_config)) optimized for low and predictable latency.
+While on the University of Arizona network, the RTC is known as `exao2.as.arizona.edu` (`10.130.133.207`) and the ICC as `exao3.as.arizona.edu` (`10.130.133.208`). Both ICC and RTC run modified Linux kernels optimized for low and predictable latency.
 
 ### Real Time Controller
 
@@ -25,3 +30,6 @@ Responsible for wavefront sensing and control, and directly connected to the HOW
 ### Instrument Control Computer
 
 Responsible for functions that do not depend on strong realtime constraints, including LOWFS, configuring and reading out science cameras, etc.
+
+
+

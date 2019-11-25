@@ -16,6 +16,8 @@
 
 ## Standard Options
 
+All MagAO-X applications accept the following options:
+
 | Short | Long                   | Config-File *         | Type            | Description |
 | ---   | ---                    | ---                   | ---             | --- |
 | `-c`  | `--config`             | config                | string          | A local config file |
@@ -29,3 +31,10 @@
 |       | `--logThreadPrio`      | logger.logThreadPrio  | int             | The log thread priority |
 | `-l`  | `--logLevel`           | logger.logLevel       | string          | The log level |
 | `-n`  | `--name`               | name                  | string          | The name of the application, specifies config. |
+
+\* In the "Config-File" column, the syntax `section.keyword` means that in the config file this option is set as follows:
+```
+[section]
+keyword=value
+```
+
