@@ -11,6 +11,7 @@ Table of contents
 
     observers/index
     operating/index
+    handling/index
     compute/index
     appendices/index
 

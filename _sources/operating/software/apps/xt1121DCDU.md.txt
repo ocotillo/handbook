@@ -90,4 +90,4 @@ This app is started for DCDU 0, which has config file `dcdu0.conf`, using
 
 ## See Also
 
-[Source code](../../MagAOX/group__xt1121DCDU.html)
+[Source code](../../../MagAOX/group__xt1121DCDU.html)
