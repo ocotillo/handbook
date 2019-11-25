@@ -2,7 +2,7 @@
 
 ## Name
 
-ocam2KCtrl − [does something]
+ocam2KCtrl − Controls an OCAM 2K EMCCD 
 
 ## Synopsis
 
@@ -14,13 +14,18 @@ ocam2KCtrl [options]
 
 ## Description
 
-`ocam2KCtrl` [does stuff in detail]
+`ocam2KCtrl` controls the OCAM 2K EMCCD, which serves as the pyramid wavefront sensor detector in MagAO-X.  It monitors and logs temperatures, configures the camera for the desired mode of operation, and manages the grabbing and processing of frames.  It is a MagAO-X `standard camera`, an `EDT camera`, and a standard `framegrabber`.
 
 ## Options
 
 ocam2KCtrl accepts the [standard options](index.html#standard-options)
 
-[and other stuff]
+ocam2KCtrl accepts the standard camera options
+
+ocam2KCtrl accepts the EDT camera options
+
+ocam2KCtrl accepts the framegrabber options
+
 
 \* format in the config file column is section.option which implies the format
 
@@ -47,9 +52,9 @@ list them here
 
 ## Examples
 
-To start the [description of app or ocam2KCtrl] for [context]:
+To start the ocam2KCtrl as the Pyramid WFS camera:
 ```
-/opt/MagAOX/bin/ocam2KCtrl -n [contextname]
+/opt/MagAOX/bin/ocam2KCtrl -n camwfs
 ```
 
 ## See also

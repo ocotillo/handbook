@@ -9,12 +9,9 @@ Table of contents
 .. toctree::
     :maxdepth: 2
 
-    capabilities
-    planning
-    operations
-    reduction
-    apps/index
-    utils/index
+    observers/index
+    operating/index
+    compute/index
     appendices/index
 
 Resources
