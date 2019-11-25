@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Networking &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/stats.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Storage Management" href="data_storage_management.html" />
+    <link rel="prev" title="System Administration" href="administration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../observers/index.html">Information For Observers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operating/index.html">Operation of the MagAO-X instrument</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Compute System</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="administration.html">System Administration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Networking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network-connections">Network Connections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exao1">exao1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exao2">exao2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exao3">exao3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#hostnames">Hostnames</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#university-of-arizona">University of Arizona</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#las-campanas-observatory">Las Campanas Observatory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#time-synchronization">Time synchronization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#topology">Topology</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data_storage_management.html">Data Storage Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computer_setup/computer_setup.html">Instrument computer setup guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development_vm.html">Developing in a virtual machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#computer-architecture">Computer Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Compute System</a> &raquo;</li>
+        
+      <li>Networking</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/compute/networking.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="networking">
+<h1>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h1>
+<p>This document uses the hostnames of the machines interchangeably with their roles. For reference:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">exao1</span></code> — AOC</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exao2</span></code> — RTC</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exao3</span></code> — ICC</p></li>
+</ul>
+<div class="section" id="network-connections">
+<h2>Network Connections<a class="headerlink" href="#network-connections" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exao1">
+<h3>exao1<a class="headerlink" href="#exao1" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>connection name</th>
+<th>device</th>
+<th>IPv4 address</th>
+<th>subnet mask</th>
+<th>default route / gateway</th>
+<th>DNS servers</th>
+<th>search domains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www-ua</td>
+<td>enx2cfda1c61ddf</td>
+<td>n/a (DHCP)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>www-lco</td>
+<td>enx2cfda1c61ddf</td>
+<td>200.28.147.221</td>
+<td>255.255.255.0</td>
+<td>200.28.147.1</td>
+<td>200.28.147.4 200.28.147.2 139.229.97.26</td>
+<td>lco.cl</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>enx2cfda1c61dde</td>
+<td>192.168.0.10</td>
+<td>255.255.255.0</td>
+<td>192.168.0.1</td>
+<td>--</td>
+<td>--</td>
+</tr>
+</tbody>
+</table><p><strong>For reference:</strong> At last setup, the automatic DHCP-assigned configuration for <code class="docutils literal notranslate"><span class="pre">www-ua</span></code> was:</p>
+<ul class="simple">
+<li><p>IP Address: <code class="docutils literal notranslate"><span class="pre">128.196.208.35</span></code></p></li>
+<li><p>Subnet Mask: <code class="docutils literal notranslate"><span class="pre">255.255.252.0</span></code></p></li>
+<li><p>Default Route: <code class="docutils literal notranslate"><span class="pre">128.196.208.1</span></code></p></li>
+<li><p>DNS: <code class="docutils literal notranslate"><span class="pre">128.196.208.2</span> <span class="pre">128.196.211.3</span> <span class="pre">128.196.11.233</span> <span class="pre">128.196.11.234</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="exao2">
+<h3>exao2<a class="headerlink" href="#exao2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>connection name</th>
+<th>device</th>
+<th>IPv4 address</th>
+<th>subnet mask</th>
+<th>default route / gateway</th>
+<th>DNS servers</th>
+<th>search domains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www-ua</td>
+<td>enx2cfda1c6db1b</td>
+<td>10.130.133.207</td>
+<td>255.255.254.0</td>
+<td>10.130.132.1</td>
+<td>128.196.208.2 128.196.209.2 128.196.11.233</td>
+<td>as.arizona.edu</td>
+</tr>
+<tr>
+<td>www-lco</td>
+<td>enx2cfda1c6db1b</td>
+<td>200.28.147.222</td>
+<td>255.255.255.0</td>
+<td>200.28.147.1</td>
+<td>200.28.147.4 200.28.147.2 139.229.97.26</td>
+<td>lco.cl</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>enx2cfda1c6db1a</td>
+<td>192.168.0.11</td>
+<td>255.255.255.0</td>
+<td>192.168.0.1</td>
+<td>--</td>
+<td>--</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="exao3">
+<h3>exao3<a class="headerlink" href="#exao3" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>connection name</th>
+<th>device</th>
+<th>IPv4 address</th>
+<th>subnet mask</th>
+<th>default route / gateway</th>
+<th>DNS servers</th>
+<th>search domains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>www-ua</td>
+<td>enx2cfda1c61f17</td>
+<td>10.130.133.208</td>
+<td>255.255.254.0</td>
+<td>10.130.132.1</td>
+<td>128.196.208.2 128.196.209.2 128.196.11.233</td>
+<td>as.arizona.edu</td>
+</tr>
+<tr>
+<td>www-lco</td>
+<td>enx2cfda1c61f17</td>
+<td>200.28.147.223</td>
+<td>255.255.255.0</td>
+<td>200.28.147.1</td>
+<td>200.28.147.4 200.28.147.2 139.229.97.26</td>
+<td>lco.cl</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>enx2cfda1c61f16</td>
+<td>192.168.0.12</td>
+<td>255.255.255.0</td>
+<td>192.168.0.1</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<td>camsci1</td>
+<td>enx503eaa0ceeff</td>
+<td>192.168.102.2</td>
+<td>255.255.255.0</td>
+<td>192.168.102.1</td>
+<td>--</td>
+<td>--</td>
+</tr>
+<tr>
+<td>camsci2</td>
+<td>enx503eaa0cf4cd</td>
+<td>192.168.101.2</td>
+<td>255.255.255.0</td>
+<td>192.168.101.1</td>
+<td>--</td>
+<td>--</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="hostnames">
+<h2>Hostnames<a class="headerlink" href="#hostnames" title="Permalink to this headline">¶</a></h2>
+<p>Each instrument computer has a <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file installed with names and aliases for devices internal to MagAO-X. Changes to this file are made in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_etc_hosts.sh">setup/steps/configure_etc_hosts.sh</a>, and applied with <code class="docutils literal notranslate"><span class="pre">provision.sh</span></code>.</p>
+<div class="section" id="university-of-arizona">
+<h3>University of Arizona<a class="headerlink" href="#university-of-arizona" title="Permalink to this headline">¶</a></h3>
+<p>While at the University of Arizona, the FQDN is <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.as.arizona.edu</span></code>. Only <code class="docutils literal notranslate"><span class="pre">exao1</span></code> has a publicly-routable IP address, while <code class="docutils literal notranslate"><span class="pre">exao2</span></code> and <code class="docutils literal notranslate"><span class="pre">exao3</span></code> live behind the NAT.</p>
+</div>
+<div class="section" id="las-campanas-observatory">
+<h3>Las Campanas Observatory<a class="headerlink" href="#las-campanas-observatory" title="Permalink to this headline">¶</a></h3>
+<p>While at LCO, the FQDN is <code class="docutils literal notranslate"><span class="pre">&lt;hostname&gt;.lco.cl</span></code>. All three instruments are accessible from the LCO-VISITORS wireless network and other usual places, but not from the outside internet.</p>
+</div>
+</div>
+<div class="section" id="time-synchronization">
+<h2>Time synchronization<a class="headerlink" href="#time-synchronization" title="Permalink to this headline">¶</a></h2>
+<p>Time synchronization depends on <a class="reference external" href="https://chrony.tuxfamily.org/index.html">chrony</a>, configured at <code class="docutils literal notranslate"><span class="pre">/etc/chrony/chrony.conf</span></code> (Ubuntu 18.04) or <code class="docutils literal notranslate"><span class="pre">/etc/chrony.conf</span></code> (CentOS 7). Those files are updated by <code class="docutils literal notranslate"><span class="pre">provision.sh</span></code> according to the script in <a class="reference external" href="https://github.com/magao-x/MagAOX/blob/master/setup/steps/configure_chrony.sh">setup/steps/configure_chrony.sh</a>.</p>
+<p>The ICC and RTC take their time from AOC, which is configured to allow NTP queries from anyone in the <code class="docutils literal notranslate"><span class="pre">192.168.0.0/24</span></code> subnet.</p>
+<p>AOC, in turn gets its time from a combination of</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lbtntp.as.arizona.edu</span></code> - LBT / Steward Observatory NTP server (when in the lab)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ntp1.lco.cl</span></code> - Las Campanas NTP server (when at the telescope)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ntp2.lco.cl</span></code> - Backup Las Campanas NTP server (when at the telescope)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0.centos.pool.ntp.org</span></code> — Alias for a pool of hosts that contribute to pool.ntp.org (whenever reachable)</p></li>
+</ul>
+<div class="section" id="troubleshooting">
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
+<p>If you need to see how system time relates to network time on an instrument computer, run <code class="docutils literal notranslate"><span class="pre">chronyc</span> <span class="pre">tracking</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chronyc tracking
+Reference ID    : C0A8000A (exao1)
+Stratum         : 3
+Ref time (UTC)  : Fri Nov 15 00:42:34 2019
+System time     : 0.000012438 seconds fast of NTP time
+Last offset     : +0.000014364 seconds
+RMS offset      : 0.000025598 seconds
+Frequency       : 0.688 ppm fast
+Residual freq   : +0.012 ppm
+Skew            : 0.132 ppm
+Root delay      : 0.000474306 seconds
+Root dispersion : 0.000256627 seconds
+Update interval : 130.4 seconds
+Leap status     : Normal
+</pre></div>
+</div>
+<p>To force a (potentially discontinuous) time sync, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chronyc</span> <span class="pre">-a</span> <span class="pre">makestep</span></code>.</p>
+<p>To verify correct operation from RTC or ICC, use <code class="docutils literal notranslate"><span class="pre">chronyc</span> <span class="pre">sources</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ chronyc sources
+210 Number of sources = 1
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* exao1                         2   6   377    25   +379ns[+1194ns] +/-   14ms
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">exao1</span></code> is shown with a <code class="docutils literal notranslate"><span class="pre">?</span></code> in the second column or <code class="docutils literal notranslate"><span class="pre">0</span></code> in the <code class="docutils literal notranslate"><span class="pre">Reach</span></code> column, you may have firewalled traffic on the internal “instrument” interface. You can examine the configuration files in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/network-scripts/ifcfg-*</span></code> and ensure that the interface corresponding to <code class="docutils literal notranslate"><span class="pre">instrument</span></code> in <code class="docutils literal notranslate"><span class="pre">nmtui</span></code>/<code class="docutils literal notranslate"><span class="pre">nmcli</span></code> has <code class="docutils literal notranslate"><span class="pre">ZONE=trusted</span></code>.</p>
+<p>If it’s not any of that, consult the <a class="reference external" href="https://chrony.tuxfamily.org/faq.html">chrony FAQ</a>.</p>
+<p>To verify correct operation from the AOC end, <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chronyc</span> <span class="pre">clients</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo chronyc clients
+[sudo] password for jlong:
+Hostname                      NTP   Drop Int IntL Last     Cmd   Drop Int  Last
+===============================================================================
+localhost                       0      0   -   -     -      49      0  11    16
+exao2                          92      0   6   -    21       0      0   -     -
+exao3                          27      0   6   -    16       0      0   -     -
+</pre></div>
+</div>
+<p>If either exao2 or exao3 does not appear, ssh into them and verify <code class="docutils literal notranslate"><span class="pre">chronyd</span></code> has started…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ systemctl is-active chronyd
+active
+</pre></div>
+</div>
+<p>…ensure <code class="docutils literal notranslate"><span class="pre">exao1</span></code> is reachable via that name…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ping exao1
+PING exao1 (192.168.0.10) 56(84) bytes of data.
+64 bytes from exao1 (192.168.0.10): icmp_seq=1 ttl=64 time=0.196 ms
+...
+</pre></div>
+</div>
+<p>…and finally, consult the <a class="reference external" href="https://chrony.tuxfamily.org/faq.html">chrony FAQ</a>.</p>
+</div>
+</div>
+<div class="section" id="topology">
+<h2>Topology<a class="headerlink" href="#topology" title="Permalink to this headline">¶</a></h2>
+<p>Figure TODO</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data_storage_management.html" class="btn btn-neutral float-right" title="Data Storage Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="administration.html" class="btn btn-neutral float-left" title="System Administration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

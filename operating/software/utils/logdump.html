@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>logdump &mdash; MagAO-X Instrument Handbook  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../../_static/stats.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Troubleshooting" href="../../troubleshooting.html" />
+    <link rel="prev" title="indiserver" href="indiserver.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/magao-x_logo_white.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../observers/index.html">Information For Observers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Operation of the MagAO-X instrument</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Instrument Software</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../apps/index.html">Applications</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Utilities</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="getINDI.html">getINDI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setINDI.html">setINDI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="evalINDI.html">evalINDI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="indiserver.html">indiserver</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">logdump</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../compute/index.html">Compute System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendices/index.html">Appendices</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MagAO-X Instrument Handbook</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Operation of the MagAO-X instrument</a> &raquo;</li>
+        
+          <li><a href="../index.html">Instrument Software</a> &raquo;</li>
+        
+          <li><a href="index.html">Utilities</a> &raquo;</li>
+        
+      <li>logdump</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/operating/software/utils/logdump.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="logdump">
+<h1>logdump<a class="headerlink" href="#logdump" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>logdump − prints MagAO-X binary log files in a readable format.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">logdump</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="n">appname</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>logdump reads the log file(s) for the app specified with <code class="docutils literal notranslate"><span class="pre">appname</span></code>.  Possible modes of operation are:</p>
+<ul class="simple">
+<li><p>Print entries from all log files present (default if no other options are given)</p></li>
+<li><p>Print just the N most recent files, specified with `–nfiles``</p></li>
+<li><p>Follow the application’s logs, printing each new entry untill logdump is killed.</p></li>
+<li><p>In any of these cases, the minimum log level can be specified.</p></li>
+<li><p>In any of these cases, the output can be limited to a specific event code or set of codes.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">logdump</span></code> by default looks in the MagAO-X system log directory, normally <code class="docutils literal notranslate"><span class="pre">/opt/MagAOX/logs</span></code>.  This can be changed with thte <code class="docutils literal notranslate"><span class="pre">--dir</span></code> option.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Short</th>
+<th>Long</th>
+<th>Config-File</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code></td>
+<td><code>--config</code></td>
+<td>config</td>
+<td>string</td>
+<td>A local config file</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td><code>--help</code></td>
+<td></td>
+<td>none</td>
+<td>Print this message and exit</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td><code>--pauseTime</code></td>
+<td>pauseTime</td>
+<td>int</td>
+<td>When following, time in milliseconds to pause before checking for new entries.</td>
+</tr>
+<tr>
+<td><code>-F</code></td>
+<td><code>--fileCheckInterval</code></td>
+<td>fileCheckInterval</td>
+<td>int</td>
+<td>When following, number of pause intervals between checks for new  files.</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>--dir</code></td>
+<td>dir</td>
+<td>string</td>
+<td>Directory to search for logs. MagAO-X default is normally used.</td>
+</tr>
+<tr>
+<td><code>-e</code></td>
+<td><code>--ext</code></td>
+<td>ext</td>
+<td>string</td>
+<td>The file extension of log files. MagAO-X default is normally used.</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td><code>--nfiles</code></td>
+<td>nfiles</td>
+<td>int</td>
+<td>Number of log files to dump.  If 0, then all matching files dumped. Default: 0, 1 if following.</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>--follow</code></td>
+<td>follow</td>
+<td>bool</td>
+<td>Follow the log, printing new entries as they appear.</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td><code>--level</code></td>
+<td>level</td>
+<td>int/string</td>
+<td>Minimum log level to dump, either an integer or a string. -1/TELEMETRY [the default],  0/DEFAULT, 1/D1/DBG1/DEBUG2, 2/D2/DBG2/DEBUG1,3/INFO,4/WARNING,5/ERROR,6/CRITICAL,7/FATAL.  Note  that only the mininum unique string is required.</td>
+</tr>
+<tr>
+<td><code>-C</code></td>
+<td><code>--code</code></td>
+<td>code</td>
+<td>int vector</td>
+<td>The event code, or vector of codes, to dump.  If not specified, all codes are dumped.  See logCodes.hpp for a complete list of codes.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="exit-status">
+<h2>Exit Status<a class="headerlink" href="#exit-status" title="Permalink to this headline">¶</a></h2>
+<p>How <code class="docutils literal notranslate"><span class="pre">logdump</span></code> exits depends on the mode of operation.  If it is printing all or a set number of log files, it will exit normally after printing the last entry.  If it is following a log, it will not exit until signaled (e.g. with <code class="docutils literal notranslate"><span class="pre">ctrl-c</span></code>).</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>To dump all the log entries for the application <code class="docutils literal notranslate"><span class="pre">trippLitePDU0</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logdump trippLitePDU0
+</pre></div>
+</div>
+<p>To dump just the last 2 log files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logdump -n 2 trippLitePDU0
+</pre></div>
+</div>
+<p>To show only log entries with level WARNING or higher:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logdump -n2 -L W trippLitePDU0
+</pre></div>
+</div>
+<p>To show only specific log entries, in this case change of PDU outlet state, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logdump -C 12001,12002 trippLitePDU0
+</pre></div>
+</div>
+<p>To follow the log, showing log level WARNING or higher:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ logdump -L W -f trippLitePDU0
+</pre></div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="../../MagAOX/group__logdump.html">Source code.</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../troubleshooting.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="indiserver.html" class="btn btn-neutral float-left" title="indiserver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Extreme Wavefront Control Lab, The University of Arizona
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
