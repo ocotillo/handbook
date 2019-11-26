@@ -141,6 +141,44 @@ Estimate Time to Complete: 5 hours
 
 ## Install MagAO-X On The Platform
 
+- [ ] Position the telescope so that the elevator has access to the NASE platform
+
+- [ ] Raise MagAO-X and the legs to the NASE platform 
+
+- [ ] Move the legs onto the platform, as close as possible to the telescope leaving room for lifting the instrument into place.
+
+- [ ] Align the legs in X (parallel to the guider ring) so that only a push in Y (towards the telescope) is needed
+
+- [ ] Set the alignment pin system on the legs for receiving the instrument, and ensure that the pads are centered on the legs.
+
+- [ ] Attach the load spreader using the wire harnesses as above 
+
+- [ ] Install the triangle stabilizing ropes
+
+- [ ] Position a person at each corner of the instrument to stabilize it
+
+- [ ] Lift the instrument with cart [**1920 lbs**] into position over the legs
+
+- [ ] While keeping the instrument level, very slowly lower it into position using the alignment pins.
+
+- [ ] Once on the legs, unload the crane to the cart weight of **320 lbs**
+
+- [ ] While the crane is still supporting the cart weight, remove the 8 bolts attaching the cart to the table
+
+- [ ] Lower the cart to the floor, and detach from the crane.
+
+- [ ] Stow the crane and handling gear
+
+- [ ] Remove the long side of the cart on the telescope side (4 bolts), and wheel the remaining pieces out from under table.  Reassemble the cart and remove to the Aux. Bldg.
+
+- [ ] Attach the "pushers" to the table legs.
+
+- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf)
+
+
+
+
+
 ## Transport Electronics
 
 ## Install Electronics and Cable
