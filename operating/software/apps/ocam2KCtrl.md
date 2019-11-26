@@ -59,4 +59,4 @@ To start the ocam2KCtrl as the Pyramid WFS camera:
 
 ## See also
 
-[Source code.](../../../MagAOX/group__ocam2KCtrl.html)
+[Source code.](../../../../MagAOX/group__ocam2KCtrl.html)
