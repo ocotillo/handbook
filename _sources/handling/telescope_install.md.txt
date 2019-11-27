@@ -4,6 +4,12 @@ This procedure describes how to install the MagAO-X instrument on the Magellan C
 
 Estimate Time to Complete: 5 hours
 
+This document can be dowloaded as pdf:
+
+```eval_rst
+:download:`Telescope Installation Proecedure <telescope_install.pdf>`
+```
+
 ## Initial Conditions
 
 - [ ] Instrument in LCO cleanroom on legs
@@ -173,16 +179,54 @@ Estimate Time to Complete: 5 hours
 
 - [ ] Attach the "pushers" to the table legs.
 
-- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf)
-
+- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../_downloads/da2f5672c9d43d302985703ecaab72b2/3.3_MagAO-X_alignment_procedure.pdf)
 
 
 
 
 ## Transport Electronics
 
+- [ ] remove the earthquake bar 
+
+- [ ] Use the lift gate to move the electronics rack onto a truck (either the flatbed or a pickup)
+
+- [ ] place foam between the rack side and the truck to protect cable connectors
+
+- [ ] strap the rack securely to the truck
+
+- [ ] drive the truck to the summit
+
+- [ ] unload the rack using the lift gate, and move to the platform on the elevator
+
 ## Install Electronics and Cable
+
+- [ ] Place the rack in position next to the instrument.  Leave enough room behind it so that the door can open.
+
+- [ ] Install the earthquake roll bar
+
+- [ ] lock the wheels
+
+- [ ] Check that the rack is stable and will not roll
+
+- [ ] Install all cables but the 2K DM cables
 
 
 ## Install AOC in Control Room
 
+- [ ] Move the AOC, monitors and stand to the Clay control room
+
+- [ ] Connect AOC to the telescope 200 network, and to the "VisAO" port for the internal 192 network.
+
+- [ ] Connect the "VisAO" cable behind the MagAO rack in the equipment room directly to the media converter for VisAO.
+
+- [ ] On the platform connect the instrumetn lan to the VisAO fiber with a media converter
+
+- [ ] Power on the AOC
+
+- [ ] Conduct function checks of everything but the 2K DM
+
+## Cable the 2K
+
+- [ ] Cable the 2K DM IAW the procedure
+
+- [ ] Check actuator functionality
