@@ -1,0 +1,4 @@
+To make a pdf of a md using pandoc, run:
+
+pandoc -s -V geometry:margin=1in -o telescope_install.pdf telescope_install.md
+

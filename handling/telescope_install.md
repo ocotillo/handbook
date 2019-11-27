@@ -4,6 +4,12 @@ This procedure describes how to install the MagAO-X instrument on the Magellan C
 
 Estimate Time to Complete: 5 hours
 
+This document can be dowloaded as pdf:
+
+```eval_rst
+:download:`Telescope Installation Proecedure <telescope_install.pdf>`
+```
+
 ## Initial Conditions
 
 - [ ] Instrument in LCO cleanroom on legs
@@ -173,8 +179,7 @@ Estimate Time to Complete: 5 hours
 
 - [ ] Attach the "pushers" to the table legs.
 
-- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../appendices/psr/3.3_MagAO-X_alignment_procedure.pdf)
-
+- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../_downloads/da2f5672c9d43d302985703ecaab72b2/3.3_MagAO-X_alignment_procedure.pdf)
 
 
 
