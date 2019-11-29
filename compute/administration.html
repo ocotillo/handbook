@@ -96,6 +96,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#add-a-developer-sh"><code class="docutils literal notranslate"><span class="pre">add_a_developer.sh</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-git-for-a-new-user-account">Configuring git for a new user account</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="networking.html">Networking</a></li>
@@ -190,6 +191,42 @@
 <h3><code class="docutils literal notranslate"><span class="pre">add_a_developer.sh</span></code><a class="headerlink" href="#add-a-developer-sh" title="Permalink to this headline">¶</a></h3>
 <p>Just like <code class="docutils literal notranslate"><span class="pre">add_a_user.sh</span></code> (in fact, uses it). Additionally adds the new account to the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> (RTC/ICC) or <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (AOC) group and <code class="docutils literal notranslate"><span class="pre">magaox-dev</span></code> groups.</p>
 </div>
+</div>
+<div class="section" id="configuring-git-for-a-new-user-account">
+<h2>Configuring git for a new user account<a class="headerlink" href="#configuring-git-for-a-new-user-account" title="Permalink to this headline">¶</a></h2>
+<p>We use GitHub Personal Access Tokens coupled with HTTPS push to synchronize changes on the instrument. Configuration is required for your credentials to be remembered.</p>
+<ol>
+<li><p>Log in to the computer (AOC, RTC, ICC, vm, etc) where you want to configure git</p></li>
+<li><p>Change directories to a repository (e.g. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/opt/MagAOX/calib</span></code>) and verify it is set up for HTTPS push:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /opt/MagAOX/calib
+$ git remote -v
+origin	https://github.com/magao-x/calib.git (fetch)
+origin	https://github.com/magao-x/calib.git (push)
+</pre></div>
+</div>
+</li>
+<li><p>If you haven’t already for this machine, configure your name and email address:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git config --global user.email &quot;youremailusernamehere@youremaildomainhere.com&quot;
+$ git config --global user.name &quot;Your Name Here&quot;
+</pre></div>
+</div>
+</li>
+<li><p>Configure the ‘store’ credential helper, which will store your credentials so you do not have to re-enter them:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git config --global credential.helper store
+</pre></div>
+</div>
+</li>
+<li><p>Create (or retrieve from your password manager) a GitHub Personal Access Token. If you don’t have one, log in to GitHub and visit <a class="reference external" href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>.</p></li>
+<li><p>Attempt to push, and enter/paste your username and <strong>personal access token as password</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git push
+Username for &#39;https://github.com/magao-x/calib.git&#39;: your-github-user-name
+Password for &#39;https://your-github-user-name@github.com/magao-x/calib.git&#39;:
+</pre></div>
+</div>
+<p>(Note that even if you don’t see it, your key is being entered.)</p>
+</li>
+<li><p>Attempt to push again. You should not be prompted for credentials a second time.</p></li>
+</ol>
 </div>
 </div>
 
