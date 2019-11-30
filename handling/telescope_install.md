@@ -188,11 +188,18 @@ This document can be dowloaded as pdf:
 
 - [ ] remove the earthquake bar 
 
+
 - [ ] Use the lift gate to move the electronics rack onto a truck (either the flatbed or a pickup)
 
 - [ ] place foam between the rack side and the truck to protect cable connectors
 
+![ ](figures/rack_connectors.jpg)
+<br />*The electronics rack has many delicate connectors on the side.*
+
 - [ ] strap the rack securely to the truck
+
+![ ](figures/rack_truck.jpg)
+<br />*The rack on a truck for transport.*
 
 - [ ] drive the truck to the summit
 
