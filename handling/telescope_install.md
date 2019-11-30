@@ -25,7 +25,7 @@ This document can be dowloaded as pdf:
 
 - [ ] Electronics Rack
   + [ ] Ensure that roll-out shelves are restrained
-  + [ ] If not installed, Install side panels
+  + [ ] If not installed, install side panels
   + [ ] Close and lock doors
   + [ ] Tape keys down 
 
@@ -41,14 +41,14 @@ This document can be dowloaded as pdf:
   + [ ] Verify all cart hardware is in-hand
   + [ ] Verify two wire harnesses are in hand
   + [ ] Partially assemble cart, leaving one long side off
-  + [ ] Store card out of the way so table can roll into unpacking area
+  + [ ] Store cart out of the way so table can roll into unpacking area
 
 ## Rig Onto Cart
 
-- [ ] Lower table legs onto the casters by turning the 16 leveling bolts, and remove the metail pads
+- [ ] Lower table legs onto the casters by turning the 16 leveling bolts, and remove the metal pads
 
 - [ ] Roll the instrument out of the cleanroom
- - [ ] At least 4 people required, 2 to push, 2 to hold the cleanroom sides open
+   **NOTE:** At least 4 people required, 2 to push, 2 to hold the cleanroom sides open
 
 - [ ] Continue rolling the instrument through the garage door into the unpacking area
 
@@ -70,7 +70,7 @@ This document can be dowloaded as pdf:
 
 - [ ] Lift the load spreader, and position it over the instrument
 
-- [ ] Being careful to not bump the instrument, lower the loadd spreader and attach the lifting harnass D rings.  Use 2x shackles to extend the length to reach the cart on the floor.
+- [ ] Being careful to not bump the instrument, lower the load spreader and attach the lifting harnass D rings.  Use 2x shackles to extend the length to reach the cart on the floor.
 
 ![ ](figures/cart_lift_extensions.jpg)
 <br />*Lifting harnasses attached with shackle extensions*
