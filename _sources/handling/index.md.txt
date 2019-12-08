@@ -6,4 +6,6 @@
     :maxdepth: 1
 
     telescope_install
+    
+    telescope_removal
 ```

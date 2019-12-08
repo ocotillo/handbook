@@ -1,18 +1,18 @@
-# Installing MagAO-X On The Telescope
+# Removing MagAO-X From The Telescope
 
-This procedure describes how to install the MagAO-X instrument on the Magellan Clay Telescope.
+This procedure describes how to remove the MagAO-X instrument on the Magellan Clay Telescope.
 
-Estimate Time to Complete: 5 hours
+Estimate Time to Complete: 2 hours
 
 This document can be dowloaded as pdf:
 
 ```eval_rst
-:download:`Telescope Installation Proecedure <telescope_install.pdf>`
+:download:`Telescope Removal Proecedure <telescope_remove.pdf>`
 ```
 
 ## Initial Conditions
 
-- [ ] Instrument in LCO cleanroom on legs
+- [ ] Instrument on Magellan Clay Nasmyth Platform, operating.
 
 ## Preparations
 
@@ -25,12 +25,12 @@ This document can be dowloaded as pdf:
 
 - [ ] Electronics Rack
   + [ ] Ensure that roll-out shelves are restrained
-  + [ ] If not installed, install side panels
   + [ ] Close and lock doors
   + [ ] Tape keys down 
 
 - [ ] Instrument
   + [ ] Remove eyepiece
+  + [ ] Remove bumpers and pusher hardware
   + [ ] Turn off blower, and remove hose
   + [ ] Tape over any exposed holes (from cables, etc)
   + [ ] Secure any loose cables
@@ -45,12 +45,12 @@ This document can be dowloaded as pdf:
 
 ## Rig Onto Cart
 
+- [ ] Position the telescope so that the elevator has access to the NASE platform
+
 - [ ] Lower table legs onto the casters by turning the 16 leveling bolts, and remove the metal pads
 
-- [ ] Roll the instrument out of the cleanroom
+- [ ] Roll the instrument away from the telescope
    **NOTE:** At least 4 people required, 2 to push, 2 to hold the cleanroom sides open
-
-- [ ] Continue rolling the instrument through the garage door into the unpacking area
 
 - [ ] Move the cart, currently with 3 sides, around the legs
   - **CAUTION:** be careful to not bump the legs with the cart
@@ -97,7 +97,6 @@ This document can be dowloaded as pdf:
 - [ ] Reposition the load spreader center to the instrument + cart position marked on it.
 
 
-
 - [ ] Ensure that there is room to move the legs out from under the table, opening the garage door into the cleanroom if necessary.
 
 - [ ] Position a person at each corner of the cart to stabilize it during the lift.  
@@ -113,83 +112,43 @@ This document can be dowloaded as pdf:
 
 - [ ] Set the cart down on its wheels.
 
-## Transport MagAO-X To Clay
+- [ ] Move MagAO-X onto the elevator, and remove from the dome
 
-- [ ] Move MagAO-X onto the lift gate
+- [ ] When cart is on concrete outside Clay, move very slowly to avoid excessive vibration
+
+## Transport MagAO-X To The Clean room
+
+- [ ] Ensure that the lift gate at the summit has been adjusted for slow smooth operation as is done for the asm 
+
+- [ ] Push MagAO-X onto the lift-gate
 
 - [ ] Raise the lift-gate to the height of the flatbed truck 
 
-- [ ] Move MagAO-X onto the truck [To Decide: Do we use the come-along?]
+- [ ] Move MagAO-X onto the truck, using the come-along
+
+![ ](figures/asm_backed_up.jpg)
+<br />*MagAO-X will be loaded at the telescope using the lift gate, adjusted for slow operation as it is for the ASM.*
 
 - [ ] Secure the instrument by strapping the cart down at 4 points as illustrated in the below figure. 
 
 ![ ](figures/asm_truck_strapped.jpg)
 <br />*MagAO-X will be strapped to the Isuzu similarly to how the ASM is transported.*
 
-- [ ] The legs should also fit on the truck, and can be be moved at the same time.  They should be securely strapped down as well.
-
-- [ ] Slowly drive the truck to the summit.
-
-- [ ] Ensure that the lift gate at the summit has been adjusted for slow smooth operation as is done for the asm 
+- [ ] Slowly drive the truck to the cleanroom
 
 - [ ] Back the flatbed truck up to the lift gate.
 
-- [ ] If the legs are on this load, first unload them and move them out of the way
-
 - [ ] Next, using the come-along, carefully move MagAO-X onto the lift gate.
 
-![ ](figures/asm_backed_up.jpg)
-<br />*MagAO-X will be unloaded at the telescope using the lift gate, adjusted for slow operation as it is for the ASM.*
-
-- [ ] Very slowly so as to minimize vibrations, move MagAO-X to the elevator, or place it in the Aux until ready to move to the elvator.
-
-- [ ] If the legs were not moved, return to the cleanroom with the flatbed and move the legs to the telescope.
+- [ ] If the legs were not moved, return to the  with the flatbed and move the legs to the telescope.
 
 ## Install MagAO-X On The Platform
-
-- [ ] Position the telescope so that the elevator has access to the NASE platform
-
-- [ ] Raise MagAO-X and the legs to the NASE platform 
-
-- [ ] Move the legs onto the platform, as close as possible to the telescope leaving room for lifting the instrument into place.
-
-- [ ] Align the legs in X (parallel to the guider ring) so that only a push in Y (towards the telescope) is needed
-
-- [ ] Set the alignment pin system on the legs for receiving the instrument, and ensure that the pads are centered on the legs.
-
-- [ ] Attach the load spreader using the wire harnesses as above 
-
-- [ ] Install the triangle stabilizing ropes
-
-- [ ] Position a person at each corner of the instrument to stabilize it
-
-- [ ] Lift the instrument with cart [**1920 lbs**] into position over the legs
-
-- [ ] While keeping the instrument level, very slowly lower it into position using the alignment pins.
-
-- [ ] Once on the legs, unload the crane to the cart weight of **320 lbs**
-
-- [ ] While the crane is still supporting the cart weight, remove the 8 bolts attaching the cart to the table
-
-- [ ] Lower the cart to the floor, and detach from the crane.
-
-- [ ] Stow the crane and handling gear
-
-- [ ] Remove the long side of the cart on the telescope side (4 bolts), and wheel the remaining pieces out from under table.  Reassemble the cart and remove to the Aux. Bldg.
-
-- [ ] Attach the "pushers" to the table legs.
-
-- [ ] Conduct the daytime alignment proecedure per [MagAO PSR Document 3.3](../_downloads/da2f5672c9d43d302985703ecaab72b2/3.3_MagAO-X_alignment_procedure.pdf)
-
-
-
 
 ## Transport Electronics
 
 - [ ] remove the earthquake bar 
 
-
-- [ ] Use the lift gate to move the electronics rack onto a truck (either the flatbed or a pickup)
+- [ ] Move the rack to the lift gate, and load it on the pickup.
 
 - [ ] place foam between the rack side and the truck to protect cable connectors
 
@@ -201,39 +160,16 @@ This document can be dowloaded as pdf:
 ![ ](figures/rack_truck.jpg)
 <br />*The rack on a truck for transport.*
 
-- [ ] drive the truck to the summit
+- [ ] drive the truck to the cleanroom
 
-- [ ] unload the rack using the lift gate, and move to the platform on the elevator
-
-## Install Electronics and Cable
-
-- [ ] Place the rack in position next to the instrument.  Leave enough room behind it so that the door can open.
-
-- [ ] Install the earthquake roll bar
-
-- [ ] lock the wheels
-
-- [ ] Check that the rack is stable and will not roll
-
-- [ ] Install all cables but the 2K DM cables
+- [ ] unload the rack using the lift gate
 
 
-## Install AOC in Control Room
+## Remove AOC from Control Room
 
-- [ ] Move the AOC, monitors and stand to the Clay control room
+- [ ] power down AOC
 
-- [ ] Connect AOC to the telescope 200 network, and to the "VisAO" port for the internal 192 network.
+- [ ] remove monitors and pack
 
-- [ ] Connect the "VisAO" cable behind the MagAO rack in the equipment room directly to the media converter for VisAO.
+- [ ] move AOC to cleanroom.
 
-- [ ] On the platform connect the instrument lan to the VisAO fiber with a media converter
-
-- [ ] Power on the AOC
-
-- [ ] Conduct function checks of everything but the 2K DM
-
-## Cable the 2K
-
-- [ ] Cable the 2K DM IAW the procedure
-
-- [ ] Check actuator functionality
