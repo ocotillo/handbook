@@ -8,4 +8,6 @@
     telescope_install
     
     telescope_removal
+    
+    electronics_packing
 ```
