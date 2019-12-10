@@ -10,4 +10,6 @@
     telescope_removal
     
     electronics_packing
+    
+    instrument_packing
 ```
