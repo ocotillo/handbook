@@ -76,7 +76,7 @@ This document can be dowloaded as pdf:
 
 - [ ] With the crane, carefully position the load spreader over the table.
 
-<b> NOTE: be sure to guide both ends of the load spreader so it does not contact the instrumetn </b>
+<b> NOTE: be sure to guidee both ends of the load spreader so it does not contact the instrument </b>
 
 - [ ] Attach the load spreader to the cart.  Two shackles are used to extend the length.  The hooks should be placed opening up.
 
@@ -104,7 +104,7 @@ This document can be dowloaded as pdf:
 ![ ](figures/inst_on_frame.jpg)
 <br />*The instrument on the frame.*
 
-- [ ] While the instrumetn is still supported by the crane, start bolts at each corner to guid the instrument down.
+- [ ] While the instrument is still supported by the crane, start bolts at each corner to guide the instrument down.
 
 - [ ] Lower the instrument until half the weight is off the crane.
 
@@ -151,4 +151,4 @@ This document can be dowloaded as pdf:
 
 - [ ] Bolt the lid on.
 
-- [ ] Remove the liffting eyes from the box lid and stow them on the lower left insspection panel.
+- [ ] Remove the lifting eyes from the box lid and stow them on the lower left insspection panel.

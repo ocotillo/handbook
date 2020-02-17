@@ -21,12 +21,12 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="../_static/stats.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/stats.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -88,7 +88,18 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Information For Observers</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="capabilities.html">Instrument description and capabilities</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Planning your observations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Planning your observations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filters-and-throughputs">Filters and Throughputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#science">Science</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#camsci1">camsci1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#camsci2">camsci2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#wfs">WFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lowfs">LOWFS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atmosphere">Atmosphere</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="reduction.html">Data reduction and calibration</a></li>
 </ul>
 </li>
@@ -149,7 +160,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/observers/planning.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/observers/planning.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,7 +175,154 @@
             
   <div class="section" id="planning-your-observations">
 <h1>Planning your observations<a class="headerlink" href="#planning-your-observations" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+<div class="section" id="filters-and-throughputs">
+<h2>Filters and Throughputs<a class="headerlink" href="#filters-and-throughputs" title="Permalink to this headline">¶</a></h2>
+<p>Calculated filter characteristics and transmission curves are given below.  All are based on standard reflectivity or transmission data for various surfaces, unless a part specific curve was provided by the manufacturer.  No transmissive optics (ADCs, etc) are currently accounted for.</p>
+<p>The atmosphere is included in the numbers presented in the table below.  BTRAM was used to calculate the atmospheric transmission for LCO, and the below values assume a zenith distance of 30 degrees and 5.0 mm PWV. A version of each curve is provided without the atmosphere contribution, which can then be combined with the atmosphere of your choice.</p>
+<p>None of these values have been validated.  They should be used for planning purposes only.</p>
+</div>
+<div class="section" id="science">
+<h2>Science<a class="headerlink" href="#science" title="Permalink to this headline">¶</a></h2>
+<p>Filters in the science cameras.</p>
+<div class="section" id="camsci1">
+<h3>camsci1<a class="headerlink" href="#camsci1" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>WFS B/S</p></th>
+<th class="head"><p>Pupil</p></th>
+<th class="head"><p>Sci-BS</p></th>
+<th class="head"><p>Filter</p></th>
+<th class="head"><p>lambda_0
+[um]</p></th>
+<th class="head"><p>w_eff
+[um]</p></th>
+<th class="head"><p>qe_max</p></th>
+<th class="head"><p>F_0
+[phot/sec]</p></th>
+<th class="head"><p>Files</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H-alpha/IR</p></td>
+<td><p>open</p></td>
+<td><p>H-alpha</p></td>
+<td><p>Ha-Cont</p></td>
+<td><p>0.668</p></td>
+<td><p>0.0086</p></td>
+<td><p>0.22</p></td>
+<td><p>3.8e9</p></td>
+<td><p><a class="reference download internal" download="" href="../_downloads/bbf069c91693843e69285f3680d0c4af/magaox_sci-halpha-cont_bs-halpha-ir_atm.dat"><code class="xref download docutils literal notranslate"><span class="pre">atm</span></code></a>
+<a class="reference download internal" download="" href="../_downloads/0815538bae4df897559f3834296ba66c/magaox_sci-halpha-cont_bs-halpha-ir.dat"><code class="xref download docutils literal notranslate"><span class="pre">noatm</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="camsci2">
+<h3>camsci2<a class="headerlink" href="#camsci2" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>WFS B/S</p></th>
+<th class="head"><p>Pupil</p></th>
+<th class="head"><p>Sci-BS</p></th>
+<th class="head"><p>Filter</p></th>
+<th class="head"><p>lambda_0
+[um]</p></th>
+<th class="head"><p>w_eff
+[um]</p></th>
+<th class="head"><p>qe_max</p></th>
+<th class="head"><p>F_0
+[phot/sec]</p></th>
+<th class="head"><p>Files</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H-alpha/IR</p></td>
+<td><p>open</p></td>
+<td><p>H-alpha</p></td>
+<td><p>Halpha</p></td>
+<td><p>0.656</p></td>
+<td><p>0.0085</p></td>
+<td><p>0.23</p></td>
+<td><p>3.5e9</p></td>
+<td><p><a class="reference download internal" download="" href="../_downloads/0b5237ea9e53dc454a94734c2c4df68b/magaox_sci-halpha_bs-halpha-ir_atm.dat"><code class="xref download docutils literal notranslate"><span class="pre">atm</span></code></a>
+<a class="reference download internal" download="" href="../_downloads/6899cb3fa3da92a8562b7abccd755bbe/magaox_sci-halpha_bs-halpha-ir.dat"><code class="xref download docutils literal notranslate"><span class="pre">noatm</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="wfs">
+<h2>WFS<a class="headerlink" href="#wfs" title="Permalink to this headline">¶</a></h2>
+<p>Filters in the main WFS.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>WFS B/S</p></th>
+<th class="head"><p>lambda_0
+[um]</p></th>
+<th class="head"><p>w_eff
+[um]</p></th>
+<th class="head"><p>qe_max</p></th>
+<th class="head"><p>F_0
+[phot/sec]</p></th>
+<th class="head"><p>Files</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>H-alpha/IR</p></td>
+<td><p>0.837</p></td>
+<td><p>0.205</p></td>
+<td><p>0.20</p></td>
+<td><p>5.3e10</p></td>
+<td><p><a class="reference download internal" download="" href="../_downloads/f6f486517093c90c3d9f0c1ef527e7c1/magaox_wfs_bs-halpha-ir_atm.dat"><code class="xref download docutils literal notranslate"><span class="pre">atm</span></code></a>
+<a class="reference download internal" download="" href="../_downloads/761106a18c18ff87dd683fd188f8b55d/magaox_wfs_bs-halpha-ir.dat"><code class="xref download docutils literal notranslate"><span class="pre">noatm</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="lowfs">
+<h2>LOWFS<a class="headerlink" href="#lowfs" title="Permalink to this headline">¶</a></h2>
+<p>Filters in the low-order WFS.</p>
+</div>
+<div class="section" id="atmosphere">
+<h2>Atmosphere<a class="headerlink" href="#atmosphere" title="Permalink to this headline">¶</a></h2>
+<p>Atmospheric transmission curves.</p>
+</div>
 </div>
 
 
