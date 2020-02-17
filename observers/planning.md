@@ -1,3 +1,0 @@
-# Planning your observations
-
-TODO
